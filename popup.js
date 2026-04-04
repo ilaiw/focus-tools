@@ -103,10 +103,7 @@ function stopTimer() {
 function updateTimerDisplay() {
   if (!state.disableAt) return;
   const remaining = Math.max(0, state.disableAt - Date.now());
-  const seconds = Math.ceil(remaining / 1000);
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
-  timerDisplay.textContent = `${m}:${String(s).padStart(2, "0")}`;
+  timerDisplay.textContent = formatTime(Math.ceil(remaining / 1000));
   if (remaining <= 0) {
     stopTimer();
     state.enabled = false;
@@ -141,9 +138,9 @@ toggleBtn.addEventListener("click", () => {
 });
 
 // --- Quick block ---
-blockUrlBtn.addEventListener("click", () => {
-  if (blockUrlBtn.classList.contains("already-blocked") || !currentTabUrl) return;
-  chrome.runtime.sendMessage({ type: "addSite", site: currentTabUrl }, (res) => {
+function quickBlock(btn, site) {
+  if (btn.classList.contains("already-blocked") || !site) return;
+  chrome.runtime.sendMessage({ type: "addSite", site }, (res) => {
     if (res && res.blockedSites) {
       state.blockedSites = res.blockedSites;
       renderBlockButtons();
@@ -152,20 +149,10 @@ blockUrlBtn.addEventListener("click", () => {
       });
     }
   });
-});
+}
 
-blockDomainBtn.addEventListener("click", () => {
-  if (blockDomainBtn.classList.contains("already-blocked") || !currentTabDomain) return;
-  chrome.runtime.sendMessage({ type: "addSite", site: currentTabDomain }, (res) => {
-    if (res && res.blockedSites) {
-      state.blockedSites = res.blockedSites;
-      renderBlockButtons();
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        if (tabs[0]) chrome.tabs.update(tabs[0].id, { url: chrome.runtime.getURL("blocked.html") });
-      });
-    }
-  });
-});
+blockUrlBtn.addEventListener("click", () => quickBlock(blockUrlBtn, currentTabUrl));
+blockDomainBtn.addEventListener("click", () => quickBlock(blockDomainBtn, currentTabDomain));
 
 // --- Settings button: open options page ---
 settingsBtn.addEventListener("click", () => {

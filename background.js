@@ -1,18 +1,6 @@
 // Focus Tools — Background Service Worker
 importScripts("site-config.js");
 
-const BLOCKLIST_CATEGORIES = {
-  porn:     { label: "Porn",      url: "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/porn-only/hosts" },
-  gambling: { label: "Gambling",  url: "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/gambling-only/hosts" },
-  fakenews: { label: "Fake News", url: "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-only/hosts" }
-};
-
-const DEFAULT_BLOCKLIST_CATEGORIES = {
-  porn:     { enabled: false, lastUpdated: null, domainCount: 0 },
-  gambling: { enabled: false, lastUpdated: null, domainCount: 0 },
-  fakenews: { enabled: false, lastUpdated: null, domainCount: 0 }
-};
-
 let blocklistDomainSet = new Set();
 
 // Load enabled blocklist domains into memory (called on startup and after changes)
@@ -66,8 +54,6 @@ async function fetchBlocklistCategory(category) {
 
 // Load blocklist on service worker startup
 loadBlocklistIntoMemory();
-
-const DEFAULT_COUNTDOWN_SECONDS = 2;
 
 // Initialize storage on install
 chrome.runtime.onInstalled.addListener(() => {
@@ -141,11 +127,10 @@ chrome.webNavigation.onBeforeNavigate.addListener((details) => {
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.type === "getState") {
     chrome.storage.local.get(null, (result) => {
-      // Merge stored toggles with defaults so new keys are always present
       const storedToggles = result.siteToggles || {};
       const mergedToggles = {};
-      for (const [siteKey, defaults] of Object.entries(DEFAULT_SITE_TOGGLES)) {
-        mergedToggles[siteKey] = { ...defaults, ...(storedToggles[siteKey] || {}) };
+      for (const siteKey of Object.keys(DEFAULT_SITE_TOGGLES)) {
+        mergedToggles[siteKey] = mergeTogglesWithDefaults(siteKey, storedToggles[siteKey]);
       }
 
       const storedModes = result.siteModes || {};

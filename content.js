@@ -167,18 +167,11 @@
   }
 
 
-  // Merge stored toggles with defaults so new keys are always present
-  function mergeToggles(stored) {
-    const defaults = {};
-    for (const def of toggleDefs) defaults[def.key] = false;
-    return { ...defaults, ...(stored || {}) };
-  }
-
   // --- Storage: initial load ---
   chrome.storage.local.get(["siteToggles", "siteModes", "enabled"], (result) => {
     if (result.enabled === false) return;
     const mode = result.siteModes && result.siteModes[siteKey];
-    const toggles = mergeToggles(result.siteToggles && result.siteToggles[siteKey]);
+    const toggles = mergeTogglesWithDefaults(siteKey, result.siteToggles && result.siteToggles[siteKey]);
     applyState(mode, toggles);
   });
 
@@ -195,7 +188,7 @@
       chrome.storage.local.get(["siteToggles", "siteModes"], (result) => {
         applyState(
           result.siteModes && result.siteModes[siteKey],
-          mergeToggles(result.siteToggles && result.siteToggles[siteKey])
+          mergeTogglesWithDefaults(siteKey, result.siteToggles && result.siteToggles[siteKey])
         );
       });
       return;
@@ -206,7 +199,7 @@
         if (result.enabled === false) return;
         applyState(
           result.siteModes && result.siteModes[siteKey],
-          mergeToggles(result.siteToggles && result.siteToggles[siteKey])
+          mergeTogglesWithDefaults(siteKey, result.siteToggles && result.siteToggles[siteKey])
         );
       });
     }

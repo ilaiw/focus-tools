@@ -31,7 +31,7 @@ let state = {
   enabled: true,
   blockedSites: [],
   blockedKeywords: [],
-  countdownSeconds: 2,
+  countdownSeconds: DEFAULT_COUNTDOWN_SECONDS,
   siteToggles: {},
   siteModes: {},
   blockExtensionsPage: false,
@@ -167,7 +167,7 @@ function renderCountdownActions() {
 }
 
 function saveCountdown() {
-  const val = Math.max(1, Math.min(3600, parseInt(countdownInput.value, 10) || 2));
+  const val = Math.max(1, Math.min(3600, parseInt(countdownInput.value, 10) || DEFAULT_COUNTDOWN_SECONDS));
   chrome.runtime.sendMessage({ type: "saveCountdown", countdownSeconds: val }, () => {
     state.countdownSeconds = val;
     renderGeneral();
@@ -401,17 +401,11 @@ addKeywordConfirm.addEventListener("click", () => {
 // Blocklist Categories
 // ============================================================
 
-const BLOCKLIST_CAT_LABELS = {
-  porn:     { label: "Porn",      description: "Adult content websites" },
-  gambling: { label: "Gambling",  description: "Gambling and betting sites" },
-  fakenews: { label: "Fake News", description: "Misinformation sources" }
-};
-
 function renderBlocklistCategories() {
   blocklistCategoriesContainer.innerHTML = "";
   const cats = state.blocklistCategories || {};
 
-  for (const [catKey, display] of Object.entries(BLOCKLIST_CAT_LABELS)) {
+  for (const [catKey, display] of Object.entries(BLOCKLIST_CATEGORIES)) {
     const catState = cats[catKey] || { enabled: false, lastUpdated: null, domainCount: 0 };
 
     const row = el("div", { className: "blocklist-cat-row" });
@@ -481,7 +475,7 @@ function handleBlocklistCategoryToggle(category, wantEnabled, checkbox) {
   } else {
     // Disabling (less restrictive) — countdown required
     checkbox.checked = true;
-    const label = BLOCKLIST_CAT_LABELS[category]?.label || category;
+    const label = BLOCKLIST_CATEGORIES[category]?.label || category;
     startCountdown(`Disabling ${label} blocklist...`, () => {
       chrome.runtime.sendMessage({ type: "disableBlocklistCategory", category }, (res) => {
         if (res && res.ok) state.blocklistCategories = res.blocklistCategories;
@@ -668,12 +662,6 @@ function handleToggleChange(siteKey, toggleKey) {
 // ============================================================
 // Helpers
 // ============================================================
-
-function formatTime(totalSeconds) {
-  const m = Math.floor(totalSeconds / 60);
-  const s = totalSeconds % 60;
-  return `${m}:${String(s).padStart(2, "0")}`;
-}
 
 function el(tag, props) {
   const elem = document.createElement(tag);

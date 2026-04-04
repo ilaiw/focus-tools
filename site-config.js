@@ -116,3 +116,30 @@ function getSiteConfigForHostname(hostname) {
   }
   return null;
 }
+
+// --- Shared constants ---
+
+const DEFAULT_COUNTDOWN_SECONDS = 5;
+
+const BLOCKLIST_CATEGORIES = {
+  porn:     { label: "Porn",      description: "Adult content websites",      url: "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/porn-only/hosts" },
+  gambling: { label: "Gambling",  description: "Gambling and betting sites",  url: "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/gambling-only/hosts" },
+  fakenews: { label: "Fake News", description: "Misinformation sources",      url: "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-only/hosts" }
+};
+
+const DEFAULT_BLOCKLIST_CATEGORIES = {};
+for (const catKey of Object.keys(BLOCKLIST_CATEGORIES)) {
+  DEFAULT_BLOCKLIST_CATEGORIES[catKey] = { enabled: false, lastUpdated: null, domainCount: 0 };
+}
+
+// --- Shared utilities ---
+
+function formatTime(totalSeconds) {
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
+function mergeTogglesWithDefaults(siteKey, storedToggles) {
+  return { ...(DEFAULT_SITE_TOGGLES[siteKey] || {}), ...(storedToggles || {}) };
+}
