@@ -147,6 +147,9 @@ blockUrlBtn.addEventListener("click", () => {
     if (res && res.blockedSites) {
       state.blockedSites = res.blockedSites;
       renderBlockButtons();
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs[0]) chrome.tabs.update(tabs[0].id, { url: chrome.runtime.getURL("blocked.html") });
+      });
     }
   });
 });
@@ -157,6 +160,9 @@ blockDomainBtn.addEventListener("click", () => {
     if (res && res.blockedSites) {
       state.blockedSites = res.blockedSites;
       renderBlockButtons();
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs[0]) chrome.tabs.update(tabs[0].id, { url: chrome.runtime.getURL("blocked.html") });
+      });
     }
   });
 });

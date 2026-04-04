@@ -12,6 +12,14 @@ const addModal = document.getElementById("addModal");
 const addModalTextarea = document.getElementById("addModalTextarea");
 const addModalCancel = document.getElementById("addModalCancel");
 const addModalConfirm = document.getElementById("addModalConfirm");
+const keywordSearch = document.getElementById("keywordSearch");
+const keywordScroll = document.getElementById("keywordScroll");
+const keywordCount = document.getElementById("keywordCount");
+const addKeywordsBtn = document.getElementById("addKeywordsBtn");
+const addKeywordModal = document.getElementById("addKeywordModal");
+const addKeywordTextarea = document.getElementById("addKeywordTextarea");
+const addKeywordCancel = document.getElementById("addKeywordCancel");
+const addKeywordConfirm = document.getElementById("addKeywordConfirm");
 const siteTogglesContainer = document.getElementById("siteTogglesContainer");
 const blocklistCategoriesContainer = document.getElementById("blocklistCategoriesContainer");
 const countdownModal = document.getElementById("countdownModal");
@@ -22,6 +30,7 @@ const countdownCancel = document.getElementById("countdownCancel");
 let state = {
   enabled: true,
   blockedSites: [],
+  blockedKeywords: [],
   countdownSeconds: 2,
   siteToggles: {},
   siteModes: {},
@@ -30,6 +39,9 @@ let state = {
 };
 
 let searchFilter = "";
+let keywordSearchFilter = "";
+let blocklistExpanded = false;
+let keywordListExpanded = false;
 
 // Countdown modal state
 let countdownTimer = null;
@@ -47,6 +59,7 @@ function init() {
     renderGeneral();
     renderBlockExtToggle();
     renderBlocklist();
+    renderKeywords();
     renderBlocklistCategories();
     renderSiteToggles();
   });
@@ -94,6 +107,7 @@ function cancelCountdown() {
   renderBlockExtToggle();
   updateSiteToggles();
   renderBlocklist();
+  renderKeywords();
   renderBlocklistCategories();
 }
 
@@ -167,6 +181,19 @@ function saveCountdown() {
 function renderBlocklist() {
   blocklistScroll.innerHTML = "";
 
+  const total = state.blockedSites.length;
+
+  // Update placeholder with count
+  blocklistSearch.placeholder = total > 0
+    ? `${total} blocked site${total !== 1 ? "s" : ""} — click to view`
+    : "No blocked sites yet";
+
+  // Toggle expanded state
+  blocklistScroll.classList.toggle("expanded", blocklistExpanded);
+  blocklistCount.style.display = blocklistExpanded ? "" : "none";
+
+  if (!blocklistExpanded) return;
+
   const filtered = searchFilter
     ? state.blockedSites.filter((s) => s.includes(searchFilter))
     : state.blockedSites;
@@ -201,11 +228,16 @@ function renderBlocklist() {
     }
   }
 
-  const total = state.blockedSites.length;
   blocklistCount.textContent = searchFilter
     ? `${filtered.length} of ${total} sites shown`
     : `${total} site${total !== 1 ? "s" : ""} blocked`;
 }
+
+blocklistSearch.addEventListener("focus", () => {
+  blocklistExpanded = true;
+  blocklistSearch.placeholder = "Search blocked sites...";
+  renderBlocklist();
+});
 
 blocklistSearch.addEventListener("input", () => {
   searchFilter = blocklistSearch.value.trim().toLowerCase();
@@ -239,6 +271,129 @@ addModalConfirm.addEventListener("click", () => {
     if (res) state.blockedSites = res.blockedSites;
     renderBlocklist();
     addModal.classList.remove("open");
+  });
+});
+
+// ============================================================
+// Blocked Keywords
+// ============================================================
+
+function renderKeywords() {
+  keywordScroll.innerHTML = "";
+
+  const total = state.blockedKeywords.length;
+
+  // Update placeholder with count
+  keywordSearch.placeholder = total > 0
+    ? `${total} blocked keyword${total !== 1 ? "s" : ""} — click to view`
+    : "No blocked keywords yet";
+
+  // Toggle expanded state
+  keywordScroll.classList.toggle("expanded", keywordListExpanded);
+  keywordCount.style.display = keywordListExpanded ? "" : "none";
+
+  if (!keywordListExpanded) return;
+
+  const filtered = keywordSearchFilter
+    ? state.blockedKeywords.filter((k) => k.includes(keywordSearchFilter))
+    : state.blockedKeywords;
+
+  if (filtered.length === 0) {
+    keywordScroll.appendChild(el("div", {
+      className: "blocklist-empty",
+      textContent: keywordSearchFilter ? "No matching keywords" : "No blocked keywords yet. Click + Add to get started."
+    }));
+  } else {
+    for (const keyword of filtered) {
+      const item = el("div", { className: "blocklist-item" });
+
+      const removeBtn = el("button", {
+        className: "blocklist-remove",
+        textContent: "\u00d7",
+        title: "Remove (requires countdown)"
+      });
+      removeBtn.addEventListener("click", () => {
+        startCountdown(`Removing "${keyword}" from keywords...`, () => {
+          chrome.runtime.sendMessage({ type: "removeKeyword", keyword }, (res) => {
+            if (res) state.blockedKeywords = res.blockedKeywords;
+            renderKeywords();
+          });
+        });
+      });
+
+      const keywordSpan = el("span", { className: "blocklist-site", textContent: keyword });
+      item.appendChild(removeBtn);
+      item.appendChild(keywordSpan);
+      keywordScroll.appendChild(item);
+    }
+  }
+
+  keywordCount.textContent = keywordSearchFilter
+    ? `${filtered.length} of ${total} keywords shown`
+    : `${total} keyword${total !== 1 ? "s" : ""} blocked`;
+}
+
+keywordSearch.addEventListener("focus", () => {
+  keywordListExpanded = true;
+  keywordSearch.placeholder = "Search blocked keywords...";
+  renderKeywords();
+});
+
+keywordSearch.addEventListener("input", () => {
+  keywordSearchFilter = keywordSearch.value.trim().toLowerCase();
+  renderKeywords();
+});
+
+// Collapse lists when clicking outside
+document.addEventListener("click", (e) => {
+  // Collapse blocked sites list
+  if (blocklistExpanded) {
+    const sitesSection = blocklistSearch.closest(".section");
+    if (!sitesSection.contains(e.target)) {
+      blocklistExpanded = false;
+      searchFilter = "";
+      blocklistSearch.value = "";
+      renderBlocklist();
+    }
+  }
+  // Collapse blocked keywords list
+  if (keywordListExpanded) {
+    const keywordsSection = keywordSearch.closest(".section");
+    if (!keywordsSection.contains(e.target)) {
+      keywordListExpanded = false;
+      keywordSearchFilter = "";
+      keywordSearch.value = "";
+      renderKeywords();
+    }
+  }
+});
+
+// Add keywords modal
+addKeywordsBtn.addEventListener("click", () => {
+  addKeywordTextarea.value = "";
+  addKeywordModal.classList.add("open");
+  addKeywordTextarea.focus();
+});
+
+addKeywordCancel.addEventListener("click", () => addKeywordModal.classList.remove("open"));
+addKeywordModal.addEventListener("click", (e) => { if (e.target === addKeywordModal) addKeywordModal.classList.remove("open"); });
+
+addKeywordConfirm.addEventListener("click", () => {
+  const lines = addKeywordTextarea.value.split("\n");
+  const newKeywords = [];
+  const existing = new Set(state.blockedKeywords);
+
+  for (const raw of lines) {
+    const keyword = raw.trim().toLowerCase();
+    if (keyword && !existing.has(keyword)) { newKeywords.push(keyword); existing.add(keyword); }
+  }
+
+  if (newKeywords.length === 0) { addKeywordModal.classList.remove("open"); return; }
+
+  chrome.runtime.sendMessage({ type: "addKeywords", keywords: newKeywords }, (res) => {
+    if (res) state.blockedKeywords = res.blockedKeywords;
+    renderKeywords();
+    addKeywordModal.classList.remove("open");
   });
 });
 

@@ -1,25 +1,37 @@
 /* Focus Tools — LinkedIn */
 
-/* === Hide Feed === */
-html.ft-hide-feed .feed-shared-update-v2,
-html.ft-hide-feed div[data-finite-scroll-hotkey-context="FEED"],
-html.ft-hide-feed main .scaffold-finite-scroll,
-html.ft-hide-feed div[aria-label="Main Feed"] {
+/* === Hide Home button === */
+html.ft-hide-home a[href*="/feed"],
+html.ft-hide-home a[data-link-to="feed"],
+html.ft-hide-home li:has(a[href*="/feed"]),
+html.ft-hide-home span:has(> a[href*="/feed"]),
+/* Target the nav icon labeled Home */
+html.ft-hide-home nav a[href*="/feed"],
+html.ft-hide-home header a[href*="/feed"] {
   display: none !important;
+}
+/* Prevent layout shift from hidden nav item */
+html.ft-hide-home li.global-nav__primary-item:has(a[href*="/feed"]) {
+  width: 0 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 /* === Hide News Sidebar === */
-html.ft-hide-news .news-module,
 html.ft-hide-news aside[aria-label*="News"],
 html.ft-hide-news aside[aria-label*="LinkedIn News"],
-html.ft-hide-news .ad-banner-container {
+html.ft-hide-news .news-module,
+html.ft-hide-news aside .ad-banner-container,
+html.ft-hide-news div[data-view-name="news-module"] {
   display: none !important;
 }
 
 /* === Hide Notifications Badge === */
 html.ft-hide-notifications .notification-badge,
 html.ft-hide-notifications .notification-badge__count,
-html.ft-hide-notifications span[class*="notification-badge"] {
+html.ft-hide-notifications span[class*="notification-badge"],
+html.ft-hide-notifications .nav-item__badge-count {
   display: none !important;
 }
 

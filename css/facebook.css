@@ -1,12 +1,5 @@
 /* Focus Tools — Facebook */
 
-/* === Hide Feed === */
-html.ft-hide-feed div[role="feed"],
-html.ft-hide-feed div[aria-label="News Feed"],
-html.ft-hide-feed div[aria-label="News feed"] {
-  display: none !important;
-}
-
 /* === Hide Messenger link === */
 html.ft-hide-messenger a[href*="messenger.com"],
 html.ft-hide-messenger a[aria-label="Messenger"],
@@ -28,12 +21,6 @@ html.ft-hide-marketplace a[aria-label="Marketplace"] {
   display: none !important;
 }
 
-/* === Hide Stories === */
-html.ft-hide-stories div[aria-label="Stories"],
-html.ft-hide-stories div[aria-label="Stories tray"] {
-  display: none !important;
-}
-
 /* === Hide Video and Reels === */
 html.ft-hide-reels a[href="/reel/"],
 html.ft-hide-reels a[href*="/reel"],
@@ -48,14 +35,33 @@ html.ft-hide-reels a[aria-label="Video"] {
   display: none !important;
 }
 
+/* === Hide Gaming === */
+html.ft-hide-gaming a[href="/gaming/"],
+html.ft-hide-gaming a[href*="/gaming"],
+html.ft-hide-gaming a[aria-label="Gaming"],
+html.ft-hide-gaming a[aria-label="Gaming video"] {
+  display: none !important;
+}
+
 /* === Hide Likes and Comments === */
+/* Reaction counts and buttons */
 html.ft-hide-likes-comments span[aria-label*="Like"],
 html.ft-hide-likes-comments span[aria-label*="like"],
+html.ft-hide-likes-comments span[aria-label*="reaction"],
+html.ft-hide-likes-comments span[aria-label*="Reaction"],
+html.ft-hide-likes-comments div[aria-label*="reactions"],
+html.ft-hide-likes-comments div[aria-label*="Reactions"],
+html.ft-hide-likes-comments span[aria-label*="others"],
+/* Comment sections */
 html.ft-hide-likes-comments div[aria-label*="Leave a comment"],
 html.ft-hide-likes-comments div[aria-label*="Write a comment"],
 html.ft-hide-likes-comments div[aria-label*="Comment"],
 html.ft-hide-likes-comments form[aria-label*="Comment"],
-html.ft-hide-likes-comments ul[aria-label*="Comment"] {
+html.ft-hide-likes-comments ul[aria-label*="Comment"],
+/* Like/reaction/share action bar under posts */
+html.ft-hide-likes-comments div[aria-label*="Like"][role="button"],
+html.ft-hide-likes-comments div[aria-label*="Comment"][role="button"],
+html.ft-hide-likes-comments div[aria-label*="Share"][role="button"] {
   display: none !important;
 }
 

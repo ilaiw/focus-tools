@@ -11,8 +11,6 @@
   let currentToggles = {};
   let currentMode = "allow";
   let feedRedirectActive = false;
-  let shortsBlockActive = false;
-  let likesObserver = null;
   let historyPatched = false;
 
   // Apply CSS classes based on toggle state and mode
@@ -38,6 +36,25 @@
     }
 
     handleJsFeatures(currentToggles);
+
+    // Watch for frameworks stripping our classes from <html>
+    ensureClassGuard();
+  }
+
+  let classGuard = null;
+  function ensureClassGuard() {
+    if (classGuard) return;
+    classGuard = new MutationObserver(() => {
+      if (currentMode !== "filter") return;
+      for (const def of toggleDefs) {
+        if (def.cssClass && currentToggles[def.key]) {
+          if (!document.documentElement.classList.contains(def.cssClass)) {
+            document.documentElement.classList.add(def.cssClass);
+          }
+        }
+      }
+    });
+    classGuard.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
   }
 
   function removeAllClasses() {
@@ -51,23 +68,66 @@
 
   // --- JS Feature Handlers ---
 
+  // Generic SPA URL watcher for block-url and redirect-url toggles
+  let urlWatcher = null;
+  let lastWatchedPath = location.pathname;
+  const blockedPageUrl = chrome.runtime.getURL("blocked.html");
+
+  function startUrlWatcher() {
+    if (urlWatcher) return;
+    lastWatchedPath = location.pathname;
+    urlWatcher = setInterval(checkUrlRules, 300);
+  }
+
+  function stopUrlWatcher() {
+    if (urlWatcher) { clearInterval(urlWatcher); urlWatcher = null; }
+  }
+
+  function checkUrlRules() {
+    if (location.pathname === lastWatchedPath) return;
+    lastWatchedPath = location.pathname;
+
+    for (const def of toggleDefs) {
+      if (!currentToggles[def.key]) continue;
+
+      if (def.type === "block-url" && def.urlPattern) {
+        // Extract path portion from urlPattern like "||linkedin.com/feed"
+        const pathMatch = def.urlPattern.replace(/^\|\|[^/]*/, "");
+        if (pathMatch && location.pathname.startsWith(pathMatch)) {
+          location.replace(blockedPageUrl);
+          return;
+        }
+      }
+
+      if (def.type === "redirect-url" && def.urlPattern && def.redirectUrl) {
+        const pathMatch = def.urlPattern.replace(/^\|\|[^/]*/, "");
+        if (pathMatch && location.pathname.startsWith(pathMatch)) {
+          location.replace(def.redirectUrl);
+          return;
+        }
+      }
+    }
+  }
+
   function handleJsFeatures(toggles) {
     if (siteKey === "facebook.com") {
       handleFacebookRedirect(toggles.forceRedirectFriends);
-      handleFacebookLikesComments(toggles.hideLikesComments);
     }
-    if (siteKey === "youtube.com") {
-      handleYoutubeShortsBlock(toggles.blockShorts);
+    // Start URL watcher if any block-url or redirect-url toggles are active
+    const hasUrlToggles = toggleDefs.some(
+      (d) => (d.type === "block-url" || d.type === "redirect-url") && toggles[d.key]
+    );
+    if (hasUrlToggles) {
+      startUrlWatcher();
+      checkUrlRules();
+    } else {
+      stopUrlWatcher();
     }
   }
 
   function cleanupJsFeatures() {
     feedRedirectActive = false;
-    shortsBlockActive = false;
-    if (likesObserver) {
-      likesObserver.disconnect();
-      likesObserver = null;
-    }
+    stopUrlWatcher();
   }
 
   function handleFacebookRedirect(enabled) {
@@ -106,81 +166,19 @@
     }
   }
 
-  function handleFacebookLikesComments(enabled) {
-    if (enabled && !likesObserver) {
-      likesObserver = new MutationObserver(() => {
-        const selectors = [
-          'div[aria-label*="reactions"]',
-          'div[aria-label*="Reactions"]',
-          'span[aria-label*="others"]'
-        ];
-        for (const sel of selectors) {
-          document.querySelectorAll(sel).forEach((el) => {
-            if (el.offsetParent !== null) {
-              el.style.display = "none";
-            }
-          });
-        }
-      });
 
-      if (document.body) {
-        likesObserver.observe(document.body, { childList: true, subtree: true });
-      } else {
-        document.addEventListener("DOMContentLoaded", () => {
-          if (likesObserver && document.body) {
-            likesObserver.observe(document.body, { childList: true, subtree: true });
-          }
-        });
-      }
-    } else if (!enabled && likesObserver) {
-      likesObserver.disconnect();
-      likesObserver = null;
-    }
-  }
-
-  // YouTube: block /shorts/* pages by redirecting away
-  function handleYoutubeShortsBlock(enabled) {
-    if (enabled) {
-      // Redirect if already on a shorts page
-      if (location.pathname.startsWith("/shorts")) {
-        location.replace("/");
-        return;
-      }
-
-      // Patch navigation to intercept SPA routing to /shorts
-      if (!historyPatched) {
-        historyPatched = true;
-        const origPushState = history.pushState.bind(history);
-        const origReplaceState = history.replaceState.bind(history);
-
-        history.pushState = function (s, t, url) {
-          origPushState(s, t, url);
-          checkShortsRedirect();
-        };
-        history.replaceState = function (s, t, url) {
-          origReplaceState(s, t, url);
-          checkShortsRedirect();
-        };
-        window.addEventListener("popstate", checkShortsRedirect);
-      }
-      shortsBlockActive = true;
-    } else {
-      shortsBlockActive = false;
-    }
-  }
-
-  function checkShortsRedirect() {
-    if (!shortsBlockActive) return;
-    if (location.pathname.startsWith("/shorts")) {
-      location.replace("/");
-    }
+  // Merge stored toggles with defaults so new keys are always present
+  function mergeToggles(stored) {
+    const defaults = {};
+    for (const def of toggleDefs) defaults[def.key] = false;
+    return { ...defaults, ...(stored || {}) };
   }
 
   // --- Storage: initial load ---
   chrome.storage.local.get(["siteToggles", "siteModes", "enabled"], (result) => {
     if (result.enabled === false) return;
     const mode = result.siteModes && result.siteModes[siteKey];
-    const toggles = result.siteToggles && result.siteToggles[siteKey];
+    const toggles = mergeToggles(result.siteToggles && result.siteToggles[siteKey]);
     applyState(mode, toggles);
   });
 
@@ -197,7 +195,7 @@
       chrome.storage.local.get(["siteToggles", "siteModes"], (result) => {
         applyState(
           result.siteModes && result.siteModes[siteKey],
-          result.siteToggles && result.siteToggles[siteKey]
+          mergeToggles(result.siteToggles && result.siteToggles[siteKey])
         );
       });
       return;
@@ -208,7 +206,7 @@
         if (result.enabled === false) return;
         applyState(
           result.siteModes && result.siteModes[siteKey],
-          result.siteToggles && result.siteToggles[siteKey]
+          mergeToggles(result.siteToggles && result.siteToggles[siteKey])
         );
       });
     }

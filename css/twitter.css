@@ -3,7 +3,8 @@
 /* === Hide Feed / Timeline === */
 html.ft-hide-feed div[data-testid="primaryColumn"] section[role="region"],
 html.ft-hide-feed div[aria-label="Timeline: Your Home Timeline"],
-html.ft-hide-feed div[aria-label*="Timeline"] {
+html.ft-hide-feed div[aria-label*="Timeline"]:not([aria-label*="Trending"]),
+html.ft-hide-feed div[data-testid="cellInnerDiv"] {
   display: none !important;
 }
 
@@ -12,14 +13,17 @@ html.ft-hide-trending div[aria-label="Trending"],
 html.ft-hide-trending div[aria-label*="trending"],
 html.ft-hide-trending a[href="/explore"],
 html.ft-hide-trending a[href*="/explore"],
-html.ft-hide-trending section[aria-labelledby*="accessible-list"] {
+html.ft-hide-trending a[data-testid="AppTabBar_Explore_Link"],
+html.ft-hide-trending section[aria-labelledby*="accessible-list"],
+html.ft-hide-trending div[data-testid="sidebarColumn"] section[role="region"] {
   display: none !important;
 }
 
 /* === Hide Who to Follow === */
 html.ft-hide-who-to-follow aside[aria-label="Who to follow"],
 html.ft-hide-who-to-follow div[aria-label="Who to follow"],
-html.ft-hide-who-to-follow aside[aria-label*="Who to follow"] {
+html.ft-hide-who-to-follow aside[aria-label*="Who to follow"],
+html.ft-hide-who-to-follow div[data-testid="UserCell"] {
   display: none !important;
 }
 

@@ -1,30 +1,35 @@
 /* Focus Tools — Instagram */
 
 /* === Hide Feed === */
-html.ft-hide-feed main article,
-html.ft-hide-feed div[role="feed"] {
+html.ft-hide-feed main[role="main"] article,
+html.ft-hide-feed div[role="feed"],
+html.ft-hide-feed main[role="main"] > div > div > div:has(article) {
   display: none !important;
 }
 
-/* === Hide Reels === */
+/* === Hide Reels link === */
 html.ft-hide-reels a[href="/reels/"],
 html.ft-hide-reels a[href*="/reels"],
 html.ft-hide-reels a[aria-label*="Reels"],
-html.ft-hide-reels div[aria-label*="Reels"] {
+html.ft-hide-reels div[aria-label*="Reels"],
+html.ft-hide-reels svg[aria-label*="Reels"] {
   display: none !important;
 }
 
-/* === Hide Explore === */
+/* === Hide Explore link === */
 html.ft-hide-explore a[href="/explore/"],
 html.ft-hide-explore a[href*="/explore"],
-html.ft-hide-explore a[aria-label*="Explore"] {
+html.ft-hide-explore a[aria-label*="Explore"],
+html.ft-hide-explore svg[aria-label*="Explore"] {
   display: none !important;
 }
 
 /* === Hide Stories === */
 html.ft-hide-stories div[aria-label="Stories"],
-html.ft-hide-stories div[aria-label*="Stories tray"],
-html.ft-hide-stories section > div > div > div > ul {
+html.ft-hide-stories div[aria-label*="Stories"],
+html.ft-hide-stories div[role="menu"][aria-label*="Stories"],
+html.ft-hide-stories canvas[aria-label*="story" i],
+html.ft-hide-stories div[role="presentation"]:has(canvas[aria-label*="story" i]) {
   display: none !important;
 }
 

@@ -71,7 +71,9 @@
     .blocklist-scroll {
       max-height: 320px; overflow-y: auto; border: 1px solid #222; border-radius: 8px;
       background: rgba(255,255,255,0.02);
+      display: none;
     }
+    .blocklist-scroll.expanded { display: block; }
     .blocklist-scroll::-webkit-scrollbar { width: 6px; }
     .blocklist-scroll::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
     .blocklist-item {
@@ -246,6 +248,20 @@
       <div class="blocklist-count" id="blocklistCount"></div>
     </div>
 
+    <!-- Blocked Keywords -->
+    <div class="section">
+      <div class="section-title">Blocked Keywords</div>
+      <p style="font-size:12px;color:#666;margin-bottom:10px;">
+        Block any URL containing these keywords. E.g. "poker" blocks all URLs with "poker" in them.
+      </p>
+      <div class="blocklist-toolbar">
+        <input type="text" class="search-input" id="keywordSearch" placeholder="Search blocked keywords...">
+        <button class="btn-add" id="addKeywordsBtn">+ Add</button>
+      </div>
+      <div class="blocklist-scroll" id="keywordScroll"></div>
+      <div class="blocklist-count" id="keywordCount"></div>
+    </div>
+
     <!-- Blocklists -->
     <div class="section">
       <div class="section-title">Blocklists</div>
@@ -272,6 +288,19 @@
       <div class="modal-actions">
         <button class="btn-cancel" id="addModalCancel">Cancel</button>
         <button class="btn-add" id="addModalConfirm">Add to blocklist</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add keywords modal -->
+  <div class="modal-overlay" id="addKeywordModal">
+    <div class="modal">
+      <h2>Add Keywords to Block</h2>
+      <p>Enter one keyword per line. Any URL containing the keyword will be blocked.</p>
+      <textarea id="addKeywordTextarea" placeholder="poker&#10;gambling&#10;tiktok"></textarea>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="addKeywordCancel">Cancel</button>
+        <button class="btn-add" id="addKeywordConfirm">Add keywords</button>
       </div>
     </div>
   </div>

@@ -4,31 +4,40 @@
 html.ft-hide-home-feed ytd-rich-grid-renderer,
 html.ft-hide-home-feed ytd-two-column-browse-results-renderer,
 html.ft-hide-home-feed ytd-shelf-renderer,
-html.ft-hide-home-feed ytd-rich-section-renderer {
+html.ft-hide-home-feed ytd-rich-section-renderer,
+html.ft-hide-home-feed ytd-browse[page-subtype="home"] #contents {
   display: none !important;
 }
 
-/* === Hide Shorts === */
+/* === Hide Shorts button & shelf === */
 html.ft-hide-shorts ytd-reel-shelf-renderer,
 html.ft-hide-shorts ytd-rich-section-renderer[is-shorts],
 html.ft-hide-shorts a[title="Shorts"],
 html.ft-hide-shorts a[href="/shorts"],
 html.ft-hide-shorts ytd-mini-guide-entry-renderer a[title="Shorts"],
 html.ft-hide-shorts ytd-guide-entry-renderer a[title="Shorts"],
-html.ft-hide-shorts ytd-reel-item-renderer {
+html.ft-hide-shorts ytd-reel-item-renderer,
+/* Shorts in search results and feed */
+html.ft-hide-shorts ytd-video-renderer a[href*="/shorts/"],
+html.ft-hide-shorts ytd-grid-video-renderer a[href*="/shorts/"] {
   display: none !important;
 }
 
 /* === Hide Comments === */
 html.ft-hide-comments ytd-comments#comments,
-html.ft-hide-comments ytd-item-section-renderer#sections {
+html.ft-hide-comments #comments,
+html.ft-hide-comments ytd-item-section-renderer#sections,
+html.ft-hide-comments ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-comments-section"] {
   display: none !important;
 }
 
 /* === Hide Sidebar Suggestions === */
 html.ft-hide-sidebar #related,
 html.ft-hide-sidebar #secondary,
-html.ft-hide-sidebar ytd-compact-video-renderer {
+html.ft-hide-sidebar #secondary-inner,
+html.ft-hide-sidebar ytd-watch-next-secondary-results-renderer,
+html.ft-hide-sidebar ytd-compact-video-renderer,
+html.ft-hide-sidebar ytd-compact-playlist-renderer {
   display: none !important;
 }
 
