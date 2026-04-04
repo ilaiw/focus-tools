@@ -2,6 +2,8 @@
 
 A browser extension that helps you stay focused by blocking distracting websites and hiding addictive UI elements on social media.
 
+![Focus Tools popup](screenshots/popup.png)
+
 ## Features
 
 ### Website Blocking
@@ -9,15 +11,21 @@ A browser extension that helps you stay focused by blocking distracting websites
 - **Keyword blocklist** — block any URL containing specific keywords (e.g. "poker" blocks all URLs with "poker" in them)
 - **Community blocklists** — one-click enable curated blocklists for porn, gambling, and fake news sites (powered by [StevenBlack/hosts](https://github.com/StevenBlack/hosts))
 
+![Options and blocklist settings](screenshots/options-settings.png)
+
 ### Social Media Filtering
 For each supported site, choose one of three modes:
 - **Allow** — site works normally
 - **Filter** — selectively hide distracting UI elements (feed, shorts, reels, comments, recommendations, etc.)
 - **Block** — completely block access to the site
 
+![Per-site filter toggles](screenshots/site-filters.png)
+
 ### Anti-Impulse Protection
 - **Disable countdown** — configurable delay before the extension can be disabled, preventing impulsive toggling
 - **Extensions page blocking** — optionally block access to `chrome://extensions` to prevent quick circumvention
+
+![Countdown modal](screenshots/countdown-modal.png)
 
 ### Supported Sites
 | Site | Filter Options |
