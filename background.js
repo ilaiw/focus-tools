@@ -80,8 +80,8 @@ function isExtensionsUrl(url) {
 
 function blockExtensionsTab(tabId, url) {
   if (!isExtensionsUrl(url)) return;
-  chrome.storage.local.get(["blockExtensionsPage"], (result) => {
-    if (result.blockExtensionsPage) {
+  chrome.storage.local.get(["blockExtensionsPage", "enabled"], (result) => {
+    if (result.blockExtensionsPage && result.enabled !== false) {
       chrome.tabs.update(tabId, { url: chrome.runtime.getURL("blocked.html") });
     }
   });
