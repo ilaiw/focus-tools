@@ -1,0 +1,29 @@
+/* Focus Tools — LinkedIn */
+
+/* === Hide Feed === */
+html.ft-hide-feed .feed-shared-update-v2,
+html.ft-hide-feed div[data-finite-scroll-hotkey-context="FEED"],
+html.ft-hide-feed main .scaffold-finite-scroll,
+html.ft-hide-feed div[aria-label="Main Feed"] {
+  display: none !important;
+}
+
+/* === Hide News Sidebar === */
+html.ft-hide-news .news-module,
+html.ft-hide-news aside[aria-label*="News"],
+html.ft-hide-news aside[aria-label*="LinkedIn News"],
+html.ft-hide-news .ad-banner-container {
+  display: none !important;
+}
+
+/* === Hide Notifications Badge === */
+html.ft-hide-notifications .notification-badge,
+html.ft-hide-notifications .notification-badge__count,
+html.ft-hide-notifications span[class*="notification-badge"] {
+  display: none !important;
+}
+
+/* === Remove Colors (grayscale) === */
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}

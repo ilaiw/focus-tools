@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 320px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      padding: 16px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .gear-btn {
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 4px;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }
+    .gear-btn:hover { color: #e0e0e0; }
+
+    .status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+    .status-left { display: flex; align-items: center; }
+    .status-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      margin-right: 8px;
+      display: inline-block;
+    }
+    .status-dot.on { background: #4ade80; }
+    .status-dot.off { background: #f87171; }
+    .status-dot.pending { background: #facc15; animation: pulse 1s infinite; }
+    @keyframes pulse { 50% { opacity: 0.4; } }
+
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .btn-enable { background: #4ade80; color: #1a1a2e; }
+    .btn-enable:hover { background: #22c55e; }
+    .btn-disable { background: #f87171; color: #fff; }
+    .btn-disable:hover { background: #ef4444; }
+    .btn-cancel { background: #facc15; color: #1a1a2e; }
+    .btn-cancel:hover { background: #eab308; }
+
+    .timer {
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      padding: 8px;
+      color: #facc15;
+    }
+
+    .quick-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .block-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: #e0e0e0;
+      font-size: 12px;
+      cursor: pointer;
+      text-align: left;
+      font-weight: 400;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .block-btn:hover { background: rgba(255,255,255,0.1); border-color: #f87171; }
+    .block-btn .label { color: #f87171; font-weight: 600; white-space: nowrap; }
+    .block-btn .value {
+      color: #aaa;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+    .block-btn.already-blocked {
+      opacity: 0.4;
+      cursor: default;
+      border-color: transparent;
+    }
+    .block-btn.already-blocked:hover { background: rgba(255,255,255,0.06); border-color: transparent; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🛡️ Focus Tools</h1>
+    <button class="gear-btn" id="settingsBtn" title="Settings">⚙</button>
+  </div>
+
+  <div class="status">
+    <div class="status-left">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText"></span>
+    </div>
+    <button id="toggleBtn"></button>
+  </div>
+
+  <div id="timerSection" style="display:none">
+    <div class="timer" id="timerDisplay"></div>
+  </div>
+
+  <div class="quick-block" id="quickBlock">
+    <button class="block-btn" id="blockUrlBtn">
+      <span class="label">Block URL</span>
+      <span class="value" id="blockUrlValue">—</span>
+    </button>
+    <button class="block-btn" id="blockDomainBtn">
+      <span class="label">Block domain</span>
+      <span class="value" id="blockDomainValue">—</span>
+    </button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

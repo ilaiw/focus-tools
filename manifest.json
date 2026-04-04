@@ -1,0 +1,69 @@
+{
+  "manifest_version": 3,
+  "name": "Focus Tools",
+  "version": "2.0.0",
+  "description": "Block distracting websites and hide addictive UI elements on social media.",
+  "permissions": [
+    "storage",
+    "declarativeNetRequest",
+    "alarms",
+    "activeTab",
+    "tabs",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.facebook.com/*",
+        "*://*.youtube.com/*",
+        "*://*.instagram.com/*",
+        "*://*.twitter.com/*",
+        "*://*.x.com/*",
+        "*://*.reddit.com/*",
+        "*://*.linkedin.com/*",
+        "*://*.tiktok.com/*"
+      ],
+      "css": [
+        "css/facebook.css",
+        "css/youtube.css",
+        "css/instagram.css",
+        "css/twitter.css",
+        "css/reddit.css",
+        "css/linkedin.css",
+        "css/tiktok.css"
+      ],
+      "js": ["site-config.js", "content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "blocked_sites",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "incognito": "spanning"
+}

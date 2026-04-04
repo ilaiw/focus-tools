@@ -1,0 +1,65 @@
+/* Focus Tools — Facebook */
+
+/* === Hide Feed === */
+html.ft-hide-feed div[role="feed"],
+html.ft-hide-feed div[aria-label="News Feed"],
+html.ft-hide-feed div[aria-label="News feed"] {
+  display: none !important;
+}
+
+/* === Hide Messenger link === */
+html.ft-hide-messenger a[href*="messenger.com"],
+html.ft-hide-messenger a[aria-label="Messenger"],
+html.ft-hide-messenger a[href="/messages/"] {
+  display: none !important;
+}
+
+/* === Hide Chat Sidebar === */
+html.ft-hide-chat div[aria-label="Chats"],
+html.ft-hide-chat div[aria-label="Chat"],
+html.ft-hide-chat div[aria-label*="Messenger"] {
+  display: none !important;
+}
+
+/* === Hide Marketplace === */
+html.ft-hide-marketplace a[href="/marketplace/"],
+html.ft-hide-marketplace a[href*="/marketplace"],
+html.ft-hide-marketplace a[aria-label="Marketplace"] {
+  display: none !important;
+}
+
+/* === Hide Stories === */
+html.ft-hide-stories div[aria-label="Stories"],
+html.ft-hide-stories div[aria-label="Stories tray"] {
+  display: none !important;
+}
+
+/* === Hide Video and Reels === */
+html.ft-hide-reels a[href="/reel/"],
+html.ft-hide-reels a[href*="/reel"],
+html.ft-hide-reels a[aria-label="Reels"],
+html.ft-hide-reels a[href*="reel"][role="link"],
+html.ft-hide-reels div[aria-label="Reels"],
+html.ft-hide-reels a[href="/watch/reels/"],
+html.ft-hide-reels a[href="/watch/"],
+html.ft-hide-reels a[href*="/watch"],
+html.ft-hide-reels a[aria-label="Watch"],
+html.ft-hide-reels a[aria-label="Video"] {
+  display: none !important;
+}
+
+/* === Hide Likes and Comments === */
+html.ft-hide-likes-comments span[aria-label*="Like"],
+html.ft-hide-likes-comments span[aria-label*="like"],
+html.ft-hide-likes-comments div[aria-label*="Leave a comment"],
+html.ft-hide-likes-comments div[aria-label*="Write a comment"],
+html.ft-hide-likes-comments div[aria-label*="Comment"],
+html.ft-hide-likes-comments form[aria-label*="Comment"],
+html.ft-hide-likes-comments ul[aria-label*="Comment"] {
+  display: none !important;
+}
+
+/* === Remove Colors (grayscale) === */
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}

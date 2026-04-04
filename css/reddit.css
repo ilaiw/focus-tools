@@ -1,0 +1,31 @@
+/* Focus Tools — Reddit */
+
+/* === Hide Feed === */
+html.ft-hide-feed shreddit-post,
+html.ft-hide-feed .Post,
+html.ft-hide-feed article,
+html.ft-hide-feed div[data-testid="post-container"],
+html.ft-hide-feed faceplate-batch {
+  display: none !important;
+}
+
+/* === Hide Popular / All === */
+html.ft-hide-popular a[href*="/r/popular"],
+html.ft-hide-popular a[href*="/r/all"],
+html.ft-hide-popular a[href="/r/popular/"],
+html.ft-hide-popular a[href="/r/all/"] {
+  display: none !important;
+}
+
+/* === Hide Awards === */
+html.ft-hide-awards .awardings-bar,
+html.ft-hide-awards award-button,
+html.ft-hide-awards [data-testid="award-button"],
+html.ft-hide-awards .award-icon {
+  display: none !important;
+}
+
+/* === Remove Colors (grayscale) === */
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}

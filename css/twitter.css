@@ -1,0 +1,29 @@
+/* Focus Tools — X / Twitter */
+
+/* === Hide Feed / Timeline === */
+html.ft-hide-feed div[data-testid="primaryColumn"] section[role="region"],
+html.ft-hide-feed div[aria-label="Timeline: Your Home Timeline"],
+html.ft-hide-feed div[aria-label*="Timeline"] {
+  display: none !important;
+}
+
+/* === Hide Trending / Explore === */
+html.ft-hide-trending div[aria-label="Trending"],
+html.ft-hide-trending div[aria-label*="trending"],
+html.ft-hide-trending a[href="/explore"],
+html.ft-hide-trending a[href*="/explore"],
+html.ft-hide-trending section[aria-labelledby*="accessible-list"] {
+  display: none !important;
+}
+
+/* === Hide Who to Follow === */
+html.ft-hide-who-to-follow aside[aria-label="Who to follow"],
+html.ft-hide-who-to-follow div[aria-label="Who to follow"],
+html.ft-hide-who-to-follow aside[aria-label*="Who to follow"] {
+  display: none !important;
+}
+
+/* === Remove Colors (grayscale) === */
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}

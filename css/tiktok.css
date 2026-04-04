@@ -1,0 +1,6 @@
+/* Focus Tools — TikTok */
+
+/* === Remove Colors (grayscale) === */
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}

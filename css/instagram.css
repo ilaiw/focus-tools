@@ -1,0 +1,34 @@
+/* Focus Tools — Instagram */
+
+/* === Hide Feed === */
+html.ft-hide-feed main article,
+html.ft-hide-feed div[role="feed"] {
+  display: none !important;
+}
+
+/* === Hide Reels === */
+html.ft-hide-reels a[href="/reels/"],
+html.ft-hide-reels a[href*="/reels"],
+html.ft-hide-reels a[aria-label*="Reels"],
+html.ft-hide-reels div[aria-label*="Reels"] {
+  display: none !important;
+}
+
+/* === Hide Explore === */
+html.ft-hide-explore a[href="/explore/"],
+html.ft-hide-explore a[href*="/explore"],
+html.ft-hide-explore a[aria-label*="Explore"] {
+  display: none !important;
+}
+
+/* === Hide Stories === */
+html.ft-hide-stories div[aria-label="Stories"],
+html.ft-hide-stories div[aria-label*="Stories tray"],
+html.ft-hide-stories section > div > div > div > ul {
+  display: none !important;
+}
+
+/* === Remove Colors (grayscale) === */
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}

@@ -1,0 +1,46 @@
+/* Focus Tools — YouTube */
+
+/* === Hide Home Feed / Recommendations === */
+html.ft-hide-home-feed ytd-rich-grid-renderer,
+html.ft-hide-home-feed ytd-two-column-browse-results-renderer,
+html.ft-hide-home-feed ytd-shelf-renderer,
+html.ft-hide-home-feed ytd-rich-section-renderer {
+  display: none !important;
+}
+
+/* === Hide Shorts === */
+html.ft-hide-shorts ytd-reel-shelf-renderer,
+html.ft-hide-shorts ytd-rich-section-renderer[is-shorts],
+html.ft-hide-shorts a[title="Shorts"],
+html.ft-hide-shorts a[href="/shorts"],
+html.ft-hide-shorts ytd-mini-guide-entry-renderer a[title="Shorts"],
+html.ft-hide-shorts ytd-guide-entry-renderer a[title="Shorts"],
+html.ft-hide-shorts ytd-reel-item-renderer {
+  display: none !important;
+}
+
+/* === Hide Comments === */
+html.ft-hide-comments ytd-comments#comments,
+html.ft-hide-comments ytd-item-section-renderer#sections {
+  display: none !important;
+}
+
+/* === Hide Sidebar Suggestions === */
+html.ft-hide-sidebar #related,
+html.ft-hide-sidebar #secondary,
+html.ft-hide-sidebar ytd-compact-video-renderer {
+  display: none !important;
+}
+
+/* === Hide End Screen Cards === */
+html.ft-hide-end-cards .ytp-endscreen-content,
+html.ft-hide-end-cards .ytp-ce-element,
+html.ft-hide-end-cards .ytp-ce-covering-overlay,
+html.ft-hide-end-cards .ytp-ce-element-shadow {
+  display: none !important;
+}
+
+/* === Remove Colors (grayscale) === */
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}
