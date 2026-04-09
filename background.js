@@ -80,9 +80,10 @@ function isExtensionsUrl(url) {
 
 function blockExtensionsTab(tabId, url) {
   if (!isExtensionsUrl(url)) return;
-  chrome.storage.local.get(["blockExtensionsPage", "enabled"], (result) => {
+  chrome.storage.local.get(["blockExtensionsPage", "enabled", "customRedirectUrl"], (result) => {
     if (result.blockExtensionsPage && result.enabled !== false) {
-      chrome.tabs.update(tabId, { url: chrome.runtime.getURL("blocked.html") });
+      const redirectUrl = result.customRedirectUrl || chrome.runtime.getURL("blocked.html");
+      chrome.tabs.update(tabId, { url: redirectUrl });
     }
   });
 }
@@ -113,12 +114,13 @@ chrome.webNavigation.onBeforeNavigate.addListener((details) => {
   if (details.frameId !== 0) return;
   if (blocklistDomainSet.size === 0) return;
 
-  chrome.storage.local.get("enabled", (result) => {
+  chrome.storage.local.get(["enabled", "customRedirectUrl"], (result) => {
     if (result.enabled === false) return;
     let hostname;
     try { hostname = new URL(details.url).hostname.replace(/^www\./, ""); } catch { return; }
     if (blocklistDomainSet.has(hostname)) {
-      chrome.tabs.update(details.tabId, { url: chrome.runtime.getURL("blocked.html") });
+      const redirectUrl = result.customRedirectUrl || chrome.runtime.getURL("blocked.html");
+      chrome.tabs.update(details.tabId, { url: redirectUrl });
     }
   });
 });
@@ -146,7 +148,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         siteToggles: mergedToggles,
         siteModes: mergedModes,
         blockExtensionsPage: result.blockExtensionsPage || false,
-        blocklistCategories: result.blocklistCategories || DEFAULT_BLOCKLIST_CATEGORIES
+        blocklistCategories: result.blocklistCategories || DEFAULT_BLOCKLIST_CATEGORIES,
+        customRedirectUrl: result.customRedirectUrl || ""
       });
     });
     return true;
@@ -261,6 +264,13 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     return true;
   }
 
+  if (msg.type === "saveCustomRedirectUrl") {
+    chrome.storage.local.set({ customRedirectUrl: msg.url });
+    updateRules();
+    sendResponse({ ok: true });
+    return true;
+  }
+
   // --- Site mode ---
 
   if (msg.type === "setSiteMode") {
@@ -334,8 +344,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
 // Rebuild declarativeNetRequest rules
 async function updateRules() {
-  const { enabled, blockedSites, blockedKeywords, siteModes, siteToggles } = await chrome.storage.local.get([
-    "enabled", "blockedSites", "blockedKeywords", "siteModes", "siteToggles"
+  const { enabled, blockedSites, blockedKeywords, siteModes, siteToggles, customRedirectUrl } = await chrome.storage.local.get([
+    "enabled", "blockedSites", "blockedKeywords", "siteModes", "siteToggles", "customRedirectUrl"
   ]);
 
   const existingRules = await chrome.declarativeNetRequest.getDynamicRules();
@@ -348,7 +358,9 @@ async function updateRules() {
 
   const rules = [];
   let ruleId = 1;
-  const blockedAction = { type: "redirect", redirect: { extensionPath: "/blocked.html" } };
+  const blockedAction = customRedirectUrl
+    ? { type: "redirect", redirect: { url: customRedirectUrl } }
+    : { type: "redirect", redirect: { extensionPath: "/blocked.html" } };
   const isAscii = (s) => /^[\x00-\x7F]*$/.test(s);
 
   // Manual blocklist

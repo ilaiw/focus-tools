@@ -35,7 +35,8 @@ let state = {
   siteToggles: {},
   siteModes: {},
   blockExtensionsPage: false,
-  blocklistCategories: {}
+  blocklistCategories: {},
+  customRedirectUrl: ""
 };
 
 let searchFilter = "";
@@ -62,6 +63,7 @@ function init() {
     renderKeywords();
     renderBlocklistCategories();
     renderSiteToggles();
+    renderAdvanced();
   });
 }
 
@@ -658,6 +660,37 @@ function handleToggleChange(siteKey, toggleKey) {
     });
   }
 }
+
+// ============================================================
+// Advanced — Custom Redirect URL
+// ============================================================
+
+const customRedirectInput = document.getElementById("customRedirectInput");
+const saveRedirectBtn = document.getElementById("saveRedirectBtn");
+const clearRedirectBtn = document.getElementById("clearRedirectBtn");
+
+function renderAdvanced() {
+  customRedirectInput.value = state.customRedirectUrl || "";
+}
+
+saveRedirectBtn.addEventListener("click", () => {
+  const url = customRedirectInput.value.trim();
+  if (url && !url.startsWith("http://") && !url.startsWith("https://")) {
+    alert("Please enter a valid URL starting with http:// or https://");
+    return;
+  }
+  chrome.runtime.sendMessage({ type: "saveCustomRedirectUrl", url }, () => {
+    state.customRedirectUrl = url;
+    renderAdvanced();
+  });
+});
+
+clearRedirectBtn.addEventListener("click", () => {
+  chrome.runtime.sendMessage({ type: "saveCustomRedirectUrl", url: "" }, () => {
+    state.customRedirectUrl = "";
+    renderAdvanced();
+  });
+});
 
 // ============================================================
 // Helpers
