@@ -58,19 +58,19 @@ function init() {
       }
       renderMain();
     }
-  });
-
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    if (tabs[0] && tabs[0].url) {
-      try {
-        const url = new URL(tabs[0].url);
-        if (url.protocol === "http:" || url.protocol === "https:") {
-          currentTabDomain = url.hostname.replace(/^www\./, "");
-          currentTabUrl = currentTabDomain + url.pathname.replace(/\/+$/, "");
-        }
-      } catch (e) {}
-    }
-    renderBlockButtons();
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (chrome.runtime.lastError) return;
+      if (tabs[0] && tabs[0].url) {
+        try {
+          const url = new URL(tabs[0].url);
+          if (url.protocol === "http:" || url.protocol === "https:") {
+            currentTabDomain = url.hostname.replace(/^www\./, "");
+            currentTabUrl = currentTabDomain + url.pathname.replace(/\/+$/, "");
+          }
+        } catch (e) {}
+      }
+      renderBlockButtons();
+    });
   });
 }
 
@@ -247,6 +247,7 @@ function quickBlock(btn, site) {
       state.blockedSites = res.blockedSites;
       renderBlockButtons();
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (chrome.runtime.lastError) return;
         if (tabs[0]) chrome.tabs.update(tabs[0].id, { url: chrome.runtime.getURL("blocked.html") });
       });
     }

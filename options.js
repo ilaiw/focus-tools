@@ -165,14 +165,14 @@ function startCountdown(label, onComplete) {
         if (countdownPausedRemaining !== null && pendingAction) {
           countdownEndAt = Date.now() + countdownPausedRemaining;
           countdownPausedRemaining = null;
-          countdownTimer = setInterval(countdownTick, 100);
+          countdownTimer = setInterval(countdownTick, 250);
         }
       }
     };
     document.addEventListener("visibilitychange", visibilityHandler);
   }
 
-  countdownTimer = setInterval(countdownTick, 100);
+  countdownTimer = setInterval(countdownTick, 250);
 }
 
 function countdownTick() {
@@ -256,6 +256,7 @@ blockExtToggle.addEventListener("change", () => {
   if (wantOn) {
     // Turning ON (more restrictive) — instant
     chrome.runtime.sendMessage({ type: "setBlockExtensionsPage", value: true }, () => {
+      if (chrome.runtime.lastError) return;
       state.blockExtensionsPage = true;
     });
   } else {
@@ -263,6 +264,7 @@ blockExtToggle.addEventListener("change", () => {
     blockExtToggle.checked = true; // revert visually until countdown completes
     startCountdown("Disabling extensions page block...", () => {
       chrome.runtime.sendMessage({ type: "setBlockExtensionsPage", value: false }, () => {
+        if (chrome.runtime.lastError) return;
         state.blockExtensionsPage = false;
         blockExtToggle.checked = false;
       });
@@ -298,6 +300,7 @@ function renderCountdownActions() {
 function saveCountdown() {
   const val = Math.max(1, Math.min(3600, parseInt(countdownInput.value, 10) || DEFAULT_COUNTDOWN_SECONDS));
   chrome.runtime.sendMessage({ type: "saveCountdown", countdownSeconds: val }, () => {
+    if (chrome.runtime.lastError) return;
     state.countdownSeconds = val;
     renderGeneral();
   });
@@ -848,6 +851,7 @@ calendarEnabledToggle.addEventListener("change", () => {
   if (wantOn) {
     // More restrictive — instant
     chrome.runtime.sendMessage({ type: "setCalendarEnabled", value: true }, () => {
+      if (chrome.runtime.lastError) return;
       state.calendarEnabled = true;
       renderCalendar();
     });
@@ -856,6 +860,7 @@ calendarEnabledToggle.addEventListener("change", () => {
     calendarEnabledToggle.checked = true;
     startCountdown("Disabling calendar schedule...", () => {
       chrome.runtime.sendMessage({ type: "setCalendarEnabled", value: false }, () => {
+        if (chrome.runtime.lastError) return;
         state.calendarEnabled = false;
         state.calendarControlling = false;
         renderCalendar();
@@ -885,6 +890,7 @@ saveCalendarBtn.addEventListener("click", () => {
     calendarStartHour: startHour,
     calendarEndHour: endHour
   }, () => {
+    if (chrome.runtime.lastError) return;
     state.calendarDays = days;
     state.calendarStartHour = startHour;
     state.calendarEndHour = endHour;
@@ -942,7 +948,14 @@ saveRedirectBtn.addEventListener("click", () => {
   const url = customRedirectInput.value.trim();
   const redirectError = document.getElementById("redirectError");
   if (url) {
-    try { new URL(url); } catch {
+    try {
+      const parsed = new URL(url);
+      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+        redirectError.textContent = "Only http:// and https:// URLs are allowed.";
+        redirectError.style.display = "";
+        return;
+      }
+    } catch {
       redirectError.textContent = "Please enter a valid URL starting with http:// or https://";
       redirectError.style.display = "";
       return;
@@ -950,6 +963,7 @@ saveRedirectBtn.addEventListener("click", () => {
   }
   redirectError.style.display = "none";
   chrome.runtime.sendMessage({ type: "saveCustomRedirectUrl", url }, () => {
+    if (chrome.runtime.lastError) return;
     state.customRedirectUrl = url;
     renderAdvanced();
   });
@@ -957,6 +971,7 @@ saveRedirectBtn.addEventListener("click", () => {
 
 clearRedirectBtn.addEventListener("click", () => {
   chrome.runtime.sendMessage({ type: "saveCustomRedirectUrl", url: "" }, () => {
+    if (chrome.runtime.lastError) return;
     state.customRedirectUrl = "";
     renderAdvanced();
   });

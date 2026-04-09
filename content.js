@@ -68,19 +68,42 @@
 
   // --- JS Feature Handlers ---
 
-  // Generic SPA URL watcher for block-url and redirect-url toggles
-  let urlWatcher = null;
+  // Shared History API patching for SPA route change detection
+  let urlWatcherActive = false;
   let lastWatchedPath = location.pathname;
   const blockedPageUrl = chrome.runtime.getURL("blocked.html");
 
+  function ensureHistoryPatched() {
+    if (historyPatched) return;
+    historyPatched = true;
+    const origPushState = history.pushState.bind(history);
+    const origReplaceState = history.replaceState.bind(history);
+
+    history.pushState = function (state, title, url) {
+      origPushState(state, title, url);
+      onHistoryChange();
+    };
+    history.replaceState = function (state, title, url) {
+      origReplaceState(state, title, url);
+      onHistoryChange();
+    };
+    window.addEventListener("popstate", onHistoryChange);
+  }
+
+  function onHistoryChange() {
+    if (urlWatcherActive) checkUrlRules();
+    if (feedRedirectActive) checkFacebookRedirect();
+  }
+
   function startUrlWatcher() {
-    if (urlWatcher) return;
+    if (urlWatcherActive) return;
+    urlWatcherActive = true;
     lastWatchedPath = location.pathname;
-    urlWatcher = setInterval(checkUrlRules, 300);
+    ensureHistoryPatched();
   }
 
   function stopUrlWatcher() {
-    if (urlWatcher) { clearInterval(urlWatcher); urlWatcher = null; }
+    urlWatcherActive = false;
   }
 
   function checkUrlRules() {
@@ -139,23 +162,7 @@
         location.replace("/friends");
         return;
       }
-
-      if (!historyPatched) {
-        historyPatched = true;
-        const origPushState = history.pushState.bind(history);
-        const origReplaceState = history.replaceState.bind(history);
-
-        history.pushState = function (state, title, url) {
-          origPushState(state, title, url);
-          checkFacebookRedirect();
-        };
-        history.replaceState = function (state, title, url) {
-          origReplaceState(state, title, url);
-          checkFacebookRedirect();
-        };
-
-        window.addEventListener("popstate", checkFacebookRedirect);
-      }
+      ensureHistoryPatched();
       feedRedirectActive = true;
     } else {
       feedRedirectActive = false;

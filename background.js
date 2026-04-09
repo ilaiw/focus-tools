@@ -26,7 +26,7 @@ async function fetchBlocklistCategory(category) {
   const config = BLOCKLIST_CATEGORIES[category];
   if (!config) throw new Error("Unknown category: " + category);
 
-  const response = await fetch(config.url);
+  const response = await fetch(config.url, { signal: AbortSignal.timeout(15000) });
   if (!response.ok) throw new Error("Fetch failed: " + response.status);
   const text = await response.text();
 
@@ -55,9 +55,15 @@ async function fetchBlocklistCategory(category) {
 // Load blocklist on service worker startup
 loadBlocklistIntoMemory();
 
-// Ensure calendar alarm exists on startup
-chrome.alarms.get("calendarCheck", (alarm) => {
-  if (!alarm) chrome.alarms.create("calendarCheck", { periodInMinutes: 1 });
+// Only create calendar alarm if calendar is enabled
+chrome.storage.local.get("calendarEnabled", (result) => {
+  if (result.calendarEnabled) {
+    chrome.alarms.get("calendarCheck", (alarm) => {
+      if (!alarm) chrome.alarms.create("calendarCheck", { periodInMinutes: 1 });
+    });
+  } else {
+    chrome.alarms.clear("calendarCheck");
+  }
 });
 
 // Port listener for popup countdown freeze
@@ -306,8 +312,10 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.type === "setCalendarEnabled") {
     chrome.storage.local.set({ calendarEnabled: msg.value });
     if (msg.value) {
+      chrome.alarms.create("calendarCheck", { periodInMinutes: 1 });
       evaluateCalendar();
     } else {
+      chrome.alarms.clear("calendarCheck");
       chrome.storage.local.set({ calendarControlling: false });
     }
     sendResponse({ ok: true });
