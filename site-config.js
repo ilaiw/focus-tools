@@ -143,3 +143,28 @@ function formatTime(totalSeconds) {
 function mergeTogglesWithDefaults(siteKey, storedToggles) {
   return { ...(DEFAULT_SITE_TOGGLES[siteKey] || {}), ...(storedToggles || {}) };
 }
+
+async function hashPassword(password) {
+  try {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hash = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
+  } catch (err) {
+    console.error("hashPassword failed:", err);
+    return "";
+  }
+}
+
+async function tryUnlock(passwordInput, errorEl, storedHash, onSuccess) {
+  const input = passwordInput.value;
+  if (!input) return;
+  const hash = await hashPassword(input);
+  if (hash && hash === storedHash) {
+    errorEl.style.display = "none";
+    passwordInput.value = "";
+    onSuccess();
+  } else {
+    errorEl.style.display = "";
+  }
+}

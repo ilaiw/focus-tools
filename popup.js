@@ -10,17 +10,52 @@ const blockUrlValue = document.getElementById("blockUrlValue");
 const blockDomainBtn = document.getElementById("blockDomainBtn");
 const blockDomainValue = document.getElementById("blockDomainValue");
 const settingsBtn = document.getElementById("settingsBtn");
+const lockScreen = document.getElementById("lockScreen");
+const mainContent = document.getElementById("mainContent");
+const lockPasswordInput = document.getElementById("lockPasswordInput");
+const lockUnlockBtn = document.getElementById("lockUnlockBtn");
+const lockError = document.getElementById("lockError");
+const lockStatusDot = document.getElementById("lockStatusDot");
+const lockStatusText = document.getElementById("lockStatusText");
+const lockCalendarIndicator = document.getElementById("lockCalendarIndicator");
+const calendarIndicator = document.getElementById("calendarIndicator");
+const popupConfirmBtns = document.getElementById("popupConfirmBtns");
+const popupOk = document.getElementById("popupOk");
+const popupConfirmCancel = document.getElementById("popupConfirmCancel");
 
-let state = { enabled: true, blockedSites: [], disabling: false, disableAt: null };
+let state = { enabled: true, blockedSites: [], disabling: false, disableAt: null, timerClickOk: false, disableWaitingConfirm: false, calendarEnabled: false, calendarControlling: false, timerFreeze: false, disablePaused: false, passwordHash: "" };
+
+lockUnlockBtn.addEventListener("click", () => {
+  tryUnlock(lockPasswordInput, lockError, state.passwordHash, () => {
+    lockScreen.style.display = "none";
+    mainContent.style.display = "";
+  });
+});
+
+lockPasswordInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") lockUnlockBtn.click();
+});
 let currentTabUrl = "";
 let currentTabDomain = "";
 let timerInterval = null;
+let countdownPort = null;
 
 // --- Init ---
 function init() {
   chrome.runtime.sendMessage({ type: "getState" }, (res) => {
     if (res) {
       state = res;
+      if (state.passwordHash) {
+        lockScreen.style.display = "";
+        mainContent.style.display = "none";
+        renderLockStatus();
+      } else {
+        lockScreen.style.display = "none";
+        mainContent.style.display = "";
+      }
+      if (state.timerFreeze && (state.disabling || state.disableWaitingConfirm)) {
+        setupFreezePort();
+      }
       renderMain();
     }
   });
@@ -39,27 +74,59 @@ function init() {
   });
 }
 
+// --- Lock screen status ---
+function renderLockStatus() {
+  const calendarActive = state.calendarEnabled && state.calendarControlling;
+  lockCalendarIndicator.style.display = calendarActive ? "" : "none";
+  if (state.enabled) {
+    lockStatusDot.className = "status-dot on";
+    lockStatusText.textContent = calendarActive ? "Active (scheduled)" : "Active";
+  } else {
+    lockStatusDot.className = "status-dot off";
+    lockStatusText.textContent = calendarActive ? "Disabled (scheduled)" : "Disabled";
+  }
+}
+
 // --- Render ---
 function renderMain() {
-  if (state.disabling) {
+  popupConfirmBtns.style.display = "none";
+  const calendarActive = state.calendarEnabled && state.calendarControlling;
+  calendarIndicator.style.display = calendarActive ? "" : "none";
+
+  if (state.disableWaitingConfirm) {
+    statusDot.className = "status-dot pending";
+    statusText.textContent = "Confirm disable?";
+    toggleBtn.style.display = "none";
+    timerSection.style.display = "block";
+    timerDisplay.textContent = "0:00";
+    popupConfirmBtns.style.display = "block";
+    stopTimer();
+  } else if (state.disabling) {
     statusDot.className = "status-dot pending";
     statusText.textContent = "Disabling...";
+    toggleBtn.style.display = "";
     toggleBtn.textContent = "Cancel";
     toggleBtn.className = "btn-cancel";
     timerSection.style.display = "block";
     startTimer();
   } else if (state.enabled) {
     statusDot.className = "status-dot on";
-    statusText.textContent = "Active";
+    statusText.textContent = calendarActive ? "Active (scheduled)" : "Active";
+    toggleBtn.style.display = "";
     toggleBtn.textContent = "Disable";
     toggleBtn.className = "btn-disable";
+    toggleBtn.disabled = calendarActive;
+    toggleBtn.style.opacity = calendarActive ? "0.3" : "";
     timerSection.style.display = "none";
     stopTimer();
   } else {
     statusDot.className = "status-dot off";
-    statusText.textContent = "Disabled";
+    statusText.textContent = calendarActive ? "Disabled (scheduled)" : "Disabled";
+    toggleBtn.style.display = "";
     toggleBtn.textContent = "Enable";
     toggleBtn.className = "btn-enable";
+    toggleBtn.disabled = calendarActive;
+    toggleBtn.style.opacity = calendarActive ? "0.3" : "";
     timerSection.style.display = "none";
     stopTimer();
   }
@@ -106,6 +173,10 @@ function updateTimerDisplay() {
   timerDisplay.textContent = formatTime(Math.ceil(remaining / 1000));
   if (remaining <= 0) {
     stopTimer();
+    if (state.timerClickOk) {
+      // Background alarm will set disableWaitingConfirm — wait for message
+      return;
+    }
     state.enabled = false;
     state.disabling = false;
     renderMain();
@@ -114,6 +185,7 @@ function updateTimerDisplay() {
 
 // --- Toggle button ---
 toggleBtn.addEventListener("click", () => {
+  if (state.calendarEnabled && state.calendarControlling) return;
   if (state.disabling) {
     chrome.runtime.sendMessage({ type: "cancelDisable" }, () => {
       state.disabling = false;
@@ -122,9 +194,11 @@ toggleBtn.addEventListener("click", () => {
     });
   } else if (state.enabled) {
     chrome.runtime.sendMessage({ type: "requestDisable" }, (res) => {
+      if (res && res.rejected) return;
       if (res) {
         state.disabling = res.disabling;
         state.disableAt = res.disableAt;
+        if (state.timerFreeze) setupFreezePort();
         renderMain();
       }
     });
@@ -135,6 +209,34 @@ toggleBtn.addEventListener("click", () => {
       renderMain();
     });
   }
+});
+
+// --- Timer freeze port ---
+function setupFreezePort() {
+  if (countdownPort) return;
+  countdownPort = chrome.runtime.connect({ name: "popupCountdown" });
+}
+
+window.addEventListener("blur", () => {
+  if (!state.timerFreeze || !state.disabling) return;
+  chrome.runtime.sendMessage({ type: "pauseDisable" }, (res) => {
+    if (res && res.paused) {
+      state.disablePaused = true;
+      stopTimer();
+      timerDisplay.textContent = formatTime(Math.ceil(res.remaining / 1000)) + " (paused)";
+    }
+  });
+});
+
+window.addEventListener("focus", () => {
+  if (!state.timerFreeze || !state.disablePaused) return;
+  chrome.runtime.sendMessage({ type: "resumeDisable" }, (res) => {
+    if (res && res.disableAt) {
+      state.disablePaused = false;
+      state.disableAt = res.disableAt;
+      startTimer();
+    }
+  });
 });
 
 // --- Quick block ---
@@ -159,11 +261,36 @@ settingsBtn.addEventListener("click", () => {
   chrome.runtime.openOptionsPage();
 });
 
+// --- Confirm disable (click-OK mode) ---
+popupOk.addEventListener("click", () => {
+  chrome.runtime.sendMessage({ type: "confirmDisable" }, () => {
+    state.enabled = false;
+    state.disableWaitingConfirm = false;
+    state.disabling = false;
+    renderMain();
+  });
+});
+
+popupConfirmCancel.addEventListener("click", () => {
+  chrome.runtime.sendMessage({ type: "cancelDisable" }, () => {
+    state.disabling = false;
+    state.disableAt = null;
+    state.disableWaitingConfirm = false;
+    renderMain();
+  });
+});
+
 // --- Listen for background ---
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.type === "disabled") {
     state.enabled = false;
     state.disabling = false;
+    state.disableWaitingConfirm = false;
+    renderMain();
+  }
+  if (msg.type === "waitingConfirm") {
+    state.disabling = false;
+    state.disableWaitingConfirm = true;
     renderMain();
   }
 });

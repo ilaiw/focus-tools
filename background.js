@@ -55,6 +55,29 @@ async function fetchBlocklistCategory(category) {
 // Load blocklist on service worker startup
 loadBlocklistIntoMemory();
 
+// Ensure calendar alarm exists on startup
+chrome.alarms.get("calendarCheck", (alarm) => {
+  if (!alarm) chrome.alarms.create("calendarCheck", { periodInMinutes: 1 });
+});
+
+// Port listener for popup countdown freeze
+chrome.runtime.onConnect.addListener((port) => {
+  if (port.name === "popupCountdown") {
+    port.onDisconnect.addListener(() => {
+      chrome.storage.local.get(["timerFreeze", "disabling", "disableWaitingConfirm"], (result) => {
+        if (result.timerFreeze && (result.disabling || result.disableWaitingConfirm)) {
+          chrome.alarms.clear("disableExtension");
+          chrome.storage.local.set({
+            disabling: false, disableAt: null,
+            disableWaitingConfirm: false,
+            disablePaused: false, disablePausedRemaining: null
+          });
+        }
+      });
+    });
+  }
+});
+
 // Initialize storage on install
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.get(null, (result) => {
@@ -66,6 +89,13 @@ chrome.runtime.onInstalled.addListener(() => {
     if (!result.siteModes) updates.siteModes = DEFAULT_SITE_MODES;
     if (!result.countdownSeconds) updates.countdownSeconds = DEFAULT_COUNTDOWN_SECONDS;
     if (!result.blocklistCategories) updates.blocklistCategories = DEFAULT_BLOCKLIST_CATEGORIES;
+    if (result.timerClickOk === undefined) updates.timerClickOk = false;
+    if (result.passwordHash === undefined) updates.passwordHash = "";
+    if (result.timerFreeze === undefined) updates.timerFreeze = false;
+    if (result.calendarEnabled === undefined) updates.calendarEnabled = false;
+    if (result.calendarDays === undefined) updates.calendarDays = [false,false,false,false,false,false,false];
+    if (result.calendarStartHour === undefined) updates.calendarStartHour = 9;
+    if (result.calendarEndHour === undefined) updates.calendarEndHour = 17;
     if (Object.keys(updates).length) chrome.storage.local.set(updates);
   });
   updateRules();
@@ -96,16 +126,55 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
 // Catch when user switches to a tab that's already on extensions page
 chrome.tabs.onActivated.addListener((activeInfo) => {
   chrome.tabs.get(activeInfo.tabId, (tab) => {
+    if (chrome.runtime.lastError) return;
     if (tab && tab.url) blockExtensionsTab(tab.id, tab.url);
   });
 });
 
-// Listen for alarms (only used by popup disable)
+// Calendar evaluation
+function evaluateCalendar() {
+  chrome.storage.local.get(["calendarEnabled", "calendarDays", "calendarStartHour", "calendarEndHour", "enabled"], (result) => {
+    if (!result.calendarEnabled) {
+      chrome.storage.local.set({ calendarControlling: false });
+      return;
+    }
+    const now = new Date();
+    const dayActive = result.calendarDays && result.calendarDays[now.getDay()];
+    const hour = now.getHours();
+    const inRange = result.calendarStartHour < result.calendarEndHour
+      ? (hour >= result.calendarStartHour && hour < result.calendarEndHour)
+      : false;
+    const shouldBeEnabled = dayActive && inRange;
+    const currentlyEnabled = result.enabled !== false;
+
+    if (shouldBeEnabled !== currentlyEnabled) {
+      chrome.storage.local.set({ enabled: shouldBeEnabled, calendarControlling: true });
+      updateRules();
+    } else {
+      chrome.storage.local.set({ calendarControlling: true });
+    }
+  });
+}
+
+// Listen for alarms
 chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === "calendarCheck") {
+    evaluateCalendar();
+    return;
+  }
   if (alarm.name === "disableExtension") {
-    chrome.storage.local.set({ enabled: false, disabling: false });
-    updateRules();
-    chrome.runtime.sendMessage({ type: "disabled" }).catch(() => {});
+    chrome.storage.local.get(["timerClickOk"], (result) => {
+      if (chrome.runtime.lastError) { console.error(chrome.runtime.lastError); return; }
+      if (result.timerClickOk) {
+        // Wait for user confirmation instead of auto-disabling
+        chrome.storage.local.set({ disabling: false, disableWaitingConfirm: true });
+        chrome.runtime.sendMessage({ type: "waitingConfirm" }).catch(() => {});
+      } else {
+        chrome.storage.local.set({ enabled: false, disabling: false });
+        updateRules();
+        chrome.runtime.sendMessage({ type: "disabled" }).catch(() => {});
+      }
+    });
   }
 });
 
@@ -149,7 +218,18 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         siteModes: mergedModes,
         blockExtensionsPage: result.blockExtensionsPage || false,
         blocklistCategories: result.blocklistCategories || DEFAULT_BLOCKLIST_CATEGORIES,
-        customRedirectUrl: result.customRedirectUrl || ""
+        customRedirectUrl: result.customRedirectUrl || "",
+        timerClickOk: result.timerClickOk || false,
+        disableWaitingConfirm: result.disableWaitingConfirm || false,
+        calendarEnabled: result.calendarEnabled || false,
+        calendarDays: result.calendarDays || [false,false,false,false,false,false,false],
+        calendarStartHour: result.calendarStartHour !== undefined ? result.calendarStartHour : 9,
+        calendarEndHour: result.calendarEndHour !== undefined ? result.calendarEndHour : 17,
+        passwordHash: result.passwordHash || "",
+        timerFreeze: result.timerFreeze || false,
+        disablePaused: result.disablePaused || false,
+        disablePausedRemaining: result.disablePausedRemaining || null,
+        calendarControlling: result.calendarControlling || false
       });
     });
     return true;
@@ -158,7 +238,11 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   // --- Extension enable/disable (popup) ---
 
   if (msg.type === "requestDisable") {
-    chrome.storage.local.get(["countdownSeconds"], (result) => {
+    chrome.storage.local.get(["countdownSeconds", "calendarEnabled", "calendarControlling"], (result) => {
+      if (result.calendarEnabled && result.calendarControlling) {
+        sendResponse({ rejected: true, reason: "calendar" });
+        return;
+      }
       const seconds = result.countdownSeconds || DEFAULT_COUNTDOWN_SECONDS;
       const disableAt = Date.now() + seconds * 1000;
       chrome.storage.local.set({ disabling: true, disableAt });
@@ -170,16 +254,75 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
   if (msg.type === "cancelDisable") {
     chrome.alarms.clear("disableExtension");
-    chrome.storage.local.set({ disabling: false, disableAt: null });
+    chrome.storage.local.set({ disabling: false, disableAt: null, disableWaitingConfirm: false });
     sendResponse({ disabling: false });
     return true;
   }
 
-  if (msg.type === "enable") {
-    chrome.alarms.clear("disableExtension");
-    chrome.storage.local.set({ enabled: true, disabling: false, disableAt: null });
+  if (msg.type === "confirmDisable") {
+    chrome.storage.local.set({ enabled: false, disableWaitingConfirm: false, disabling: false });
     updateRules();
-    sendResponse({ enabled: true });
+    sendResponse({ enabled: false });
+    return true;
+  }
+
+  if (msg.type === "pauseDisable") {
+    chrome.storage.local.get(["disableAt"], (result) => {
+      const remaining = Math.max(0, (result.disableAt || 0) - Date.now());
+      chrome.alarms.clear("disableExtension");
+      chrome.storage.local.set({ disablePaused: true, disablePausedRemaining: remaining });
+      sendResponse({ paused: true, remaining });
+    });
+    return true;
+  }
+
+  if (msg.type === "resumeDisable") {
+    chrome.storage.local.get(["disablePausedRemaining"], (result) => {
+      const remaining = result.disablePausedRemaining || 0;
+      const disableAt = Date.now() + remaining;
+      chrome.storage.local.set({ disablePaused: false, disablePausedRemaining: null, disableAt });
+      chrome.alarms.create("disableExtension", { delayInMinutes: remaining / 60000 });
+      sendResponse({ disableAt });
+    });
+    return true;
+  }
+
+  if (msg.type === "enable") {
+    chrome.storage.local.get(["calendarEnabled", "calendarControlling"], (result) => {
+      if (result.calendarEnabled && result.calendarControlling) {
+        sendResponse({ rejected: true, reason: "calendar" });
+        return;
+      }
+      chrome.alarms.clear("disableExtension");
+      chrome.storage.local.set({ enabled: true, disabling: false, disableAt: null });
+      updateRules();
+      sendResponse({ enabled: true });
+    });
+    return true;
+  }
+
+  // --- Calendar ---
+
+  if (msg.type === "setCalendarEnabled") {
+    chrome.storage.local.set({ calendarEnabled: msg.value });
+    if (msg.value) {
+      evaluateCalendar();
+    } else {
+      chrome.storage.local.set({ calendarControlling: false });
+    }
+    sendResponse({ ok: true });
+    return true;
+  }
+
+  if (msg.type === "saveCalendarSchedule") {
+    chrome.storage.local.set({
+      calendarDays: msg.calendarDays,
+      calendarStartHour: msg.calendarStartHour,
+      calendarEndHour: msg.calendarEndHour
+    }, () => {
+      evaluateCalendar();
+      sendResponse({ ok: true });
+    });
     return true;
   }
 
@@ -419,5 +562,6 @@ async function updateRules() {
     }
   }
 
-  await chrome.declarativeNetRequest.updateDynamicRules({ removeRuleIds: removeIds, addRules: rules });
+  await chrome.declarativeNetRequest.updateDynamicRules({ removeRuleIds: removeIds, addRules: rules })
+    .catch(err => console.error("updateDynamicRules failed:", err));
 }

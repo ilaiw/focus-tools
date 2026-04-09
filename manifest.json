@@ -59,7 +59,7 @@
   "incognito": "spanning",
   "web_accessible_resources": [
     {
-      "resources": ["blocked.html"],
+      "resources": ["blocked.html", "blocked.js", "quotes.js"],
       "matches": ["<all_urls>"]
     }
   ]

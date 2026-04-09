@@ -99,6 +99,8 @@
         }
       }
 
+      // Background handles redirect-url via declarativeNetRequest for full navigations;
+      // this catches SPA client-side route changes that don't trigger network requests.
       if (def.type === "redirect-url" && def.urlPattern && def.redirectUrl) {
         const pathMatch = def.urlPattern.replace(/^\|\|[^/]*/, "");
         if (pathMatch && location.pathname.startsWith(pathMatch)) {
@@ -128,6 +130,7 @@
   function cleanupJsFeatures() {
     feedRedirectActive = false;
     stopUrlWatcher();
+    if (classGuard) { classGuard.disconnect(); classGuard = null; }
   }
 
   function handleFacebookRedirect(enabled) {

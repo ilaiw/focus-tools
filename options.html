@@ -212,14 +212,42 @@
     }
     .btn-refresh:hover { border-color: #4ade80; color: #4ade80; }
     .btn-refresh:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* Day chips */
+    .day-chip {
+      padding: 6px 12px; border-radius: 6px; border: 1px solid #333;
+      background: #16213e; color: #888; cursor: pointer; font-size: 13px;
+      font-weight: 600; transition: background 0.15s, color 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .day-chip.active { background: #4ade80; color: #1a1a2e; border-color: #4ade80; }
+
+    /* Shared utility classes */
+    .help-text { font-size: 12px; color: #666; margin-bottom: 10px; }
+    .sub-label { font-size: 11px; color: #666; }
+    .form-input {
+      flex: 1; padding: 8px 10px; border-radius: 6px; border: 1px solid #333;
+      background: #1a1a3a; color: #e0e0e0; font-size: 13px; outline: none;
+    }
+    .form-select {
+      padding: 6px 10px; border-radius: 6px; border: 1px solid #333;
+      background: #16213e; color: #e0e0e0; font-size: 13px;
+    }
+    .flex-row { display: flex; gap: 8px; align-items: center; }
+    .tip-box {
+      background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.25);
+      border-radius: 8px; padding: 10px 14px; margin-bottom: 24px; font-size: 13px; color: #aaa;
+    }
+    .status-ok { font-size: 11px; color: #4ade80; display: none; }
+    .status-err { font-size: 11px; color: #f87171; display: none; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🛡️ Focus Tools Settings</h1>
+    <h1>🧠 Focus Tools Settings</h1>
     <p class="subtitle">Configure per-site restrictions and blocklist.</p>
 
-    <div style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.25);border-radius:8px;padding:10px 14px;margin-bottom:24px;font-size:13px;color:#aaa;">
+    <div class="tip-box">
       <strong style="color:#4ade80;">Tip:</strong> To use Focus Tools in Incognito, go to <strong style="color:#ccc;">chrome://extensions</strong> → find Focus Tools → <strong style="color:#ccc;">Details</strong> → enable <strong style="color:#ccc;">"Allow in Incognito"</strong>.
     </div>
 
@@ -227,7 +255,7 @@
     <div class="section">
       <div class="section-title">General</div>
       <div class="setting-row">
-        <label>Block extensions page<br><span style="font-size:11px;color:#666;">Prevents quick-disabling via chrome://extensions</span></label>
+        <label>Block extensions page<br><span class="sub-label">Prevents quick-disabling via chrome://extensions</span></label>
         <label class="switch" id="blockExtSwitch">
           <input type="checkbox" id="blockExtToggle">
           <span class="slider"></span>
@@ -255,7 +283,7 @@
     <!-- Blocked Keywords -->
     <div class="section">
       <div class="section-title">Blocked Keywords</div>
-      <p style="font-size:12px;color:#666;margin-bottom:10px;">
+      <p class="help-text">
         Block any URL containing these keywords. E.g. "poker" blocks all URLs with "poker" in them.
       </p>
       <div class="blocklist-toolbar">
@@ -269,7 +297,7 @@
     <!-- Blocklists -->
     <div class="section">
       <div class="section-title">Blocklists</div>
-      <p style="font-size:12px;color:#666;margin-bottom:10px;">
+      <p class="help-text">
         Community-maintained blocklists from
         <a href="https://github.com/StevenBlack/hosts" target="_blank" style="color:#4ade80;">StevenBlack/hosts</a>.
       </p>
@@ -282,19 +310,76 @@
       <div id="siteTogglesContainer"></div>
     </div>
 
+    <!-- Schedule -->
+    <div class="section">
+      <div class="section-title">Schedule</div>
+      <div class="setting-row">
+        <label>Calendar-based blocking<br><span class="sub-label">Automatically enable/disable on a weekly schedule</span></label>
+        <label class="switch">
+          <input type="checkbox" id="calendarEnabledToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div id="calendarConfig" style="display:none;">
+        <div class="setting-row" style="flex-direction:column;align-items:stretch;gap:10px;">
+          <label>Active days</label>
+          <div id="calendarDayCheckboxes" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+        </div>
+        <div class="setting-row" style="gap:10px;">
+          <label style="flex:none;">Active hours</label>
+          <select id="calendarStartHour" class="form-select"></select>
+          <span class="sub-label" style="font-size:13px;">to</span>
+          <select id="calendarEndHour" class="form-select"></select>
+        </div>
+        <div class="flex-row" style="margin-top:8px;gap:12px;">
+          <button id="saveCalendarBtn" class="btn-save">Save Schedule</button>
+          <span id="calendarStatus" class="status-ok" style="font-size:12px;"></span>
+        </div>
+        <p class="sub-label" style="margin-top:8px;">
+          Extension will be active during specified hours on selected days. Cannot be manually overridden.
+        </p>
+        <p id="calendarError" class="status-err" style="margin-top:4px;"></p>
+      </div>
+    </div>
+
     <!-- Advanced -->
     <div class="section">
       <div class="section-title">Advanced</div>
+      <div class="setting-row">
+        <label>Pause timer when not visible<br><span class="sub-label">Timer pauses when you switch tabs. Closing popup resets the timer.</span></label>
+        <label class="switch">
+          <input type="checkbox" id="timerFreezeToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <label>Require confirmation after countdown<br><span class="sub-label">Show OK/Cancel when timer ends instead of auto-executing</span></label>
+        <label class="switch">
+          <input type="checkbox" id="timerClickOkToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="setting-row" style="flex-direction:column;align-items:stretch;gap:8px;">
+        <label>Password lock<br><span class="sub-label">Lock popup and settings behind a password</span></label>
+        <div class="flex-row">
+          <input type="password" id="passwordInput" class="form-input" placeholder="Set password (leave empty to disable)">
+          <button id="savePasswordBtn" class="btn-save" style="padding:8px 16px;">Save</button>
+        </div>
+        <p id="passwordWarning" class="status-err">
+          &#9888; If you forget this password, you'll need to reinstall the extension to reset it.
+        </p>
+        <p id="passwordStatus" class="status-ok"></p>
+      </div>
       <label style="font-size:13px;color:#aaa;display:block;margin-bottom:6px;">Custom redirect URL</label>
-      <p style="font-size:12px;color:#666;margin-bottom:8px;">
+      <p class="help-text" style="margin-bottom:8px;">
         Blocked pages will redirect here instead of the default blocked page. Leave empty to use the built-in page.
       </p>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <input type="text" id="customRedirectInput" placeholder="https://example.com"
-          style="flex:1;padding:8px 10px;border-radius:6px;border:1px solid #333;background:#1a1a3a;color:#e0e0e0;font-size:13px;">
+      <div class="flex-row">
+        <input type="text" id="customRedirectInput" class="form-input" placeholder="https://example.com">
         <button id="saveRedirectBtn" class="btn-add" style="padding:8px 16px;font-size:13px;">Save</button>
         <button id="clearRedirectBtn" class="btn-cancel" style="padding:8px 12px;font-size:13px;">Clear</button>
       </div>
+      <p id="redirectError" style="font-size:11px;color:#f87171;margin-top:4px;display:none;"></p>
     </div>
   </div>
 
@@ -324,12 +409,28 @@
     </div>
   </div>
 
+  <!-- Password lock overlay -->
+  <div class="modal-overlay" id="optionsLockScreen" style="z-index:9999;">
+    <div class="countdown-modal" style="width:360px;">
+      <div style="font-size:48px;margin-bottom:16px;">🔒</div>
+      <p style="font-size:14px;color:#aaa;margin-bottom:16px;">Enter password to access settings</p>
+      <input type="password" id="optionsLockPassword" placeholder="Password"
+        style="width:100%;padding:10px 12px;border:1px solid #333;border-radius:8px;background:#16213e;color:#e0e0e0;font-size:14px;margin-bottom:12px;outline:none;">
+      <button id="optionsUnlockBtn" class="btn-save" style="padding:10px 32px;">Unlock</button>
+      <p id="optionsLockError" class="status-err" style="font-size:12px;margin-top:8px;">Incorrect password</p>
+    </div>
+  </div>
+
   <!-- Countdown modal -->
   <div class="modal-overlay" id="countdownModal">
     <div class="countdown-modal">
       <div class="countdown-label" id="countdownLabel">Waiting to apply change...</div>
       <div class="countdown-timer" id="countdownDisplay">0:02</div>
       <button class="btn-cancel" id="countdownCancel">Cancel</button>
+      <div id="countdownConfirmBtns" style="display:none;">
+        <button class="btn-save" id="countdownOk" style="padding:10px 32px;font-size:14px;margin-right:8px;">OK</button>
+        <button class="btn-cancel" id="countdownConfirmCancel" style="padding:10px 32px;font-size:14px;">Cancel</button>
+      </div>
     </div>
   </div>
 

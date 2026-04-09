@@ -118,8 +118,22 @@
   </style>
 </head>
 <body>
+  <div id="lockScreen" style="display:none;text-align:center;padding:24px 16px;">
+    <div id="lockStatus" style="display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 14px;background:rgba(255,255,255,0.06);border-radius:10px;margin-bottom:16px;">
+      <span class="status-dot" id="lockStatusDot"></span>
+      <span id="lockStatusText" style="font-size:14px;"></span>
+      <span id="lockCalendarIndicator" style="display:none;font-size:14px;margin-left:2px;" title="Controlled by schedule">📅</span>
+    </div>
+    <div style="font-size:32px;margin-bottom:12px;">🔒</div>
+    <p style="font-size:14px;color:#aaa;margin-bottom:16px;">Enter password to unlock</p>
+    <input type="password" id="lockPasswordInput" placeholder="Password"
+      style="width:100%;padding:8px 12px;border:1px solid #333;border-radius:8px;background:#16213e;color:#e0e0e0;font-size:14px;margin-bottom:12px;outline:none;">
+    <button id="lockUnlockBtn" class="btn-enable" style="width:100%;">Unlock</button>
+    <p id="lockError" style="color:#f87171;font-size:12px;margin-top:8px;display:none;">Incorrect password</p>
+  </div>
+  <div id="mainContent">
   <div class="header">
-    <h1>🛡️ Focus Tools</h1>
+    <h1>🧠 Focus Tools</h1>
     <button class="gear-btn" id="settingsBtn" title="Settings">⚙</button>
   </div>
 
@@ -127,12 +141,17 @@
     <div class="status-left">
       <span class="status-dot" id="statusDot"></span>
       <span id="statusText"></span>
+      <span id="calendarIndicator" style="display:none;font-size:14px;margin-left:4px;" title="Controlled by schedule">📅</span>
     </div>
     <button id="toggleBtn"></button>
   </div>
 
   <div id="timerSection" style="display:none">
     <div class="timer" id="timerDisplay"></div>
+    <div id="popupConfirmBtns" style="display:none;text-align:center;padding:4px 0 8px;">
+      <button id="popupOk" class="btn-enable" style="margin-right:8px;padding:8px 24px;">OK</button>
+      <button id="popupConfirmCancel" class="btn-cancel" style="padding:8px 24px;">Cancel</button>
+    </div>
   </div>
 
   <div class="quick-block" id="quickBlock">
@@ -146,6 +165,7 @@
     </button>
   </div>
 
+  </div>
   <script src="site-config.js"></script>
   <script src="popup.js"></script>
 </body>

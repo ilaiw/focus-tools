@@ -25,7 +25,20 @@ const blocklistCategoriesContainer = document.getElementById("blocklistCategorie
 const countdownModal = document.getElementById("countdownModal");
 const countdownLabel = document.getElementById("countdownLabel");
 const countdownDisplay = document.getElementById("countdownDisplay");
+const optionsLockScreen = document.getElementById("optionsLockScreen");
+const optionsLockPassword = document.getElementById("optionsLockPassword");
+const optionsUnlockBtn = document.getElementById("optionsUnlockBtn");
+const optionsLockError = document.getElementById("optionsLockError");
+const passwordInput = document.getElementById("passwordInput");
+const savePasswordBtn = document.getElementById("savePasswordBtn");
+const passwordWarning = document.getElementById("passwordWarning");
+const passwordStatus = document.getElementById("passwordStatus");
 const countdownCancel = document.getElementById("countdownCancel");
+const countdownConfirmBtns = document.getElementById("countdownConfirmBtns");
+const countdownOk = document.getElementById("countdownOk");
+const countdownConfirmCancelBtn = document.getElementById("countdownConfirmCancel");
+const timerClickOkToggle = document.getElementById("timerClickOkToggle");
+const timerFreezeToggle = document.getElementById("timerFreezeToggle");
 
 let state = {
   enabled: true,
@@ -36,7 +49,15 @@ let state = {
   siteModes: {},
   blockExtensionsPage: false,
   blocklistCategories: {},
-  customRedirectUrl: ""
+  customRedirectUrl: "",
+  passwordHash: "",
+  timerClickOk: false,
+  timerFreeze: false,
+  calendarEnabled: false,
+  calendarDays: [false,false,false,false,false,false,false],
+  calendarStartHour: 9,
+  calendarEndHour: 17,
+  calendarControlling: false
 };
 
 let searchFilter = "";
@@ -48,6 +69,8 @@ let keywordListExpanded = false;
 let countdownTimer = null;
 let countdownEndAt = null;
 let pendingAction = null;
+let countdownPausedRemaining = null;
+let visibilityHandler = null;
 
 // ============================================================
 // Init
@@ -57,41 +80,129 @@ function init() {
   chrome.runtime.sendMessage({ type: "getState" }, (res) => {
     if (!res) return;
     state = res;
+    if (state.passwordHash) {
+      optionsLockScreen.classList.add("open");
+    }
     renderGeneral();
     renderBlockExtToggle();
     renderBlocklist();
     renderKeywords();
     renderBlocklistCategories();
     renderSiteToggles();
+    renderCalendar();
     renderAdvanced();
   });
 }
+
+// ============================================================
+// Password Lock
+// ============================================================
+
+optionsUnlockBtn.addEventListener("click", () => {
+  tryUnlock(optionsLockPassword, optionsLockError, state.passwordHash, () => {
+    optionsLockScreen.classList.remove("open");
+  });
+});
+
+optionsLockPassword.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") optionsUnlockBtn.click();
+});
+
+passwordInput.addEventListener("input", () => {
+  passwordWarning.style.display = passwordInput.value ? "" : "none";
+  passwordStatus.style.display = "none";
+});
+
+savePasswordBtn.addEventListener("click", async () => {
+  const val = passwordInput.value;
+  if (val) {
+    const hash = await hashPassword(val);
+    chrome.storage.local.set({ passwordHash: hash });
+    state.passwordHash = hash;
+    passwordStatus.textContent = "Password set!";
+    passwordStatus.style.display = "";
+    passwordWarning.style.display = "none";
+    passwordInput.value = "";
+  } else {
+    chrome.storage.local.set({ passwordHash: "" });
+    state.passwordHash = "";
+    passwordStatus.textContent = "Password removed.";
+    passwordStatus.style.display = "";
+    passwordWarning.style.display = "none";
+  }
+  setTimeout(() => { passwordStatus.style.display = "none"; }, 3000);
+});
 
 // ============================================================
 // Countdown Modal — THE ONLY countdown mechanism
 // ============================================================
 
 function startCountdown(label, onComplete) {
+  if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
   pendingAction = { label, action: onComplete };
   countdownLabel.textContent = label;
   countdownEndAt = Date.now() + state.countdownSeconds * 1000;
+  countdownPausedRemaining = null;
+  countdownCancel.style.display = "";
+  countdownConfirmBtns.style.display = "none";
   countdownModal.classList.add("open");
   updateCountdownDisplay();
 
-  countdownTimer = setInterval(() => {
-    const remaining = Math.max(0, countdownEndAt - Date.now());
-    countdownDisplay.textContent = formatTime(Math.ceil(remaining / 1000));
+  // Timer freeze: pause when options tab is hidden
+  if (state.timerFreeze) {
+    if (visibilityHandler) document.removeEventListener("visibilitychange", visibilityHandler);
+    visibilityHandler = () => {
+      if (document.hidden) {
+        // Pause
+        if (countdownTimer) {
+          countdownPausedRemaining = Math.max(0, countdownEndAt - Date.now());
+          clearInterval(countdownTimer);
+          countdownTimer = null;
+          countdownDisplay.textContent = formatTime(Math.ceil(countdownPausedRemaining / 1000)) + " (paused)";
+        }
+      } else {
+        // Resume
+        if (countdownPausedRemaining !== null && pendingAction) {
+          countdownEndAt = Date.now() + countdownPausedRemaining;
+          countdownPausedRemaining = null;
+          countdownTimer = setInterval(countdownTick, 100);
+        }
+      }
+    };
+    document.addEventListener("visibilitychange", visibilityHandler);
+  }
 
-    if (remaining <= 0) {
-      clearInterval(countdownTimer);
-      countdownTimer = null;
+  countdownTimer = setInterval(countdownTick, 100);
+}
+
+function countdownTick() {
+  const remaining = Math.max(0, countdownEndAt - Date.now());
+  countdownDisplay.textContent = formatTime(Math.ceil(remaining / 1000));
+
+  if (remaining <= 0) {
+    clearInterval(countdownTimer);
+    countdownTimer = null;
+    cleanupVisibilityHandler();
+    if (state.timerClickOk) {
+      countdownCancel.style.display = "none";
+      countdownConfirmBtns.style.display = "";
+      countdownLabel.textContent = "Confirm action?";
+    } else {
       countdownModal.classList.remove("open");
       if (pendingAction) {
         pendingAction.action();
         pendingAction = null;
       }
     }
-  }, 100);
+  }
+}
+
+function cleanupVisibilityHandler() {
+  if (visibilityHandler) {
+    document.removeEventListener("visibilitychange", visibilityHandler);
+    visibilityHandler = null;
+  }
+  countdownPausedRemaining = null;
 }
 
 function updateCountdownDisplay() {
@@ -104,7 +215,10 @@ function cancelCountdown() {
     clearInterval(countdownTimer);
     countdownTimer = null;
   }
+  cleanupVisibilityHandler();
   countdownModal.classList.remove("open");
+  countdownConfirmBtns.style.display = "none";
+  countdownCancel.style.display = "";
   pendingAction = null;
   renderBlockExtToggle();
   updateSiteToggles();
@@ -114,6 +228,19 @@ function cancelCountdown() {
 }
 
 countdownCancel.addEventListener("click", cancelCountdown);
+
+countdownOk.addEventListener("click", () => {
+  cleanupVisibilityHandler();
+  countdownModal.classList.remove("open");
+  countdownConfirmBtns.style.display = "none";
+  countdownCancel.style.display = "";
+  if (pendingAction) {
+    pendingAction.action();
+    pendingAction = null;
+  }
+});
+
+countdownConfirmCancelBtn.addEventListener("click", cancelCountdown);
 
 // ============================================================
 // Block Extensions Page toggle
@@ -662,6 +789,112 @@ function handleToggleChange(siteKey, toggleKey) {
 }
 
 // ============================================================
+// Calendar Schedule
+// ============================================================
+
+const calendarEnabledToggle = document.getElementById("calendarEnabledToggle");
+const calendarConfig = document.getElementById("calendarConfig");
+const calendarDayCheckboxes = document.getElementById("calendarDayCheckboxes");
+const calendarStartHourSelect = document.getElementById("calendarStartHour");
+const calendarEndHourSelect = document.getElementById("calendarEndHour");
+const saveCalendarBtn = document.getElementById("saveCalendarBtn");
+const calendarStatus = document.getElementById("calendarStatus");
+const calendarError = document.getElementById("calendarError");
+
+const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+function formatHour(h) {
+  if (h === 0) return "12:00 AM";
+  if (h < 12) return h + ":00 AM";
+  if (h === 12) return "12:00 PM";
+  return (h - 12) + ":00 PM";
+}
+
+function renderCalendar() {
+  calendarEnabledToggle.checked = state.calendarEnabled;
+  calendarConfig.style.display = state.calendarEnabled ? "" : "none";
+
+  // Day chips
+  calendarDayCheckboxes.innerHTML = "";
+  const days = state.calendarDays || [false,false,false,false,false,false,false];
+  for (let i = 0; i < 7; i++) {
+    const chip = el("span", { className: "day-chip" + (days[i] ? " active" : ""), textContent: DAY_NAMES[i] });
+    chip.dataset.day = i;
+    chip.addEventListener("click", () => {
+      chip.classList.toggle("active");
+    });
+    calendarDayCheckboxes.appendChild(chip);
+  }
+
+  // Hour selects
+  calendarStartHourSelect.innerHTML = "";
+  calendarEndHourSelect.innerHTML = "";
+  for (let h = 0; h < 24; h++) {
+    const label = formatHour(h);
+    const opt1 = el("option", { value: h, textContent: label });
+    const opt2 = el("option", { value: h, textContent: label });
+    if (h === state.calendarStartHour) opt1.selected = true;
+    if (h === state.calendarEndHour) opt2.selected = true;
+    calendarStartHourSelect.appendChild(opt1);
+    calendarEndHourSelect.appendChild(opt2);
+  }
+
+  calendarError.style.display = "none";
+  calendarStatus.style.display = "none";
+}
+
+calendarEnabledToggle.addEventListener("change", () => {
+  const wantOn = calendarEnabledToggle.checked;
+  if (wantOn) {
+    // More restrictive — instant
+    chrome.runtime.sendMessage({ type: "setCalendarEnabled", value: true }, () => {
+      state.calendarEnabled = true;
+      renderCalendar();
+    });
+  } else {
+    // Less restrictive — countdown
+    calendarEnabledToggle.checked = true;
+    startCountdown("Disabling calendar schedule...", () => {
+      chrome.runtime.sendMessage({ type: "setCalendarEnabled", value: false }, () => {
+        state.calendarEnabled = false;
+        state.calendarControlling = false;
+        renderCalendar();
+      });
+    });
+  }
+});
+
+saveCalendarBtn.addEventListener("click", () => {
+  const chips = calendarDayCheckboxes.querySelectorAll(".day-chip");
+  const days = [];
+  chips.forEach(c => days.push(c.classList.contains("active")));
+
+  const startHour = parseInt(calendarStartHourSelect.value, 10);
+  const endHour = parseInt(calendarEndHourSelect.value, 10);
+
+  if (startHour >= endHour) {
+    calendarError.textContent = "Start hour must be before end hour.";
+    calendarError.style.display = "";
+    return;
+  }
+
+  calendarError.style.display = "none";
+  chrome.runtime.sendMessage({
+    type: "saveCalendarSchedule",
+    calendarDays: days,
+    calendarStartHour: startHour,
+    calendarEndHour: endHour
+  }, () => {
+    state.calendarDays = days;
+    state.calendarStartHour = startHour;
+    state.calendarEndHour = endHour;
+    calendarStatus.textContent = "Schedule saved!";
+    calendarStatus.style.display = "";
+    setTimeout(() => { calendarStatus.style.display = "none"; }, 2000);
+  });
+});
+
+// ============================================================
 // Advanced — Custom Redirect URL
 // ============================================================
 
@@ -671,14 +904,51 @@ const clearRedirectBtn = document.getElementById("clearRedirectBtn");
 
 function renderAdvanced() {
   customRedirectInput.value = state.customRedirectUrl || "";
+  timerClickOkToggle.checked = state.timerClickOk;
+  timerFreezeToggle.checked = state.timerFreeze;
 }
+
+timerClickOkToggle.addEventListener("change", () => {
+  const wantOn = timerClickOkToggle.checked;
+  if (wantOn) {
+    chrome.storage.local.set({ timerClickOk: true });
+    state.timerClickOk = true;
+  } else {
+    timerClickOkToggle.checked = true;
+    startCountdown("Disabling confirmation requirement...", () => {
+      chrome.storage.local.set({ timerClickOk: false });
+      state.timerClickOk = false;
+      timerClickOkToggle.checked = false;
+    });
+  }
+});
+
+timerFreezeToggle.addEventListener("change", () => {
+  const wantOn = timerFreezeToggle.checked;
+  if (wantOn) {
+    chrome.storage.local.set({ timerFreeze: true });
+    state.timerFreeze = true;
+  } else {
+    timerFreezeToggle.checked = true;
+    startCountdown("Disabling timer freeze...", () => {
+      chrome.storage.local.set({ timerFreeze: false });
+      state.timerFreeze = false;
+      timerFreezeToggle.checked = false;
+    });
+  }
+});
 
 saveRedirectBtn.addEventListener("click", () => {
   const url = customRedirectInput.value.trim();
-  if (url && !url.startsWith("http://") && !url.startsWith("https://")) {
-    alert("Please enter a valid URL starting with http:// or https://");
-    return;
+  const redirectError = document.getElementById("redirectError");
+  if (url) {
+    try { new URL(url); } catch {
+      redirectError.textContent = "Please enter a valid URL starting with http:// or https://";
+      redirectError.style.display = "";
+      return;
+    }
   }
+  redirectError.style.display = "none";
   chrome.runtime.sendMessage({ type: "saveCustomRedirectUrl", url }, () => {
     state.customRedirectUrl = url;
     renderAdvanced();
