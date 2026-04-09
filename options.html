@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Focus Tools — Settings</title>
+  <title data-i18n="options_page_title">Focus Tools — Settings</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -240,41 +240,53 @@
     }
     .status-ok { font-size: 11px; color: #4ade80; display: none; }
     .status-err { font-size: 11px; color: #f87171; display: none; }
+
+    /* RTL overrides */
+    [dir="rtl"] .modal-actions { justify-content: flex-start; }
+    [dir="rtl"] .site-header-left .arrow { transform: rotate(180deg); }
+    [dir="rtl"] .site-section.open .site-header-left .arrow { transform: rotate(90deg); }
+    [dir="rtl"] .blocklist-remove { padding: 0 0 0 8px; }
+    [dir="rtl"] .switch .slider::before { left: auto; right: 3px; }
+    [dir="rtl"] .switch input:checked + .slider::before { transform: translateX(-18px); }
+    [dir="rtl"] #countdownOk { margin-right: 0; margin-left: 8px; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🧠 Focus Tools Settings</h1>
-    <p class="subtitle">Configure per-site restrictions and blocklist.</p>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <h1 data-i18n="options_title" style="margin-bottom:0;">🧠 Focus Tools Settings</h1>
+      <select id="languageSelect" class="form-select" style="min-width:150px;font-size:13px;"></select>
+    </div>
+    <p class="subtitle" data-i18n="options_subtitle">Configure per-site restrictions and blocklist.</p>
 
-    <div class="tip-box">
+    <div class="tip-box" data-i18n-html="options_tip">
       <strong style="color:#4ade80;">Tip:</strong> To use Focus Tools in Incognito, go to <strong style="color:#ccc;">chrome://extensions</strong> → find Focus Tools → <strong style="color:#ccc;">Details</strong> → enable <strong style="color:#ccc;">"Allow in Incognito"</strong>.
     </div>
 
     <!-- General -->
     <div class="section">
-      <div class="section-title">General</div>
+      <div class="section-title" data-i18n="section_general">General</div>
       <div class="setting-row">
-        <label>Block extensions page<br><span class="sub-label">Prevents quick-disabling via chrome://extensions</span></label>
+        <label><span data-i18n="options_block_ext_page">Block extensions page</span><br><span class="sub-label" data-i18n="options_block_ext_desc">Prevents quick-disabling via chrome://extensions</span></label>
         <label class="switch" id="blockExtSwitch">
           <input type="checkbox" id="blockExtToggle">
           <span class="slider"></span>
         </label>
       </div>
       <div class="setting-row">
-        <label>Countdown timer</label>
+        <label data-i18n="options_countdown_timer">Countdown timer</label>
         <input type="number" id="countdownInput" min="1" max="3600" disabled>
-        <span class="unit">seconds</span>
+        <span class="unit" data-i18n="options_seconds">seconds</span>
       </div>
       <div class="unlock-row" id="countdownActions"></div>
     </div>
 
     <!-- Blocked Sites -->
     <div class="section">
-      <div class="section-title">Blocked Sites</div>
+      <div class="section-title" data-i18n="section_blocked_sites">Blocked Sites</div>
       <div class="blocklist-toolbar">
-        <input type="text" class="search-input" id="blocklistSearch" placeholder="Search blocked sites...">
-        <button class="btn-add" id="addSitesBtn">+ Add</button>
+        <input type="text" class="search-input" id="blocklistSearch" data-i18n-placeholder="options_search_sites_placeholder" placeholder="Search blocked sites...">
+        <button class="btn-add" id="addSitesBtn" data-i18n="options_add">+ Add</button>
       </div>
       <div class="blocklist-scroll" id="blocklistScroll"></div>
       <div class="blocklist-count" id="blocklistCount"></div>
@@ -282,13 +294,13 @@
 
     <!-- Blocked Keywords -->
     <div class="section">
-      <div class="section-title">Blocked Keywords</div>
-      <p class="help-text">
+      <div class="section-title" data-i18n="section_blocked_keywords">Blocked Keywords</div>
+      <p class="help-text" data-i18n="options_keywords_help">
         Block any URL containing these keywords. E.g. "poker" blocks all URLs with "poker" in them.
       </p>
       <div class="blocklist-toolbar">
-        <input type="text" class="search-input" id="keywordSearch" placeholder="Search blocked keywords...">
-        <button class="btn-add" id="addKeywordsBtn">+ Add</button>
+        <input type="text" class="search-input" id="keywordSearch" data-i18n-placeholder="options_search_keywords_placeholder" placeholder="Search blocked keywords...">
+        <button class="btn-add" id="addKeywordsBtn" data-i18n="options_add">+ Add</button>
       </div>
       <div class="blocklist-scroll" id="keywordScroll"></div>
       <div class="blocklist-count" id="keywordCount"></div>
@@ -296,8 +308,8 @@
 
     <!-- Blocklists -->
     <div class="section">
-      <div class="section-title">Blocklists</div>
-      <p class="help-text">
+      <div class="section-title" data-i18n="section_blocklists">Blocklists</div>
+      <p class="help-text" data-i18n-html="options_blocklists_help">
         Community-maintained blocklists from
         <a href="https://github.com/StevenBlack/hosts" target="_blank" style="color:#4ade80;">StevenBlack/hosts</a>.
       </p>
@@ -306,15 +318,15 @@
 
     <!-- Site Restrictions -->
     <div class="section">
-      <div class="section-title">Site Restrictions</div>
+      <div class="section-title" data-i18n="section_site_restrictions">Site Restrictions</div>
       <div id="siteTogglesContainer"></div>
     </div>
 
     <!-- Schedule -->
     <div class="section">
-      <div class="section-title">Schedule</div>
+      <div class="section-title" data-i18n="section_schedule">Schedule</div>
       <div class="setting-row">
-        <label>Calendar-based blocking<br><span class="sub-label">Automatically enable/disable on a weekly schedule</span></label>
+        <label><span data-i18n="options_calendar_label">Calendar-based blocking</span><br><span class="sub-label" data-i18n="options_calendar_desc">Automatically enable/disable on a weekly schedule</span></label>
         <label class="switch">
           <input type="checkbox" id="calendarEnabledToggle">
           <span class="slider"></span>
@@ -322,20 +334,20 @@
       </div>
       <div id="calendarConfig" style="display:none;">
         <div class="setting-row" style="flex-direction:column;align-items:stretch;gap:10px;">
-          <label>Active days</label>
+          <label data-i18n="options_active_days">Active days</label>
           <div id="calendarDayCheckboxes" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
         </div>
         <div class="setting-row" style="gap:10px;">
-          <label style="flex:none;">Active hours</label>
+          <label style="flex:none;" data-i18n="options_active_hours">Active hours</label>
           <select id="calendarStartHour" class="form-select"></select>
-          <span class="sub-label" style="font-size:13px;">to</span>
+          <span class="sub-label" style="font-size:13px;" data-i18n="options_hours_to">to</span>
           <select id="calendarEndHour" class="form-select"></select>
         </div>
         <div class="flex-row" style="margin-top:8px;gap:12px;">
-          <button id="saveCalendarBtn" class="btn-save">Save Schedule</button>
+          <button id="saveCalendarBtn" class="btn-save" data-i18n="options_save_schedule">Save Schedule</button>
           <span id="calendarStatus" class="status-ok" style="font-size:12px;"></span>
         </div>
-        <p class="sub-label" style="margin-top:8px;">
+        <p class="sub-label" style="margin-top:8px;" data-i18n="options_calendar_note">
           Extension will be active during specified hours on selected days. Cannot be manually overridden.
         </p>
         <p id="calendarError" class="status-err" style="margin-top:4px;"></p>
@@ -344,28 +356,28 @@
 
     <!-- Advanced -->
     <div class="section">
-      <div class="section-title">Advanced</div>
+      <div class="section-title" data-i18n="section_advanced">Advanced</div>
       <div class="setting-row">
-        <label>Pause timer when not visible<br><span class="sub-label">Timer pauses when you switch tabs. Closing popup resets the timer.</span></label>
+        <label><span data-i18n="options_pause_timer">Pause timer when not visible</span><br><span class="sub-label" data-i18n="options_pause_timer_desc">Timer pauses when you switch tabs. Closing popup resets the timer.</span></label>
         <label class="switch">
           <input type="checkbox" id="timerFreezeToggle">
           <span class="slider"></span>
         </label>
       </div>
       <div class="setting-row">
-        <label>Require confirmation after countdown<br><span class="sub-label">Show OK/Cancel when timer ends instead of auto-executing</span></label>
+        <label><span data-i18n="options_require_confirm">Require confirmation after countdown</span><br><span class="sub-label" data-i18n="options_require_confirm_desc">Show OK/Cancel when timer ends instead of auto-executing</span></label>
         <label class="switch">
           <input type="checkbox" id="timerClickOkToggle">
           <span class="slider"></span>
         </label>
       </div>
       <div class="setting-row" style="flex-direction:column;align-items:stretch;gap:8px;">
-        <label>Password lock<br><span class="sub-label">Lock popup and settings behind a password</span></label>
+        <label><span data-i18n="options_password_lock">Password lock</span><br><span class="sub-label" data-i18n="options_password_lock_desc">Lock popup and settings behind a password</span></label>
         <div class="flex-row">
-          <input type="password" id="passwordInput" class="form-input" placeholder="Set password (leave empty to disable)">
-          <button id="savePasswordBtn" class="btn-save" style="padding:8px 16px;">Save</button>
+          <input type="password" id="passwordInput" class="form-input" data-i18n-placeholder="options_password_placeholder" placeholder="Set password (leave empty to disable)">
+          <button id="savePasswordBtn" class="btn-save" style="padding:8px 16px;" data-i18n="options_save">Save</button>
         </div>
-        <p id="passwordWarning" class="status-err">
+        <p id="passwordWarning" class="status-err" data-i18n-html="options_password_warning">
           &#9888; If you forget this password, you'll need to reinstall the extension to reset it.<br>
           <strong>&#9888; Proceed with caution:</strong> If the extension is allowed in Incognito mode
           and "Block extensions page" is enabled, forgetting your password means you
@@ -374,14 +386,14 @@
         </p>
         <p id="passwordStatus" class="status-ok"></p>
       </div>
-      <label style="font-size:13px;color:#aaa;display:block;margin-bottom:6px;">Custom redirect URL</label>
-      <p class="help-text" style="margin-bottom:8px;">
+      <label style="font-size:13px;color:#aaa;display:block;margin-bottom:6px;" data-i18n="options_custom_redirect">Custom redirect URL</label>
+      <p class="help-text" style="margin-bottom:8px;" data-i18n="options_custom_redirect_help">
         Blocked pages will redirect here instead of the default blocked page. Leave empty to use the built-in page.
       </p>
       <div class="flex-row">
-        <input type="text" id="customRedirectInput" class="form-input" placeholder="https://example.com">
-        <button id="saveRedirectBtn" class="btn-add" style="padding:8px 16px;font-size:13px;">Save</button>
-        <button id="clearRedirectBtn" class="btn-cancel" style="padding:8px 12px;font-size:13px;">Clear</button>
+        <input type="text" id="customRedirectInput" class="form-input" data-i18n-placeholder="options_custom_redirect_placeholder" placeholder="https://example.com">
+        <button id="saveRedirectBtn" class="btn-add" style="padding:8px 16px;font-size:13px;" data-i18n="options_save">Save</button>
+        <button id="clearRedirectBtn" class="btn-cancel" style="padding:8px 12px;font-size:13px;" data-i18n="options_clear">Clear</button>
       </div>
       <p id="redirectError" style="font-size:11px;color:#f87171;margin-top:4px;display:none;"></p>
     </div>
@@ -390,12 +402,12 @@
   <!-- Add sites modal -->
   <div class="modal-overlay" id="addModal">
     <div class="modal">
-      <h2>Add Websites to Blocklist</h2>
-      <p>Paste one website per line. Protocols and www. are stripped automatically.</p>
-      <textarea id="addModalTextarea" placeholder="reddit.com&#10;9gag.com&#10;buzzfeed.com"></textarea>
+      <h2 data-i18n="modal_add_sites_title">Add Websites to Blocklist</h2>
+      <p data-i18n="modal_add_sites_desc">Paste one website per line. Protocols and www. are stripped automatically.</p>
+      <textarea id="addModalTextarea" data-i18n-placeholder="modal_add_sites_placeholder" placeholder="reddit.com&#10;9gag.com&#10;buzzfeed.com"></textarea>
       <div class="modal-actions">
-        <button class="btn-cancel" id="addModalCancel">Cancel</button>
-        <button class="btn-add" id="addModalConfirm">Add to blocklist</button>
+        <button class="btn-cancel" id="addModalCancel" data-i18n="modal_cancel">Cancel</button>
+        <button class="btn-add" id="addModalConfirm" data-i18n="modal_add_sites_confirm">Add to blocklist</button>
       </div>
     </div>
   </div>
@@ -403,12 +415,12 @@
   <!-- Add keywords modal -->
   <div class="modal-overlay" id="addKeywordModal">
     <div class="modal">
-      <h2>Add Keywords to Block</h2>
-      <p>Enter one keyword per line. Any URL containing the keyword will be blocked.</p>
-      <textarea id="addKeywordTextarea" placeholder="poker&#10;gambling&#10;tiktok"></textarea>
+      <h2 data-i18n="modal_add_keywords_title">Add Keywords to Block</h2>
+      <p data-i18n="modal_add_keywords_desc">Enter one keyword per line. Any URL containing the keyword will be blocked.</p>
+      <textarea id="addKeywordTextarea" data-i18n-placeholder="modal_add_keywords_placeholder" placeholder="poker&#10;gambling&#10;tiktok"></textarea>
       <div class="modal-actions">
-        <button class="btn-cancel" id="addKeywordCancel">Cancel</button>
-        <button class="btn-add" id="addKeywordConfirm">Add keywords</button>
+        <button class="btn-cancel" id="addKeywordCancel" data-i18n="modal_cancel">Cancel</button>
+        <button class="btn-add" id="addKeywordConfirm" data-i18n="modal_add_keywords_confirm">Add keywords</button>
       </div>
     </div>
   </div>
@@ -417,27 +429,28 @@
   <div class="modal-overlay" id="optionsLockScreen" style="z-index:9999;">
     <div class="countdown-modal" style="width:360px;">
       <div style="font-size:48px;margin-bottom:16px;">🔒</div>
-      <p style="font-size:14px;color:#aaa;margin-bottom:16px;">Enter password to access settings</p>
-      <input type="password" id="optionsLockPassword" placeholder="Password"
+      <p style="font-size:14px;color:#aaa;margin-bottom:16px;" data-i18n="options_enter_password">Enter password to access settings</p>
+      <input type="password" id="optionsLockPassword" data-i18n-placeholder="popup_password_placeholder" placeholder="Password"
         style="width:100%;padding:10px 12px;border:1px solid #333;border-radius:8px;background:#16213e;color:#e0e0e0;font-size:14px;margin-bottom:12px;outline:none;">
-      <button id="optionsUnlockBtn" class="btn-save" style="padding:10px 32px;">Unlock</button>
-      <p id="optionsLockError" class="status-err" style="font-size:12px;margin-top:8px;">Incorrect password</p>
+      <button id="optionsUnlockBtn" class="btn-save" style="padding:10px 32px;" data-i18n="options_unlock">Unlock</button>
+      <p id="optionsLockError" class="status-err" style="font-size:12px;margin-top:8px;" data-i18n="options_incorrect_password">Incorrect password</p>
     </div>
   </div>
 
   <!-- Countdown modal -->
   <div class="modal-overlay" id="countdownModal">
     <div class="countdown-modal">
-      <div class="countdown-label" id="countdownLabel">Waiting to apply change...</div>
+      <div class="countdown-label" id="countdownLabel" data-i18n="countdown_waiting">Waiting to apply change...</div>
       <div class="countdown-timer" id="countdownDisplay">0:02</div>
-      <button class="btn-cancel" id="countdownCancel">Cancel</button>
+      <button class="btn-cancel" id="countdownCancel" data-i18n="countdown_cancel">Cancel</button>
       <div id="countdownConfirmBtns" style="display:none;">
-        <button class="btn-save" id="countdownOk" style="padding:10px 32px;font-size:14px;margin-right:8px;">OK</button>
-        <button class="btn-cancel" id="countdownConfirmCancel" style="padding:10px 32px;font-size:14px;">Cancel</button>
+        <button class="btn-save" id="countdownOk" style="padding:10px 32px;font-size:14px;margin-right:8px;" data-i18n="countdown_ok">OK</button>
+        <button class="btn-cancel" id="countdownConfirmCancel" style="padding:10px 32px;font-size:14px;" data-i18n="countdown_cancel">Cancel</button>
       </div>
     </div>
   </div>
 
+  <script src="i18n.js"></script>
   <script src="site-config.js"></script>
   <script src="options.js"></script>
 </body>

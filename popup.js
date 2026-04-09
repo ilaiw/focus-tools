@@ -41,7 +41,8 @@ let timerInterval = null;
 let countdownPort = null;
 
 // --- Init ---
-function init() {
+async function init() {
+  await i18nReady;
   chrome.runtime.sendMessage({ type: "getState" }, (res) => {
     if (res) {
       state = res;
@@ -80,10 +81,10 @@ function renderLockStatus() {
   lockCalendarIndicator.style.display = calendarActive ? "" : "none";
   if (state.enabled) {
     lockStatusDot.className = "status-dot on";
-    lockStatusText.textContent = calendarActive ? "Active (scheduled)" : "Active";
+    lockStatusText.textContent = calendarActive ? msg("popup_status_active_scheduled") : msg("popup_status_active");
   } else {
     lockStatusDot.className = "status-dot off";
-    lockStatusText.textContent = calendarActive ? "Disabled (scheduled)" : "Disabled";
+    lockStatusText.textContent = calendarActive ? msg("popup_status_disabled_scheduled") : msg("popup_status_disabled");
   }
 }
 
@@ -95,7 +96,7 @@ function renderMain() {
 
   if (state.disableWaitingConfirm) {
     statusDot.className = "status-dot pending";
-    statusText.textContent = "Confirm disable?";
+    statusText.textContent = msg("popup_confirm_disable");
     toggleBtn.style.display = "none";
     timerSection.style.display = "block";
     timerDisplay.textContent = "0:00";
@@ -103,17 +104,17 @@ function renderMain() {
     stopTimer();
   } else if (state.disabling) {
     statusDot.className = "status-dot pending";
-    statusText.textContent = "Disabling...";
+    statusText.textContent = msg("popup_disabling");
     toggleBtn.style.display = "";
-    toggleBtn.textContent = "Cancel";
+    toggleBtn.textContent = msg("popup_btn_cancel");
     toggleBtn.className = "btn-cancel";
     timerSection.style.display = "block";
     startTimer();
   } else if (state.enabled) {
     statusDot.className = "status-dot on";
-    statusText.textContent = calendarActive ? "Active (scheduled)" : "Active";
+    statusText.textContent = calendarActive ? msg("popup_status_active_scheduled") : msg("popup_status_active");
     toggleBtn.style.display = "";
-    toggleBtn.textContent = "Disable";
+    toggleBtn.textContent = msg("popup_btn_disable");
     toggleBtn.className = "btn-disable";
     toggleBtn.disabled = calendarActive;
     toggleBtn.style.opacity = calendarActive ? "0.3" : "";
@@ -121,9 +122,9 @@ function renderMain() {
     stopTimer();
   } else {
     statusDot.className = "status-dot off";
-    statusText.textContent = calendarActive ? "Disabled (scheduled)" : "Disabled";
+    statusText.textContent = calendarActive ? msg("popup_status_disabled_scheduled") : msg("popup_status_disabled");
     toggleBtn.style.display = "";
-    toggleBtn.textContent = "Enable";
+    toggleBtn.textContent = msg("popup_btn_enable");
     toggleBtn.className = "btn-enable";
     toggleBtn.disabled = calendarActive;
     toggleBtn.style.opacity = calendarActive ? "0.3" : "";
@@ -152,8 +153,8 @@ function renderBlockButtons() {
 
   blockUrlBtn.classList.toggle("already-blocked", urlBlocked);
   blockDomainBtn.classList.toggle("already-blocked", domainBlocked);
-  blockUrlBtn.title = urlBlocked ? "Already blocked" : `Block ${currentTabUrl}`;
-  blockDomainBtn.title = domainBlocked ? "Already blocked" : `Block ${currentTabDomain}`;
+  blockUrlBtn.title = urlBlocked ? msg("popup_already_blocked") : msg("popup_block_url_title", [currentTabUrl]);
+  blockDomainBtn.title = domainBlocked ? msg("popup_already_blocked") : msg("popup_block_domain_title", [currentTabDomain]);
 }
 
 // --- Timer ---
@@ -223,7 +224,7 @@ window.addEventListener("blur", () => {
     if (res && res.paused) {
       state.disablePaused = true;
       stopTimer();
-      timerDisplay.textContent = formatTime(Math.ceil(res.remaining / 1000)) + " (paused)";
+      timerDisplay.textContent = msg("timer_paused", [formatTime(Math.ceil(res.remaining / 1000))]);
     }
   });
 });
@@ -282,14 +283,14 @@ popupConfirmCancel.addEventListener("click", () => {
 });
 
 // --- Listen for background ---
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type === "disabled") {
+chrome.runtime.onMessage.addListener((message) => {
+  if (message.type === "disabled") {
     state.enabled = false;
     state.disabling = false;
     state.disableWaitingConfirm = false;
     renderMain();
   }
-  if (msg.type === "waitingConfirm") {
+  if (message.type === "waitingConfirm") {
     state.disabling = false;
     state.disableWaitingConfirm = true;
     renderMain();

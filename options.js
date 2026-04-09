@@ -72,11 +72,25 @@ let pendingAction = null;
 let countdownPausedRemaining = null;
 let visibilityHandler = null;
 
+// i18n helpers for site-config labels
+function siteLabel(config) {
+  return config.labelKey ? msg(config.labelKey) : config.label;
+}
+
+function toggleLabel(toggle) {
+  return toggle.labelKey ? msg(toggle.labelKey) : toggle.label;
+}
+
+// Mode key map
+const MODE_KEYS = { allow: "mode_allow", filter: "mode_filter", block: "mode_block" };
+
 // ============================================================
 // Init
 // ============================================================
 
-function init() {
+async function init() {
+  await i18nReady;
+  renderLanguageSelect();
   chrome.runtime.sendMessage({ type: "getState" }, (res) => {
     if (!res) return;
     state = res;
@@ -119,14 +133,14 @@ savePasswordBtn.addEventListener("click", async () => {
     const hash = await hashPassword(val);
     chrome.storage.local.set({ passwordHash: hash });
     state.passwordHash = hash;
-    passwordStatus.textContent = "Password set!";
+    passwordStatus.textContent = msg("options_password_set");
     passwordStatus.style.display = "";
     passwordWarning.style.display = "none";
     passwordInput.value = "";
   } else {
     chrome.storage.local.set({ passwordHash: "" });
     state.passwordHash = "";
-    passwordStatus.textContent = "Password removed.";
+    passwordStatus.textContent = msg("options_password_removed");
     passwordStatus.style.display = "";
     passwordWarning.style.display = "none";
   }
@@ -158,7 +172,7 @@ function startCountdown(label, onComplete) {
           countdownPausedRemaining = Math.max(0, countdownEndAt - Date.now());
           clearInterval(countdownTimer);
           countdownTimer = null;
-          countdownDisplay.textContent = formatTime(Math.ceil(countdownPausedRemaining / 1000)) + " (paused)";
+          countdownDisplay.textContent = msg("timer_paused", [formatTime(Math.ceil(countdownPausedRemaining / 1000))]);
         }
       } else {
         // Resume
@@ -186,7 +200,7 @@ function countdownTick() {
     if (state.timerClickOk) {
       countdownCancel.style.display = "none";
       countdownConfirmBtns.style.display = "";
-      countdownLabel.textContent = "Confirm action?";
+      countdownLabel.textContent = msg("countdown_confirm_action");
     } else {
       countdownModal.classList.remove("open");
       if (pendingAction) {
@@ -262,7 +276,7 @@ blockExtToggle.addEventListener("change", () => {
   } else {
     // Turning OFF (less restrictive) — countdown
     blockExtToggle.checked = true; // revert visually until countdown completes
-    startCountdown("Disabling extensions page block...", () => {
+    startCountdown(msg("countdown_disabling_ext_block"), () => {
       chrome.runtime.sendMessage({ type: "setBlockExtensionsPage", value: false }, () => {
         if (chrome.runtime.lastError) return;
         state.blockExtensionsPage = false;
@@ -284,12 +298,12 @@ function renderGeneral() {
 
 function renderCountdownActions() {
   countdownActions.innerHTML = "";
-  const unlockBtn = el("button", { className: "btn-unlock", textContent: "Unlock to edit" });
+  const unlockBtn = el("button", { className: "btn-unlock", textContent: msg("options_unlock_to_edit") });
   unlockBtn.addEventListener("click", () => {
-    startCountdown("Unlocking countdown setting...", () => {
+    startCountdown(msg("countdown_unlocking_setting"), () => {
       countdownInput.disabled = false;
       countdownActions.innerHTML = "";
-      const saveBtn = el("button", { className: "btn-save", textContent: "Save" });
+      const saveBtn = el("button", { className: "btn-save", textContent: msg("options_save") });
       saveBtn.addEventListener("click", saveCountdown);
       countdownActions.appendChild(saveBtn);
     });
@@ -317,8 +331,8 @@ function renderBlocklist() {
 
   // Update placeholder with count
   blocklistSearch.placeholder = total > 0
-    ? `${total} blocked site${total !== 1 ? "s" : ""} — click to view`
-    : "No blocked sites yet";
+    ? msg("blocklist_sites_count_placeholder", [String(total)])
+    : msg("blocklist_no_sites_placeholder");
 
   // Toggle expanded state
   blocklistScroll.classList.toggle("expanded", blocklistExpanded);
@@ -333,7 +347,7 @@ function renderBlocklist() {
   if (filtered.length === 0) {
     blocklistScroll.appendChild(el("div", {
       className: "blocklist-empty",
-      textContent: searchFilter ? "No matching sites" : "No blocked sites yet. Click + Add to get started."
+      textContent: searchFilter ? msg("blocklist_no_matching_sites") : msg("blocklist_no_sites_yet")
     }));
   } else {
     for (const site of filtered) {
@@ -342,10 +356,10 @@ function renderBlocklist() {
       const removeBtn = el("button", {
         className: "blocklist-remove",
         textContent: "\u00d7",
-        title: "Remove (requires countdown)"
+        title: msg("blocklist_remove_title")
       });
       removeBtn.addEventListener("click", () => {
-        startCountdown(`Removing "${site}" from blocklist...`, () => {
+        startCountdown(msg("countdown_removing_site", [site]), () => {
           chrome.runtime.sendMessage({ type: "removeSite", site }, (res) => {
             if (res) state.blockedSites = res.blockedSites;
             renderBlocklist();
@@ -361,13 +375,13 @@ function renderBlocklist() {
   }
 
   blocklistCount.textContent = searchFilter
-    ? `${filtered.length} of ${total} sites shown`
-    : `${total} site${total !== 1 ? "s" : ""} blocked`;
+    ? msg("blocklist_filtered_count", [String(filtered.length), String(total)])
+    : msg("blocklist_total_count", [String(total)]);
 }
 
 blocklistSearch.addEventListener("focus", () => {
   blocklistExpanded = true;
-  blocklistSearch.placeholder = "Search blocked sites...";
+  blocklistSearch.placeholder = msg("blocklist_search_sites");
   renderBlocklist();
 });
 
@@ -417,8 +431,8 @@ function renderKeywords() {
 
   // Update placeholder with count
   keywordSearch.placeholder = total > 0
-    ? `${total} blocked keyword${total !== 1 ? "s" : ""} — click to view`
-    : "No blocked keywords yet";
+    ? msg("keywords_count_placeholder", [String(total)])
+    : msg("keywords_no_keywords_placeholder");
 
   // Toggle expanded state
   keywordScroll.classList.toggle("expanded", keywordListExpanded);
@@ -433,7 +447,7 @@ function renderKeywords() {
   if (filtered.length === 0) {
     keywordScroll.appendChild(el("div", {
       className: "blocklist-empty",
-      textContent: keywordSearchFilter ? "No matching keywords" : "No blocked keywords yet. Click + Add to get started."
+      textContent: keywordSearchFilter ? msg("keywords_no_matching") : msg("keywords_no_keywords_yet")
     }));
   } else {
     for (const keyword of filtered) {
@@ -442,10 +456,10 @@ function renderKeywords() {
       const removeBtn = el("button", {
         className: "blocklist-remove",
         textContent: "\u00d7",
-        title: "Remove (requires countdown)"
+        title: msg("blocklist_remove_title")
       });
       removeBtn.addEventListener("click", () => {
-        startCountdown(`Removing "${keyword}" from keywords...`, () => {
+        startCountdown(msg("countdown_removing_keyword", [keyword]), () => {
           chrome.runtime.sendMessage({ type: "removeKeyword", keyword }, (res) => {
             if (res) state.blockedKeywords = res.blockedKeywords;
             renderKeywords();
@@ -461,13 +475,13 @@ function renderKeywords() {
   }
 
   keywordCount.textContent = keywordSearchFilter
-    ? `${filtered.length} of ${total} keywords shown`
-    : `${total} keyword${total !== 1 ? "s" : ""} blocked`;
+    ? msg("keywords_filtered_count", [String(filtered.length), String(total)])
+    : msg("keywords_total_count", [String(total)]);
 }
 
 keywordSearch.addEventListener("focus", () => {
   keywordListExpanded = true;
-  keywordSearch.placeholder = "Search blocked keywords...";
+  keywordSearch.placeholder = msg("keywords_search");
   renderKeywords();
 });
 
@@ -544,13 +558,14 @@ function renderBlocklistCategories() {
 
     // Info
     const info = el("div", { className: "blocklist-cat-info" });
-    const name = el("div", { className: "blocklist-cat-name", textContent: display.label });
+    const catLabel = display.labelKey ? msg(display.labelKey) : display.label;
+    const name = el("div", { className: "blocklist-cat-name", textContent: catLabel });
     const meta = el("div", { className: "blocklist-cat-meta" });
     if (catState.enabled && catState.lastUpdated) {
       const date = new Date(catState.lastUpdated);
-      meta.textContent = `${catState.domainCount.toLocaleString()} domains \u00b7 Updated ${date.toLocaleDateString()}`;
+      meta.textContent = msg("blocklist_cat_domains_updated", [catState.domainCount.toLocaleString(), date.toLocaleDateString()]);
     } else {
-      meta.textContent = display.description;
+      meta.textContent = display.descriptionKey ? msg(display.descriptionKey) : display.description;
     }
     info.appendChild(name);
     info.appendChild(meta);
@@ -559,10 +574,10 @@ function renderBlocklistCategories() {
     const actions = el("div", { className: "blocklist-cat-actions" });
 
     if (catState.enabled) {
-      const refreshBtn = el("button", { className: "btn-refresh", textContent: "Refresh" });
+      const refreshBtn = el("button", { className: "btn-refresh", textContent: msg("blocklist_cat_refresh") });
       refreshBtn.addEventListener("click", () => {
         refreshBtn.disabled = true;
-        refreshBtn.textContent = "Fetching...";
+        refreshBtn.textContent = msg("blocklist_cat_fetching");
         chrome.runtime.sendMessage({ type: "refreshBlocklistCategory", category: catKey }, (res) => {
           if (res && res.ok) state.blocklistCategories = res.blocklistCategories;
           renderBlocklistCategories();
@@ -593,22 +608,23 @@ function handleBlocklistCategoryToggle(category, wantEnabled, checkbox) {
   if (wantEnabled) {
     // Enabling (more restrictive) — instant, triggers fetch
     const meta = checkbox.closest(".blocklist-cat-row").querySelector(".blocklist-cat-meta");
-    if (meta) meta.textContent = "Fetching...";
+    if (meta) meta.textContent = msg("blocklist_cat_fetching");
     chrome.runtime.sendMessage({ type: "enableBlocklistCategory", category }, (res) => {
       if (res && res.ok) {
         state.blocklistCategories = res.blocklistCategories;
       } else {
         // Fetch failed — revert
         checkbox.checked = false;
-        if (meta) meta.textContent = (res && res.error) || "Fetch failed";
+        if (meta) meta.textContent = (res && res.error) || msg("blocklist_cat_fetch_failed");
       }
       renderBlocklistCategories();
     });
   } else {
     // Disabling (less restrictive) — countdown required
     checkbox.checked = true;
-    const label = BLOCKLIST_CATEGORIES[category]?.label || category;
-    startCountdown(`Disabling ${label} blocklist...`, () => {
+    const display = BLOCKLIST_CATEGORIES[category];
+    const catLabel = display?.labelKey ? msg(display.labelKey) : (display?.label || category);
+    startCountdown(msg("countdown_disabling_blocklist", [catLabel]), () => {
       chrome.runtime.sendMessage({ type: "disableBlocklistCategory", category }, (res) => {
         if (res && res.ok) state.blocklistCategories = res.blocklistCategories;
         renderBlocklistCategories();
@@ -635,7 +651,7 @@ function renderSiteToggles() {
 
     const header = el("div", { className: "site-header" });
     const headerLeft = el("div", { className: "site-header-left" });
-    headerLeft.innerHTML = `<span class="arrow">&#9658;</span> ${config.label}`;
+    headerLeft.innerHTML = `<span class="arrow">&#9658;</span> ${siteLabel(config)}`;
 
     const headerRight = el("div", { className: "site-header-right" });
 
@@ -643,7 +659,7 @@ function renderSiteToggles() {
     modeSelector.dataset.modeFor = siteKey;
 
     for (const m of ["allow", "filter", "block"]) {
-      const btn = el("button", { textContent: m.charAt(0).toUpperCase() + m.slice(1) });
+      const btn = el("button", { textContent: msg(MODE_KEYS[m]) });
       btn.dataset.mode = m;
       btn.className = mode === m ? `active-${m}` : "";
       btn.addEventListener("click", (e) => {
@@ -678,7 +694,7 @@ function renderSiteToggles() {
       const row = el("div", { className: `toggle-row ${isGrayed ? "grayed" : ""}` });
       row.dataset.toggleRow = `${siteKey}:${toggle.key}`;
 
-      const label = el("span", { className: "toggle-label", textContent: toggle.label });
+      const label = el("span", { className: "toggle-label", textContent: toggleLabel(toggle) });
 
       const switchLabel = el("label", { className: `switch ${isGrayed ? "disabled" : ""}` });
       switchLabel.dataset.switchFor = `${siteKey}:${toggle.key}`;
@@ -760,7 +776,7 @@ function handleModeChange(siteKey, targetMode) {
   if (isMoreRestrictive) {
     applyMode();
   } else {
-    startCountdown(`Changing ${config.label} to "${targetMode}"...`, applyMode);
+    startCountdown(msg("countdown_changing_mode", [siteLabel(config), msg(MODE_KEYS[targetMode])]), applyMode);
   }
 }
 
@@ -782,7 +798,7 @@ function handleToggleChange(siteKey, toggleKey) {
     // Turning OFF — countdown modal
     const config = SITE_CONFIG[siteKey];
     const toggleDef = config.toggles.find((t) => t.key === toggleKey);
-    startCountdown(`Disabling "${toggleDef.label}" on ${config.label}...`, () => {
+    startCountdown(msg("countdown_disabling_toggle", [toggleLabel(toggleDef), siteLabel(config)]), () => {
       chrome.runtime.sendMessage({ type: "setToggle", siteKey, toggleKey, value: false }, (res) => {
         if (res) state.siteToggles = res.siteToggles;
         updateSiteToggles();
@@ -804,13 +820,20 @@ const saveCalendarBtn = document.getElementById("saveCalendarBtn");
 const calendarStatus = document.getElementById("calendarStatus");
 const calendarError = document.getElementById("calendarError");
 
-const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+let DAY_NAMES;
+function getDayNames() {
+  if (!DAY_NAMES) {
+    DAY_NAMES = [
+      msg("day_sun"), msg("day_mon"), msg("day_tue"), msg("day_wed"),
+      msg("day_thu"), msg("day_fri"), msg("day_sat")
+    ];
+  }
+  return DAY_NAMES;
+}
 
 function formatHour(h) {
-  if (h === 0) return "12:00 AM";
-  if (h < 12) return h + ":00 AM";
-  if (h === 12) return "12:00 PM";
-  return (h - 12) + ":00 PM";
+  const d = new Date(2000, 0, 1, h, 0);
+  return d.toLocaleTimeString(chrome.i18n.getUILanguage(), { hour: "numeric", minute: "2-digit" });
 }
 
 function renderCalendar() {
@@ -821,7 +844,7 @@ function renderCalendar() {
   calendarDayCheckboxes.innerHTML = "";
   const days = state.calendarDays || [false,false,false,false,false,false,false];
   for (let i = 0; i < 7; i++) {
-    const chip = el("span", { className: "day-chip" + (days[i] ? " active" : ""), textContent: DAY_NAMES[i] });
+    const chip = el("span", { className: "day-chip" + (days[i] ? " active" : ""), textContent: getDayNames()[i] });
     chip.dataset.day = i;
     chip.addEventListener("click", () => {
       chip.classList.toggle("active");
@@ -858,7 +881,7 @@ calendarEnabledToggle.addEventListener("change", () => {
   } else {
     // Less restrictive — countdown
     calendarEnabledToggle.checked = true;
-    startCountdown("Disabling calendar schedule...", () => {
+    startCountdown(msg("countdown_disabling_schedule"), () => {
       chrome.runtime.sendMessage({ type: "setCalendarEnabled", value: false }, () => {
         if (chrome.runtime.lastError) return;
         state.calendarEnabled = false;
@@ -878,7 +901,7 @@ saveCalendarBtn.addEventListener("click", () => {
   const endHour = parseInt(calendarEndHourSelect.value, 10);
 
   if (startHour >= endHour) {
-    calendarError.textContent = "Start hour must be before end hour.";
+    calendarError.textContent = msg("options_calendar_error_hours");
     calendarError.style.display = "";
     return;
   }
@@ -894,7 +917,7 @@ saveCalendarBtn.addEventListener("click", () => {
     state.calendarDays = days;
     state.calendarStartHour = startHour;
     state.calendarEndHour = endHour;
-    calendarStatus.textContent = "Schedule saved!";
+    calendarStatus.textContent = msg("options_schedule_saved");
     calendarStatus.style.display = "";
     setTimeout(() => { calendarStatus.style.display = "none"; }, 2000);
   });
@@ -921,7 +944,7 @@ timerClickOkToggle.addEventListener("change", () => {
     state.timerClickOk = true;
   } else {
     timerClickOkToggle.checked = true;
-    startCountdown("Disabling confirmation requirement...", () => {
+    startCountdown(msg("countdown_disabling_confirm"), () => {
       chrome.storage.local.set({ timerClickOk: false });
       state.timerClickOk = false;
       timerClickOkToggle.checked = false;
@@ -936,7 +959,7 @@ timerFreezeToggle.addEventListener("change", () => {
     state.timerFreeze = true;
   } else {
     timerFreezeToggle.checked = true;
-    startCountdown("Disabling timer freeze...", () => {
+    startCountdown(msg("countdown_disabling_freeze"), () => {
       chrome.storage.local.set({ timerFreeze: false });
       state.timerFreeze = false;
       timerFreezeToggle.checked = false;
@@ -951,12 +974,12 @@ saveRedirectBtn.addEventListener("click", () => {
     try {
       const parsed = new URL(url);
       if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
-        redirectError.textContent = "Only http:// and https:// URLs are allowed.";
+        redirectError.textContent = msg("options_redirect_error_protocol");
         redirectError.style.display = "";
         return;
       }
     } catch {
-      redirectError.textContent = "Please enter a valid URL starting with http:// or https://";
+      redirectError.textContent = msg("options_redirect_error_invalid");
       redirectError.style.display = "";
       return;
     }
@@ -986,5 +1009,31 @@ function el(tag, props) {
   if (props) Object.assign(elem, props);
   return elem;
 }
+
+// ============================================================
+// Language Picker
+// ============================================================
+
+const languageSelect = document.getElementById("languageSelect");
+
+function renderLanguageSelect() {
+  languageSelect.innerHTML = "";
+  const current = _currentLang || "auto";
+  for (const lang of LANGUAGES) {
+    const opt = el("option", {
+      value: lang.code,
+      textContent: lang.name
+    });
+    if (lang.code === current) opt.selected = true;
+    languageSelect.appendChild(opt);
+  }
+}
+
+languageSelect.addEventListener("change", () => {
+  const lang = languageSelect.value;
+  chrome.storage.local.set({ language: lang }, () => {
+    location.reload();
+  });
+});
 
 init();

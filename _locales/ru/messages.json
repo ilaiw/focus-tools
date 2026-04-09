@@ -1,0 +1,629 @@
+{
+  "ext_name": {
+    "message": "Focus Tools"
+  },
+  "ext_description": {
+    "message": "Блокируйте отвлекающие сайты и скрывайте затягивающие элементы интерфейса соцсетей."
+  },
+  "options_language": {
+    "message": "Язык"
+  },
+  "popup_title": {
+    "message": "🧠 Focus Tools"
+  },
+  "popup_settings_title": {
+    "message": "Настройки"
+  },
+  "popup_controlled_by_schedule": {
+    "message": "Управляется расписанием"
+  },
+  "popup_enter_password": {
+    "message": "Введите пароль для разблокировки"
+  },
+  "popup_password_placeholder": {
+    "message": "Пароль"
+  },
+  "popup_unlock": {
+    "message": "Разблокировать"
+  },
+  "popup_incorrect_password": {
+    "message": "Неверный пароль"
+  },
+  "popup_ok": {
+    "message": "OK"
+  },
+  "popup_cancel": {
+    "message": "Отмена"
+  },
+  "popup_block_url": {
+    "message": "Заблокировать URL"
+  },
+  "popup_block_domain": {
+    "message": "Заблокировать домен"
+  },
+  "popup_status_active": {
+    "message": "Активно"
+  },
+  "popup_status_active_scheduled": {
+    "message": "Активно (по расписанию)"
+  },
+  "popup_status_disabled": {
+    "message": "Отключено"
+  },
+  "popup_status_disabled_scheduled": {
+    "message": "Отключено (по расписанию)"
+  },
+  "popup_confirm_disable": {
+    "message": "Подтвердить отключение?"
+  },
+  "popup_disabling": {
+    "message": "Отключение..."
+  },
+  "popup_btn_cancel": {
+    "message": "Отмена"
+  },
+  "popup_btn_disable": {
+    "message": "Отключить"
+  },
+  "popup_btn_enable": {
+    "message": "Включить"
+  },
+  "popup_already_blocked": {
+    "message": "Уже заблокировано"
+  },
+  "popup_block_url_title": {
+    "message": "Заблокировать $URL$",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_block_domain_title": {
+    "message": "Заблокировать $DOMAIN$",
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      }
+    }
+  },
+  "timer_paused": {
+    "message": "$TIME$ (пауза)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocked_page_title": {
+    "message": "Заблокировано — Focus Tools"
+  },
+  "blocked_title": {
+    "message": "Этот сайт заблокирован"
+  },
+  "blocked_subtitle": {
+    "message": "Focus Tools помогает вам сосредоточиться. Этот сайт находится в вашем списке блокировки."
+  },
+  "options_page_title": {
+    "message": "Focus Tools — Настройки"
+  },
+  "options_title": {
+    "message": "🧠 Настройки Focus Tools"
+  },
+  "options_subtitle": {
+    "message": "Настройте ограничения для сайтов и список блокировки."
+  },
+  "options_tip": {
+    "message": "<strong style=\"color:#4ade80;\">Совет:</strong> Чтобы использовать Focus Tools в режиме инкогнито, перейдите в <strong style=\"color:#ccc;\">chrome://extensions</strong> → найдите Focus Tools → <strong style=\"color:#ccc;\">Подробнее</strong> → включите <strong style=\"color:#ccc;\">«Разрешить использование в режиме инкогнито»</strong>."
+  },
+  "section_general": {
+    "message": "⚙️ Общие"
+  },
+  "options_block_ext_page": {
+    "message": "🧩 Блокировать страницу расширений"
+  },
+  "options_block_ext_desc": {
+    "message": "Предотвращает быстрое отключение через chrome://extensions"
+  },
+  "options_countdown_timer": {
+    "message": "⏱️ Таймер обратного отсчёта"
+  },
+  "options_seconds": {
+    "message": "секунд"
+  },
+  "section_blocked_sites": {
+    "message": "🚫 Заблокированные сайты"
+  },
+  "options_search_sites_placeholder": {
+    "message": "Поиск заблокированных сайтов..."
+  },
+  "options_add": {
+    "message": "+ Добавить"
+  },
+  "section_blocked_keywords": {
+    "message": "🔑 Заблокированные ключевые слова"
+  },
+  "options_keywords_help": {
+    "message": "Блокируйте любые URL, содержащие эти ключевые слова. Например, «poker» заблокирует все URL со словом «poker»."
+  },
+  "options_search_keywords_placeholder": {
+    "message": "Поиск заблокированных ключевых слов..."
+  },
+  "section_blocklists": {
+    "message": "📋 Списки блокировки"
+  },
+  "options_blocklists_help": {
+    "message": "Публичные списки блокировки от сообщества <a href=\"https://github.com/StevenBlack/hosts\" target=\"_blank\" style=\"color:#4ade80;\">StevenBlack/hosts</a>."
+  },
+  "section_site_restrictions": {
+    "message": "🔧 Ограничения для сайтов"
+  },
+  "section_schedule": {
+    "message": "📅 Расписание"
+  },
+  "options_calendar_label": {
+    "message": "📅 Блокировка по расписанию"
+  },
+  "options_calendar_desc": {
+    "message": "Автоматически включать/отключать по недельному расписанию"
+  },
+  "options_active_days": {
+    "message": "Активные дни"
+  },
+  "options_active_hours": {
+    "message": "Активные часы"
+  },
+  "options_hours_to": {
+    "message": "до"
+  },
+  "options_save_schedule": {
+    "message": "Сохранить расписание"
+  },
+  "options_calendar_note": {
+    "message": "Расширение будет активно в указанные часы в выбранные дни. Ручное переключение невозможно."
+  },
+  "section_advanced": {
+    "message": "🛠️ Дополнительно"
+  },
+  "options_pause_timer": {
+    "message": "⏸️ Ставить таймер на паузу, когда окно не видно"
+  },
+  "options_pause_timer_desc": {
+    "message": "Таймер приостанавливается при переключении вкладок. Закрытие всплывающего окна сбрасывает таймер."
+  },
+  "options_require_confirm": {
+    "message": "✅ Требовать подтверждение после отсчёта"
+  },
+  "options_require_confirm_desc": {
+    "message": "Показывать OK/Отмена по окончании таймера вместо автоматического выполнения"
+  },
+  "options_password_lock": {
+    "message": "🔒 Защита паролем"
+  },
+  "options_password_lock_desc": {
+    "message": "Защитить всплывающее окно и настройки паролем"
+  },
+  "options_password_placeholder": {
+    "message": "Задать пароль (оставьте пустым для отключения)"
+  },
+  "options_save": {
+    "message": "Сохранить"
+  },
+  "options_password_warning": {
+    "message": "⚠ Если вы забудете этот пароль, для сброса потребуется переустановить расширение.<br><strong>⚠ Будьте осторожны:</strong> Если расширение разрешено в режиме инкогнито и включена опция «Блокировать страницу расширений», забытый пароль означает, что вы не сможете перейти на chrome://extensions для удаления расширения. Единственным выходом может стать полная переустановка Chrome. Убедитесь, что вы запомнили пароль!"
+  },
+  "options_custom_redirect": {
+    "message": "🔗 Свой URL для перенаправления"
+  },
+  "options_custom_redirect_help": {
+    "message": "Заблокированные страницы будут перенаправлены сюда вместо стандартной страницы блокировки. Оставьте пустым, чтобы использовать встроенную страницу."
+  },
+  "options_custom_redirect_placeholder": {
+    "message": "https://example.com"
+  },
+  "options_clear": {
+    "message": "Очистить"
+  },
+  "modal_add_sites_title": {
+    "message": "Добавить сайты в список блокировки"
+  },
+  "modal_add_sites_desc": {
+    "message": "Введите по одному сайту на строку. Протоколы и www. удаляются автоматически."
+  },
+  "modal_add_sites_placeholder": {
+    "message": "reddit.com\n9gag.com\nbuzzfeed.com"
+  },
+  "modal_cancel": {
+    "message": "Отмена"
+  },
+  "modal_add_sites_confirm": {
+    "message": "Добавить в список"
+  },
+  "modal_add_keywords_title": {
+    "message": "Добавить ключевые слова для блокировки"
+  },
+  "modal_add_keywords_desc": {
+    "message": "Введите по одному ключевому слову на строку. Любой URL, содержащий это слово, будет заблокирован."
+  },
+  "modal_add_keywords_placeholder": {
+    "message": "poker\ngambling\ntiktok"
+  },
+  "modal_add_keywords_confirm": {
+    "message": "Добавить слова"
+  },
+  "options_enter_password": {
+    "message": "Введите пароль для доступа к настройкам"
+  },
+  "options_unlock": {
+    "message": "Разблокировать"
+  },
+  "options_incorrect_password": {
+    "message": "Неверный пароль"
+  },
+  "countdown_waiting": {
+    "message": "Ожидание применения изменений..."
+  },
+  "countdown_ok": {
+    "message": "OK"
+  },
+  "countdown_cancel": {
+    "message": "Отмена"
+  },
+  "options_password_set": {
+    "message": "Пароль установлен!"
+  },
+  "options_password_removed": {
+    "message": "Пароль удалён."
+  },
+  "options_unlock_to_edit": {
+    "message": "Разблокируйте для редактирования"
+  },
+  "countdown_disabling_ext_block": {
+    "message": "Отключение блокировки страницы расширений..."
+  },
+  "countdown_unlocking_setting": {
+    "message": "Разблокировка настройки обратного отсчёта..."
+  },
+  "countdown_confirm_action": {
+    "message": "Подтвердить действие?"
+  },
+  "blocklist_sites_count_placeholder": {
+    "message": "Заблокировано сайтов: $COUNT$ — нажмите для просмотра",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocklist_no_sites_placeholder": {
+    "message": "Заблокированных сайтов пока нет"
+  },
+  "blocklist_search_sites": {
+    "message": "Поиск заблокированных сайтов..."
+  },
+  "blocklist_no_matching_sites": {
+    "message": "Совпадений не найдено"
+  },
+  "blocklist_no_sites_yet": {
+    "message": "Заблокированных сайтов пока нет. Нажмите + Добавить, чтобы начать."
+  },
+  "blocklist_remove_title": {
+    "message": "Удалить (требуется обратный отсчёт)"
+  },
+  "countdown_removing_site": {
+    "message": "Удаление «$SITE$» из списка блокировки...",
+    "placeholders": {
+      "site": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocklist_filtered_count": {
+    "message": "Показано $SHOWN$ из $TOTAL$",
+    "placeholders": {
+      "shown": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "blocklist_total_count": {
+    "message": "Заблокировано сайтов: $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "keywords_count_placeholder": {
+    "message": "Заблокировано ключевых слов: $COUNT$ — нажмите для просмотра",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "keywords_no_keywords_placeholder": {
+    "message": "Заблокированных ключевых слов пока нет"
+  },
+  "keywords_search": {
+    "message": "Поиск заблокированных ключевых слов..."
+  },
+  "keywords_no_matching": {
+    "message": "Совпадений не найдено"
+  },
+  "keywords_no_keywords_yet": {
+    "message": "Заблокированных ключевых слов пока нет. Нажмите + Добавить, чтобы начать."
+  },
+  "countdown_removing_keyword": {
+    "message": "Удаление «$KEYWORD$» из ключевых слов...",
+    "placeholders": {
+      "keyword": {
+        "content": "$1"
+      }
+    }
+  },
+  "keywords_filtered_count": {
+    "message": "Показано $SHOWN$ из $TOTAL$",
+    "placeholders": {
+      "shown": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "keywords_total_count": {
+    "message": "Заблокировано ключевых слов: $COUNT$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocklist_cat_domains_updated": {
+    "message": "Доменов: $COUNT$ · Обновлено $DATE$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "date": {
+        "content": "$2"
+      }
+    }
+  },
+  "blocklist_cat_refresh": {
+    "message": "Обновить"
+  },
+  "blocklist_cat_fetching": {
+    "message": "Загрузка..."
+  },
+  "blocklist_cat_fetch_failed": {
+    "message": "Ошибка загрузки"
+  },
+  "countdown_disabling_blocklist": {
+    "message": "Отключение списка блокировки $LABEL$...",
+    "placeholders": {
+      "label": {
+        "content": "$1"
+      }
+    }
+  },
+  "mode_allow": {
+    "message": "Разрешить"
+  },
+  "mode_filter": {
+    "message": "Фильтр"
+  },
+  "mode_block": {
+    "message": "Блокировать"
+  },
+  "countdown_changing_mode": {
+    "message": "Переключение $SITE$ на «$MODE$»...",
+    "placeholders": {
+      "site": {
+        "content": "$1"
+      },
+      "mode": {
+        "content": "$2"
+      }
+    }
+  },
+  "countdown_disabling_toggle": {
+    "message": "Отключение «$TOGGLE$» на $SITE$...",
+    "placeholders": {
+      "toggle": {
+        "content": "$1"
+      },
+      "site": {
+        "content": "$2"
+      }
+    }
+  },
+  "day_sun": {
+    "message": "Вс"
+  },
+  "day_mon": {
+    "message": "Пн"
+  },
+  "day_tue": {
+    "message": "Вт"
+  },
+  "day_wed": {
+    "message": "Ср"
+  },
+  "day_thu": {
+    "message": "Чт"
+  },
+  "day_fri": {
+    "message": "Пт"
+  },
+  "day_sat": {
+    "message": "Сб"
+  },
+  "options_calendar_error_hours": {
+    "message": "Время начала должно быть раньше времени окончания."
+  },
+  "options_schedule_saved": {
+    "message": "Расписание сохранено!"
+  },
+  "countdown_disabling_schedule": {
+    "message": "Отключение расписания..."
+  },
+  "countdown_disabling_confirm": {
+    "message": "Отключение требования подтверждения..."
+  },
+  "countdown_disabling_freeze": {
+    "message": "Отключение заморозки таймера..."
+  },
+  "options_redirect_error_protocol": {
+    "message": "Допускаются только URL с http:// и https://."
+  },
+  "options_redirect_error_invalid": {
+    "message": "Введите корректный URL, начинающийся с http:// или https://"
+  },
+  "site_facebook": {
+    "message": "Facebook"
+  },
+  "site_youtube": {
+    "message": "YouTube"
+  },
+  "site_instagram": {
+    "message": "Instagram"
+  },
+  "site_x_twitter": {
+    "message": "X / Twitter"
+  },
+  "site_reddit": {
+    "message": "Reddit"
+  },
+  "site_linkedin": {
+    "message": "LinkedIn"
+  },
+  "site_tiktok": {
+    "message": "TikTok"
+  },
+  "toggle_facebook_hide_messenger": {
+    "message": "Скрыть ссылку на Messenger"
+  },
+  "toggle_facebook_redirect_friends": {
+    "message": "Перенаправлять на ленту друзей"
+  },
+  "toggle_facebook_hide_likes_comments": {
+    "message": "Скрыть лайки и комментарии"
+  },
+  "toggle_facebook_hide_chat_sidebar": {
+    "message": "Скрыть боковую панель чата"
+  },
+  "toggle_facebook_hide_marketplace": {
+    "message": "Скрыть ссылку на Marketplace"
+  },
+  "toggle_facebook_hide_video_reels": {
+    "message": "Скрыть ссылки на Видео и Reels"
+  },
+  "toggle_facebook_block_reels": {
+    "message": "Блокировать страницы Reels"
+  },
+  "toggle_facebook_hide_gaming": {
+    "message": "Скрыть ссылку на Gaming"
+  },
+  "toggle_facebook_block_gaming": {
+    "message": "Блокировать страницы Gaming"
+  },
+  "toggle_remove_colors": {
+    "message": "Убрать цвета (оттенки серого)"
+  },
+  "toggle_youtube_hide_home_feed": {
+    "message": "Скрыть главную ленту / рекомендации"
+  },
+  "toggle_youtube_hide_shorts": {
+    "message": "Скрыть кнопку и раздел Shorts"
+  },
+  "toggle_youtube_block_shorts": {
+    "message": "Блокировать страницы Shorts"
+  },
+  "toggle_youtube_hide_comments": {
+    "message": "Скрыть комментарии"
+  },
+  "toggle_youtube_hide_sidebar": {
+    "message": "Скрыть рекомендации в боковой панели"
+  },
+  "toggle_youtube_hide_end_cards": {
+    "message": "Скрыть карточки в конце видео"
+  },
+  "toggle_instagram_hide_feed": {
+    "message": "Скрыть ленту"
+  },
+  "toggle_instagram_hide_reels": {
+    "message": "Скрыть ссылку на Reels"
+  },
+  "toggle_instagram_hide_explore": {
+    "message": "Скрыть ссылку на «Интересное»"
+  },
+  "toggle_instagram_hide_stories": {
+    "message": "Скрыть истории"
+  },
+  "toggle_instagram_block_reels": {
+    "message": "Блокировать страницы Reels"
+  },
+  "toggle_x_hide_feed": {
+    "message": "Скрыть ленту"
+  },
+  "toggle_x_hide_trending": {
+    "message": "Скрыть тренды / «Обзор»"
+  },
+  "toggle_x_hide_who_to_follow": {
+    "message": "Скрыть «Кого читать»"
+  },
+  "toggle_x_block_explore": {
+    "message": "Блокировать страницу «Обзор»"
+  },
+  "toggle_reddit_hide_feed": {
+    "message": "Скрыть ленту"
+  },
+  "toggle_reddit_hide_popular": {
+    "message": "Скрыть ссылки на Popular / All"
+  },
+  "toggle_reddit_hide_awards": {
+    "message": "Скрыть награды"
+  },
+  "toggle_linkedin_redirect_feed": {
+    "message": "Перенаправлять ленту на «Сеть контактов»"
+  },
+  "toggle_linkedin_block_feed": {
+    "message": "Полностью заблокировать страницу ленты"
+  },
+  "toggle_linkedin_block_games": {
+    "message": "Блокировать игры / головоломки"
+  },
+  "toggle_linkedin_hide_home": {
+    "message": "Скрыть кнопку «Главная»"
+  },
+  "toggle_linkedin_hide_news": {
+    "message": "Скрыть боковую панель новостей"
+  },
+  "toggle_linkedin_hide_notifications": {
+    "message": "Скрыть значок уведомлений"
+  },
+  "blocklist_cat_porn": {
+    "message": "Порно"
+  },
+  "blocklist_cat_porn_desc": {
+    "message": "Сайты с контентом для взрослых"
+  },
+  "blocklist_cat_gambling": {
+    "message": "Азартные игры"
+  },
+  "blocklist_cat_gambling_desc": {
+    "message": "Сайты азартных игр и ставок"
+  },
+  "blocklist_cat_fakenews": {
+    "message": "Фейковые новости"
+  },
+  "blocklist_cat_fakenews_desc": {
+    "message": "Источники дезинформации"
+  }
+}

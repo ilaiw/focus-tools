@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Focus Tools",
+  "name": "__MSG_ext_name__",
   "version": "2.0.0",
-  "description": "Block distracting websites and hide addictive UI elements on social media.",
+  "default_locale": "en",
+  "description": "__MSG_ext_description__",
   "permissions": [
     "storage",
     "declarativeNetRequest",
@@ -59,7 +60,7 @@
   "incognito": "spanning",
   "web_accessible_resources": [
     {
-      "resources": ["blocked.html", "quotes.js"],
+      "resources": ["blocked.html", "quotes.js", "i18n.js"],
       "matches": ["<all_urls>"]
     }
   ]

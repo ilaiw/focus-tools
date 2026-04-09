@@ -1,0 +1,629 @@
+{
+  "ext_name": {
+    "message": "Focus Tools"
+  },
+  "ext_description": {
+    "message": "חסימת אתרים מסיחי דעת והסתרת רכיבי ממשק ממכרים ברשתות חברתיות."
+  },
+  "options_language": {
+    "message": "שפה"
+  },
+  "popup_title": {
+    "message": "🧠 Focus Tools"
+  },
+  "popup_settings_title": {
+    "message": "הגדרות"
+  },
+  "popup_controlled_by_schedule": {
+    "message": "נשלט על ידי לוח זמנים"
+  },
+  "popup_enter_password": {
+    "message": "הזן סיסמה לביטול נעילה"
+  },
+  "popup_password_placeholder": {
+    "message": "סיסמה"
+  },
+  "popup_unlock": {
+    "message": "ביטול נעילה"
+  },
+  "popup_incorrect_password": {
+    "message": "סיסמה שגויה"
+  },
+  "popup_ok": {
+    "message": "אישור"
+  },
+  "popup_cancel": {
+    "message": "ביטול"
+  },
+  "popup_block_url": {
+    "message": "חסום כתובת"
+  },
+  "popup_block_domain": {
+    "message": "חסום דומיין"
+  },
+  "popup_status_active": {
+    "message": "פעיל"
+  },
+  "popup_status_active_scheduled": {
+    "message": "פעיל (מתוזמן)"
+  },
+  "popup_status_disabled": {
+    "message": "מושבת"
+  },
+  "popup_status_disabled_scheduled": {
+    "message": "מושבת (מתוזמן)"
+  },
+  "popup_confirm_disable": {
+    "message": "לאשר השבתה?"
+  },
+  "popup_disabling": {
+    "message": "משבית..."
+  },
+  "popup_btn_cancel": {
+    "message": "ביטול"
+  },
+  "popup_btn_disable": {
+    "message": "השבת"
+  },
+  "popup_btn_enable": {
+    "message": "הפעל"
+  },
+  "popup_already_blocked": {
+    "message": "כבר חסום"
+  },
+  "popup_block_url_title": {
+    "message": "חסום את $URL$",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_block_domain_title": {
+    "message": "חסום את $DOMAIN$",
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      }
+    }
+  },
+  "timer_paused": {
+    "message": "$TIME$ (מושהה)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocked_page_title": {
+    "message": "חסום — Focus Tools"
+  },
+  "blocked_title": {
+    "message": "אתר זה חסום"
+  },
+  "blocked_subtitle": {
+    "message": "Focus Tools שומר עליך במסלול. אתר זה נמצא ברשימת החסימות שלך."
+  },
+  "options_page_title": {
+    "message": "Focus Tools — הגדרות"
+  },
+  "options_title": {
+    "message": "🧠 הגדרות Focus Tools"
+  },
+  "options_subtitle": {
+    "message": "הגדרת הגבלות לפי אתר ורשימת חסימות."
+  },
+  "options_tip": {
+    "message": "<strong style=\"color:#4ade80;\">טיפ:</strong> כדי להשתמש ב-Focus Tools במצב גלישה בסתר, עבור אל <strong style=\"color:#ccc;\">chrome://extensions</strong> ← מצא את Focus Tools ← <strong style=\"color:#ccc;\">פרטים</strong> ← הפעל <strong style=\"color:#ccc;\">\"אפשר במצב גלישה בסתר\"</strong>."
+  },
+  "section_general": {
+    "message": "⚙️ כללי"
+  },
+  "options_block_ext_page": {
+    "message": "🧩 חסום דף תוספים"
+  },
+  "options_block_ext_desc": {
+    "message": "מונע השבתה מהירה דרך chrome://extensions"
+  },
+  "options_countdown_timer": {
+    "message": "⏱️ טיימר ספירה לאחור"
+  },
+  "options_seconds": {
+    "message": "שניות"
+  },
+  "section_blocked_sites": {
+    "message": "🚫 אתרים חסומים"
+  },
+  "options_search_sites_placeholder": {
+    "message": "חיפוש אתרים חסומים..."
+  },
+  "options_add": {
+    "message": "+ הוסף"
+  },
+  "section_blocked_keywords": {
+    "message": "🔑 מילות מפתח חסומות"
+  },
+  "options_keywords_help": {
+    "message": "חסימת כל כתובת המכילה מילות מפתח אלה. למשל \"poker\" חוסם את כל הכתובות שמכילות \"poker\"."
+  },
+  "options_search_keywords_placeholder": {
+    "message": "חיפוש מילות מפתח חסומות..."
+  },
+  "section_blocklists": {
+    "message": "📋 רשימות חסימה"
+  },
+  "options_blocklists_help": {
+    "message": "רשימות חסימה בתחזוקת הקהילה מתוך <a href=\"https://github.com/StevenBlack/hosts\" target=\"_blank\" style=\"color:#4ade80;\">StevenBlack/hosts</a>."
+  },
+  "section_site_restrictions": {
+    "message": "🔧 הגבלות אתרים"
+  },
+  "section_schedule": {
+    "message": "📅 לוח זמנים"
+  },
+  "options_calendar_label": {
+    "message": "📅 חסימה לפי לוח שנה"
+  },
+  "options_calendar_desc": {
+    "message": "הפעלה/השבתה אוטומטית לפי לוח זמנים שבועי"
+  },
+  "options_active_days": {
+    "message": "ימים פעילים"
+  },
+  "options_active_hours": {
+    "message": "שעות פעילות"
+  },
+  "options_hours_to": {
+    "message": "עד"
+  },
+  "options_save_schedule": {
+    "message": "שמור לוח זמנים"
+  },
+  "options_calendar_note": {
+    "message": "התוסף יהיה פעיל בשעות שנקבעו בימים שנבחרו. לא ניתן לעקוף באופן ידני."
+  },
+  "section_advanced": {
+    "message": "🛠️ מתקדם"
+  },
+  "options_pause_timer": {
+    "message": "⏸️ השהה טיימר כשלא גלוי"
+  },
+  "options_pause_timer_desc": {
+    "message": "הטיימר מושהה כשאתה עובר לשונית אחרת. סגירת החלון הקופץ מאפסת את הטיימר."
+  },
+  "options_require_confirm": {
+    "message": "✅ דרוש אישור לאחר ספירה לאחור"
+  },
+  "options_require_confirm_desc": {
+    "message": "הצג אישור/ביטול כשהטיימר מסתיים במקום ביצוע אוטומטי"
+  },
+  "options_password_lock": {
+    "message": "🔒 נעילת סיסמה"
+  },
+  "options_password_lock_desc": {
+    "message": "נעילת החלון הקופץ וההגדרות מאחורי סיסמה"
+  },
+  "options_password_placeholder": {
+    "message": "הגדר סיסמה (השאר ריק לביטול)"
+  },
+  "options_save": {
+    "message": "שמור"
+  },
+  "options_password_warning": {
+    "message": "⚠ אם תשכח את הסיסמה, תצטרך להתקין מחדש את התוסף כדי לאפס אותה.<br><strong>⚠ המשך בזהירות:</strong> אם התוסף מורשה במצב גלישה בסתר ו\"חסום דף תוספים\" מופעל, שכחת הסיסמה פירושה שלא תוכל לגשת ל-chrome://extensions כדי להסיר אותו. הדרך היחידה עשויה להיות התקנה מחדש מלאה של Chrome. וודא שאתה זוכר את הסיסמה!"
+  },
+  "options_custom_redirect": {
+    "message": "🔗 כתובת הפניה מותאמת"
+  },
+  "options_custom_redirect_help": {
+    "message": "דפים חסומים יופנו לכאן במקום לדף החסימה המובנה. השאר ריק לשימוש בדף המובנה."
+  },
+  "options_custom_redirect_placeholder": {
+    "message": "https://example.com"
+  },
+  "options_clear": {
+    "message": "נקה"
+  },
+  "modal_add_sites_title": {
+    "message": "הוספת אתרים לרשימת החסימות"
+  },
+  "modal_add_sites_desc": {
+    "message": "הדבק אתר אחד בכל שורה. פרוטוקולים ו-www. מוסרים אוטומטית."
+  },
+  "modal_add_sites_placeholder": {
+    "message": "reddit.com\n9gag.com\nbuzzfeed.com"
+  },
+  "modal_cancel": {
+    "message": "ביטול"
+  },
+  "modal_add_sites_confirm": {
+    "message": "הוסף לרשימת החסימות"
+  },
+  "modal_add_keywords_title": {
+    "message": "הוספת מילות מפתח לחסימה"
+  },
+  "modal_add_keywords_desc": {
+    "message": "הזן מילת מפתח אחת בכל שורה. כל כתובת שמכילה את מילת המפתח תיחסם."
+  },
+  "modal_add_keywords_placeholder": {
+    "message": "poker\ngambling\ntiktok"
+  },
+  "modal_add_keywords_confirm": {
+    "message": "הוסף מילות מפתח"
+  },
+  "options_enter_password": {
+    "message": "הזן סיסמה לגישה להגדרות"
+  },
+  "options_unlock": {
+    "message": "ביטול נעילה"
+  },
+  "options_incorrect_password": {
+    "message": "סיסמה שגויה"
+  },
+  "countdown_waiting": {
+    "message": "ממתין להחלת שינוי..."
+  },
+  "countdown_ok": {
+    "message": "אישור"
+  },
+  "countdown_cancel": {
+    "message": "ביטול"
+  },
+  "options_password_set": {
+    "message": "סיסמה הוגדרה!"
+  },
+  "options_password_removed": {
+    "message": "סיסמה הוסרה."
+  },
+  "options_unlock_to_edit": {
+    "message": "בטל נעילה לעריכה"
+  },
+  "countdown_disabling_ext_block": {
+    "message": "מבטל חסימת דף תוספים..."
+  },
+  "countdown_unlocking_setting": {
+    "message": "מבטל נעילת הגדרה..."
+  },
+  "countdown_confirm_action": {
+    "message": "לאשר פעולה?"
+  },
+  "blocklist_sites_count_placeholder": {
+    "message": "$COUNT$ אתרים חסומים — לחץ להצגה",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocklist_no_sites_placeholder": {
+    "message": "אין אתרים חסומים עדיין"
+  },
+  "blocklist_search_sites": {
+    "message": "חיפוש אתרים חסומים..."
+  },
+  "blocklist_no_matching_sites": {
+    "message": "אין אתרים תואמים"
+  },
+  "blocklist_no_sites_yet": {
+    "message": "אין אתרים חסומים עדיין. לחץ על + הוסף כדי להתחיל."
+  },
+  "blocklist_remove_title": {
+    "message": "הסר (דורש ספירה לאחור)"
+  },
+  "countdown_removing_site": {
+    "message": "מסיר את \"$SITE$\" מרשימת החסימות...",
+    "placeholders": {
+      "site": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocklist_filtered_count": {
+    "message": "$SHOWN$ מתוך $TOTAL$ אתרים מוצגים",
+    "placeholders": {
+      "shown": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "blocklist_total_count": {
+    "message": "$COUNT$ אתרים חסומים",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "keywords_count_placeholder": {
+    "message": "$COUNT$ מילות מפתח חסומות — לחץ להצגה",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "keywords_no_keywords_placeholder": {
+    "message": "אין מילות מפתח חסומות עדיין"
+  },
+  "keywords_search": {
+    "message": "חיפוש מילות מפתח חסומות..."
+  },
+  "keywords_no_matching": {
+    "message": "אין מילות מפתח תואמות"
+  },
+  "keywords_no_keywords_yet": {
+    "message": "אין מילות מפתח חסומות עדיין. לחץ על + הוסף כדי להתחיל."
+  },
+  "countdown_removing_keyword": {
+    "message": "מסיר את \"$KEYWORD$\" ממילות המפתח...",
+    "placeholders": {
+      "keyword": {
+        "content": "$1"
+      }
+    }
+  },
+  "keywords_filtered_count": {
+    "message": "$SHOWN$ מתוך $TOTAL$ מילות מפתח מוצגות",
+    "placeholders": {
+      "shown": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "keywords_total_count": {
+    "message": "$COUNT$ מילות מפתח חסומות",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocklist_cat_domains_updated": {
+    "message": "$COUNT$ דומיינים · עודכן $DATE$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "date": {
+        "content": "$2"
+      }
+    }
+  },
+  "blocklist_cat_refresh": {
+    "message": "רענן"
+  },
+  "blocklist_cat_fetching": {
+    "message": "מוריד..."
+  },
+  "blocklist_cat_fetch_failed": {
+    "message": "ההורדה נכשלה"
+  },
+  "countdown_disabling_blocklist": {
+    "message": "משבית רשימת חסימות $LABEL$...",
+    "placeholders": {
+      "label": {
+        "content": "$1"
+      }
+    }
+  },
+  "mode_allow": {
+    "message": "אפשר"
+  },
+  "mode_filter": {
+    "message": "סנן"
+  },
+  "mode_block": {
+    "message": "חסום"
+  },
+  "countdown_changing_mode": {
+    "message": "משנה את $SITE$ ל-\"$MODE$\"...",
+    "placeholders": {
+      "site": {
+        "content": "$1"
+      },
+      "mode": {
+        "content": "$2"
+      }
+    }
+  },
+  "countdown_disabling_toggle": {
+    "message": "משבית \"$TOGGLE$\" ב-$SITE$...",
+    "placeholders": {
+      "toggle": {
+        "content": "$1"
+      },
+      "site": {
+        "content": "$2"
+      }
+    }
+  },
+  "day_sun": {
+    "message": "א׳"
+  },
+  "day_mon": {
+    "message": "ב׳"
+  },
+  "day_tue": {
+    "message": "ג׳"
+  },
+  "day_wed": {
+    "message": "ד׳"
+  },
+  "day_thu": {
+    "message": "ה׳"
+  },
+  "day_fri": {
+    "message": "ו׳"
+  },
+  "day_sat": {
+    "message": "ש׳"
+  },
+  "options_calendar_error_hours": {
+    "message": "שעת ההתחלה חייבת להיות לפני שעת הסיום."
+  },
+  "options_schedule_saved": {
+    "message": "לוח זמנים נשמר!"
+  },
+  "countdown_disabling_schedule": {
+    "message": "משבית לוח זמנים..."
+  },
+  "countdown_disabling_confirm": {
+    "message": "מבטל דרישת אישור..."
+  },
+  "countdown_disabling_freeze": {
+    "message": "מבטל הקפאת טיימר..."
+  },
+  "options_redirect_error_protocol": {
+    "message": "רק כתובות http:// ו-https:// מותרות."
+  },
+  "options_redirect_error_invalid": {
+    "message": "נא להזין כתובת תקינה שמתחילה ב-http:// או https://"
+  },
+  "site_facebook": {
+    "message": "Facebook"
+  },
+  "site_youtube": {
+    "message": "YouTube"
+  },
+  "site_instagram": {
+    "message": "Instagram"
+  },
+  "site_x_twitter": {
+    "message": "X / Twitter"
+  },
+  "site_reddit": {
+    "message": "Reddit"
+  },
+  "site_linkedin": {
+    "message": "LinkedIn"
+  },
+  "site_tiktok": {
+    "message": "TikTok"
+  },
+  "toggle_facebook_hide_messenger": {
+    "message": "הסתר קישור Messenger"
+  },
+  "toggle_facebook_redirect_friends": {
+    "message": "הפנה לפיד חברים"
+  },
+  "toggle_facebook_hide_likes_comments": {
+    "message": "הסתר לייקים ותגובות"
+  },
+  "toggle_facebook_hide_chat_sidebar": {
+    "message": "הסתר סרגל צד של צ׳אט"
+  },
+  "toggle_facebook_hide_marketplace": {
+    "message": "הסתר קישור Marketplace"
+  },
+  "toggle_facebook_hide_video_reels": {
+    "message": "הסתר קישורי וידאו ו-Reels"
+  },
+  "toggle_facebook_block_reels": {
+    "message": "חסום דפי Reels"
+  },
+  "toggle_facebook_hide_gaming": {
+    "message": "הסתר קישור Gaming"
+  },
+  "toggle_facebook_block_gaming": {
+    "message": "חסום דפי Gaming"
+  },
+  "toggle_remove_colors": {
+    "message": "הסר צבעים (גווני אפור)"
+  },
+  "toggle_youtube_hide_home_feed": {
+    "message": "הסתר פיד ראשי / המלצות"
+  },
+  "toggle_youtube_hide_shorts": {
+    "message": "הסתר כפתור ומדף Shorts"
+  },
+  "toggle_youtube_block_shorts": {
+    "message": "חסום דפי Shorts"
+  },
+  "toggle_youtube_hide_comments": {
+    "message": "הסתר תגובות"
+  },
+  "toggle_youtube_hide_sidebar": {
+    "message": "הסתר הצעות בסרגל הצד"
+  },
+  "toggle_youtube_hide_end_cards": {
+    "message": "הסתר כרטיסי מסך סיום"
+  },
+  "toggle_instagram_hide_feed": {
+    "message": "הסתר פיד"
+  },
+  "toggle_instagram_hide_reels": {
+    "message": "הסתר קישור Reels"
+  },
+  "toggle_instagram_hide_explore": {
+    "message": "הסתר קישור חיפוש"
+  },
+  "toggle_instagram_hide_stories": {
+    "message": "הסתר סטוריז"
+  },
+  "toggle_instagram_block_reels": {
+    "message": "חסום דפי Reels"
+  },
+  "toggle_x_hide_feed": {
+    "message": "הסתר פיד / ציר זמן"
+  },
+  "toggle_x_hide_trending": {
+    "message": "הסתר טרנדים / חיפוש"
+  },
+  "toggle_x_hide_who_to_follow": {
+    "message": "הסתר הצעות למעקב"
+  },
+  "toggle_x_block_explore": {
+    "message": "חסום דף חיפוש"
+  },
+  "toggle_reddit_hide_feed": {
+    "message": "הסתר פיד"
+  },
+  "toggle_reddit_hide_popular": {
+    "message": "הסתר קישורי Popular / All"
+  },
+  "toggle_reddit_hide_awards": {
+    "message": "הסתר פרסים"
+  },
+  "toggle_linkedin_redirect_feed": {
+    "message": "הפנה פיד לרשת שלי"
+  },
+  "toggle_linkedin_block_feed": {
+    "message": "חסום דף פיד לחלוטין"
+  },
+  "toggle_linkedin_block_games": {
+    "message": "חסום משחקים / חידות"
+  },
+  "toggle_linkedin_hide_home": {
+    "message": "הסתר כפתור בית"
+  },
+  "toggle_linkedin_hide_news": {
+    "message": "הסתר סרגל צד חדשות"
+  },
+  "toggle_linkedin_hide_notifications": {
+    "message": "הסתר תג התראות"
+  },
+  "blocklist_cat_porn": {
+    "message": "פורנוגרפיה"
+  },
+  "blocklist_cat_porn_desc": {
+    "message": "אתרי תוכן למבוגרים"
+  },
+  "blocklist_cat_gambling": {
+    "message": "הימורים"
+  },
+  "blocklist_cat_gambling_desc": {
+    "message": "אתרי הימורים והתערבויות"
+  },
+  "blocklist_cat_fakenews": {
+    "message": "חדשות מזויפות"
+  },
+  "blocklist_cat_fakenews_desc": {
+    "message": "מקורות מידע שגוי"
+  }
+}

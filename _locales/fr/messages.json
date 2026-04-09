@@ -1,0 +1,629 @@
+{
+  "ext_name": {
+    "message": "Focus Tools"
+  },
+  "ext_description": {
+    "message": "Bloquez les sites distrayants et masquez les elements addictifs des reseaux sociaux."
+  },
+  "options_language": {
+    "message": "Langue"
+  },
+  "popup_title": {
+    "message": "🧠 Focus Tools"
+  },
+  "popup_settings_title": {
+    "message": "Parametres"
+  },
+  "popup_controlled_by_schedule": {
+    "message": "Controle par le calendrier"
+  },
+  "popup_enter_password": {
+    "message": "Entrez le mot de passe pour deverrouiller"
+  },
+  "popup_password_placeholder": {
+    "message": "Mot de passe"
+  },
+  "popup_unlock": {
+    "message": "Deverrouiller"
+  },
+  "popup_incorrect_password": {
+    "message": "Mot de passe incorrect"
+  },
+  "popup_ok": {
+    "message": "OK"
+  },
+  "popup_cancel": {
+    "message": "Annuler"
+  },
+  "popup_block_url": {
+    "message": "Bloquer l'URL"
+  },
+  "popup_block_domain": {
+    "message": "Bloquer le domaine"
+  },
+  "popup_status_active": {
+    "message": "Actif"
+  },
+  "popup_status_active_scheduled": {
+    "message": "Actif (programme)"
+  },
+  "popup_status_disabled": {
+    "message": "Desactive"
+  },
+  "popup_status_disabled_scheduled": {
+    "message": "Desactive (programme)"
+  },
+  "popup_confirm_disable": {
+    "message": "Confirmer la desactivation ?"
+  },
+  "popup_disabling": {
+    "message": "Desactivation..."
+  },
+  "popup_btn_cancel": {
+    "message": "Annuler"
+  },
+  "popup_btn_disable": {
+    "message": "Desactiver"
+  },
+  "popup_btn_enable": {
+    "message": "Activer"
+  },
+  "popup_already_blocked": {
+    "message": "Deja bloque"
+  },
+  "popup_block_url_title": {
+    "message": "Bloquer $URL$",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_block_domain_title": {
+    "message": "Bloquer $DOMAIN$",
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      }
+    }
+  },
+  "timer_paused": {
+    "message": "$TIME$ (en pause)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocked_page_title": {
+    "message": "Bloque — Focus Tools"
+  },
+  "blocked_title": {
+    "message": "Ce site est bloque"
+  },
+  "blocked_subtitle": {
+    "message": "Focus Tools vous aide a rester concentre. Ce site est dans votre liste de blocage."
+  },
+  "options_page_title": {
+    "message": "Focus Tools — Parametres"
+  },
+  "options_title": {
+    "message": "🧠 Parametres Focus Tools"
+  },
+  "options_subtitle": {
+    "message": "Configurez les restrictions par site et la liste de blocage."
+  },
+  "options_tip": {
+    "message": "<strong style=\"color:#4ade80;\">Astuce :</strong> Pour utiliser Focus Tools en navigation privee, allez dans <strong style=\"color:#ccc;\">chrome://extensions</strong> → trouvez Focus Tools → <strong style=\"color:#ccc;\">Details</strong> → activez <strong style=\"color:#ccc;\">\"Autoriser en mode navigation privee\"</strong>."
+  },
+  "section_general": {
+    "message": "⚙️ General"
+  },
+  "options_block_ext_page": {
+    "message": "🧩 Bloquer la page des extensions"
+  },
+  "options_block_ext_desc": {
+    "message": "Empeche la desactivation rapide via chrome://extensions"
+  },
+  "options_countdown_timer": {
+    "message": "⏱️ Compte a rebours"
+  },
+  "options_seconds": {
+    "message": "secondes"
+  },
+  "section_blocked_sites": {
+    "message": "🚫 Sites bloques"
+  },
+  "options_search_sites_placeholder": {
+    "message": "Rechercher des sites bloques..."
+  },
+  "options_add": {
+    "message": "+ Ajouter"
+  },
+  "section_blocked_keywords": {
+    "message": "🔑 Mots-cles bloques"
+  },
+  "options_keywords_help": {
+    "message": "Bloquez toute URL contenant ces mots-cles. Ex. : \"poker\" bloque toutes les URL contenant \"poker\"."
+  },
+  "options_search_keywords_placeholder": {
+    "message": "Rechercher des mots-cles bloques..."
+  },
+  "section_blocklists": {
+    "message": "📋 Listes de blocage"
+  },
+  "options_blocklists_help": {
+    "message": "Listes de blocage maintenues par la communaute, provenant de <a href=\"https://github.com/StevenBlack/hosts\" target=\"_blank\" style=\"color:#4ade80;\">StevenBlack/hosts</a>."
+  },
+  "section_site_restrictions": {
+    "message": "🔧 Restrictions par site"
+  },
+  "section_schedule": {
+    "message": "📅 Calendrier"
+  },
+  "options_calendar_label": {
+    "message": "📅 Blocage par calendrier"
+  },
+  "options_calendar_desc": {
+    "message": "Activer/desactiver automatiquement selon un calendrier hebdomadaire"
+  },
+  "options_active_days": {
+    "message": "Jours actifs"
+  },
+  "options_active_hours": {
+    "message": "Heures actives"
+  },
+  "options_hours_to": {
+    "message": "a"
+  },
+  "options_save_schedule": {
+    "message": "Enregistrer le calendrier"
+  },
+  "options_calendar_note": {
+    "message": "L'extension sera active pendant les heures specifiees les jours selectionnes. Ne peut pas etre desactivee manuellement."
+  },
+  "section_advanced": {
+    "message": "🛠️ Avance"
+  },
+  "options_pause_timer": {
+    "message": "⏸️ Mettre en pause quand non visible"
+  },
+  "options_pause_timer_desc": {
+    "message": "Le compte a rebours se met en pause quand vous changez d'onglet. Fermer le popup reinitialise le compte a rebours."
+  },
+  "options_require_confirm": {
+    "message": "✅ Confirmation requise apres le compte a rebours"
+  },
+  "options_require_confirm_desc": {
+    "message": "Afficher OK/Annuler a la fin du compte a rebours au lieu d'executer automatiquement"
+  },
+  "options_password_lock": {
+    "message": "🔒 Verrouillage par mot de passe"
+  },
+  "options_password_lock_desc": {
+    "message": "Verrouiller le popup et les parametres avec un mot de passe"
+  },
+  "options_password_placeholder": {
+    "message": "Definir un mot de passe (laisser vide pour desactiver)"
+  },
+  "options_save": {
+    "message": "Enregistrer"
+  },
+  "options_password_warning": {
+    "message": "⚠ Si vous oubliez ce mot de passe, vous devrez reinstaller l'extension pour le reinitialiser.<br><strong>⚠ Procedez avec prudence :</strong> Si l'extension est autorisee en mode navigation privee et que \"Bloquer la page des extensions\" est active, oublier votre mot de passe signifie que vous ne pourrez pas acceder a chrome://extensions pour la supprimer. La seule solution pourrait etre de reinstaller completement Chrome. Assurez-vous de retenir votre mot de passe !"
+  },
+  "options_custom_redirect": {
+    "message": "🔗 URL de redirection personnalisee"
+  },
+  "options_custom_redirect_help": {
+    "message": "Les pages bloquees seront redirigees ici au lieu de la page de blocage par defaut. Laissez vide pour utiliser la page integree."
+  },
+  "options_custom_redirect_placeholder": {
+    "message": "https://example.com"
+  },
+  "options_clear": {
+    "message": "Effacer"
+  },
+  "modal_add_sites_title": {
+    "message": "Ajouter des sites a la liste de blocage"
+  },
+  "modal_add_sites_desc": {
+    "message": "Collez un site par ligne. Les protocoles et www. sont supprimes automatiquement."
+  },
+  "modal_add_sites_placeholder": {
+    "message": "reddit.com\n9gag.com\nbuzzfeed.com"
+  },
+  "modal_cancel": {
+    "message": "Annuler"
+  },
+  "modal_add_sites_confirm": {
+    "message": "Ajouter a la liste"
+  },
+  "modal_add_keywords_title": {
+    "message": "Ajouter des mots-cles a bloquer"
+  },
+  "modal_add_keywords_desc": {
+    "message": "Entrez un mot-cle par ligne. Toute URL contenant le mot-cle sera bloquee."
+  },
+  "modal_add_keywords_placeholder": {
+    "message": "poker\ngambling\ntiktok"
+  },
+  "modal_add_keywords_confirm": {
+    "message": "Ajouter les mots-cles"
+  },
+  "options_enter_password": {
+    "message": "Entrez le mot de passe pour acceder aux parametres"
+  },
+  "options_unlock": {
+    "message": "Deverrouiller"
+  },
+  "options_incorrect_password": {
+    "message": "Mot de passe incorrect"
+  },
+  "countdown_waiting": {
+    "message": "En attente de l'application du changement..."
+  },
+  "countdown_ok": {
+    "message": "OK"
+  },
+  "countdown_cancel": {
+    "message": "Annuler"
+  },
+  "options_password_set": {
+    "message": "Mot de passe defini !"
+  },
+  "options_password_removed": {
+    "message": "Mot de passe supprime."
+  },
+  "options_unlock_to_edit": {
+    "message": "Deverrouiller pour modifier"
+  },
+  "countdown_disabling_ext_block": {
+    "message": "Desactivation du blocage de la page des extensions..."
+  },
+  "countdown_unlocking_setting": {
+    "message": "Deverrouillage du parametre de compte a rebours..."
+  },
+  "countdown_confirm_action": {
+    "message": "Confirmer l'action ?"
+  },
+  "blocklist_sites_count_placeholder": {
+    "message": "$COUNT$ sites bloques — cliquez pour voir",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocklist_no_sites_placeholder": {
+    "message": "Aucun site bloque pour le moment"
+  },
+  "blocklist_search_sites": {
+    "message": "Rechercher des sites bloques..."
+  },
+  "blocklist_no_matching_sites": {
+    "message": "Aucun site correspondant"
+  },
+  "blocklist_no_sites_yet": {
+    "message": "Aucun site bloque pour le moment. Cliquez sur + Ajouter pour commencer."
+  },
+  "blocklist_remove_title": {
+    "message": "Supprimer (necessite un compte a rebours)"
+  },
+  "countdown_removing_site": {
+    "message": "Suppression de \"$SITE$\" de la liste de blocage...",
+    "placeholders": {
+      "site": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocklist_filtered_count": {
+    "message": "$SHOWN$ sur $TOTAL$ sites affiches",
+    "placeholders": {
+      "shown": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "blocklist_total_count": {
+    "message": "$COUNT$ sites bloques",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "keywords_count_placeholder": {
+    "message": "$COUNT$ mots-cles bloques — cliquez pour voir",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "keywords_no_keywords_placeholder": {
+    "message": "Aucun mot-cle bloque pour le moment"
+  },
+  "keywords_search": {
+    "message": "Rechercher des mots-cles bloques..."
+  },
+  "keywords_no_matching": {
+    "message": "Aucun mot-cle correspondant"
+  },
+  "keywords_no_keywords_yet": {
+    "message": "Aucun mot-cle bloque pour le moment. Cliquez sur + Ajouter pour commencer."
+  },
+  "countdown_removing_keyword": {
+    "message": "Suppression de \"$KEYWORD$\" des mots-cles...",
+    "placeholders": {
+      "keyword": {
+        "content": "$1"
+      }
+    }
+  },
+  "keywords_filtered_count": {
+    "message": "$SHOWN$ sur $TOTAL$ mots-cles affiches",
+    "placeholders": {
+      "shown": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "keywords_total_count": {
+    "message": "$COUNT$ mots-cles bloques",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocklist_cat_domains_updated": {
+    "message": "$COUNT$ domaines · Mis a jour le $DATE$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "date": {
+        "content": "$2"
+      }
+    }
+  },
+  "blocklist_cat_refresh": {
+    "message": "Actualiser"
+  },
+  "blocklist_cat_fetching": {
+    "message": "Chargement..."
+  },
+  "blocklist_cat_fetch_failed": {
+    "message": "Echec du chargement"
+  },
+  "countdown_disabling_blocklist": {
+    "message": "Desactivation de la liste de blocage $LABEL$...",
+    "placeholders": {
+      "label": {
+        "content": "$1"
+      }
+    }
+  },
+  "mode_allow": {
+    "message": "Autoriser"
+  },
+  "mode_filter": {
+    "message": "Filtrer"
+  },
+  "mode_block": {
+    "message": "Bloquer"
+  },
+  "countdown_changing_mode": {
+    "message": "Changement de $SITE$ en \"$MODE$\"...",
+    "placeholders": {
+      "site": {
+        "content": "$1"
+      },
+      "mode": {
+        "content": "$2"
+      }
+    }
+  },
+  "countdown_disabling_toggle": {
+    "message": "Desactivation de \"$TOGGLE$\" sur $SITE$...",
+    "placeholders": {
+      "toggle": {
+        "content": "$1"
+      },
+      "site": {
+        "content": "$2"
+      }
+    }
+  },
+  "day_sun": {
+    "message": "Dim"
+  },
+  "day_mon": {
+    "message": "Lun"
+  },
+  "day_tue": {
+    "message": "Mar"
+  },
+  "day_wed": {
+    "message": "Mer"
+  },
+  "day_thu": {
+    "message": "Jeu"
+  },
+  "day_fri": {
+    "message": "Ven"
+  },
+  "day_sat": {
+    "message": "Sam"
+  },
+  "options_calendar_error_hours": {
+    "message": "L'heure de debut doit etre anterieure a l'heure de fin."
+  },
+  "options_schedule_saved": {
+    "message": "Calendrier enregistre !"
+  },
+  "countdown_disabling_schedule": {
+    "message": "Desactivation du calendrier..."
+  },
+  "countdown_disabling_confirm": {
+    "message": "Desactivation de la confirmation requise..."
+  },
+  "countdown_disabling_freeze": {
+    "message": "Desactivation du gel du compte a rebours..."
+  },
+  "options_redirect_error_protocol": {
+    "message": "Seules les URL en http:// et https:// sont autorisees."
+  },
+  "options_redirect_error_invalid": {
+    "message": "Veuillez entrer une URL valide commencant par http:// ou https://"
+  },
+  "site_facebook": {
+    "message": "Facebook"
+  },
+  "site_youtube": {
+    "message": "YouTube"
+  },
+  "site_instagram": {
+    "message": "Instagram"
+  },
+  "site_x_twitter": {
+    "message": "X / Twitter"
+  },
+  "site_reddit": {
+    "message": "Reddit"
+  },
+  "site_linkedin": {
+    "message": "LinkedIn"
+  },
+  "site_tiktok": {
+    "message": "TikTok"
+  },
+  "toggle_facebook_hide_messenger": {
+    "message": "Masquer le lien Messenger"
+  },
+  "toggle_facebook_redirect_friends": {
+    "message": "Rediriger vers le fil Amis"
+  },
+  "toggle_facebook_hide_likes_comments": {
+    "message": "Masquer les mentions J'aime et les commentaires"
+  },
+  "toggle_facebook_hide_chat_sidebar": {
+    "message": "Masquer la barre laterale de discussion"
+  },
+  "toggle_facebook_hide_marketplace": {
+    "message": "Masquer le lien Marketplace"
+  },
+  "toggle_facebook_hide_video_reels": {
+    "message": "Masquer les liens Video et Reels"
+  },
+  "toggle_facebook_block_reels": {
+    "message": "Bloquer les pages Reels"
+  },
+  "toggle_facebook_hide_gaming": {
+    "message": "Masquer le lien Gaming"
+  },
+  "toggle_facebook_block_gaming": {
+    "message": "Bloquer les pages Gaming"
+  },
+  "toggle_remove_colors": {
+    "message": "Supprimer les couleurs (niveaux de gris)"
+  },
+  "toggle_youtube_hide_home_feed": {
+    "message": "Masquer le fil d'accueil / Recommandations"
+  },
+  "toggle_youtube_hide_shorts": {
+    "message": "Masquer le bouton et la section Shorts"
+  },
+  "toggle_youtube_block_shorts": {
+    "message": "Bloquer les pages Shorts"
+  },
+  "toggle_youtube_hide_comments": {
+    "message": "Masquer les commentaires"
+  },
+  "toggle_youtube_hide_sidebar": {
+    "message": "Masquer les suggestions laterales"
+  },
+  "toggle_youtube_hide_end_cards": {
+    "message": "Masquer les cartes de fin de video"
+  },
+  "toggle_instagram_hide_feed": {
+    "message": "Masquer le fil"
+  },
+  "toggle_instagram_hide_reels": {
+    "message": "Masquer le lien Reels"
+  },
+  "toggle_instagram_hide_explore": {
+    "message": "Masquer le lien Explorer"
+  },
+  "toggle_instagram_hide_stories": {
+    "message": "Masquer les stories"
+  },
+  "toggle_instagram_block_reels": {
+    "message": "Bloquer les pages Reels"
+  },
+  "toggle_x_hide_feed": {
+    "message": "Masquer le fil / Timeline"
+  },
+  "toggle_x_hide_trending": {
+    "message": "Masquer les tendances / Explorer"
+  },
+  "toggle_x_hide_who_to_follow": {
+    "message": "Masquer les suggestions d'abonnement"
+  },
+  "toggle_x_block_explore": {
+    "message": "Bloquer la page Explorer"
+  },
+  "toggle_reddit_hide_feed": {
+    "message": "Masquer le fil"
+  },
+  "toggle_reddit_hide_popular": {
+    "message": "Masquer les liens Populaire / Tous"
+  },
+  "toggle_reddit_hide_awards": {
+    "message": "Masquer les recompenses"
+  },
+  "toggle_linkedin_redirect_feed": {
+    "message": "Rediriger le fil vers Mon reseau"
+  },
+  "toggle_linkedin_block_feed": {
+    "message": "Bloquer entierement la page du fil"
+  },
+  "toggle_linkedin_block_games": {
+    "message": "Bloquer les jeux / Puzzles"
+  },
+  "toggle_linkedin_hide_home": {
+    "message": "Masquer le bouton Accueil"
+  },
+  "toggle_linkedin_hide_news": {
+    "message": "Masquer la barre laterale Actualites"
+  },
+  "toggle_linkedin_hide_notifications": {
+    "message": "Masquer le badge de notifications"
+  },
+  "blocklist_cat_porn": {
+    "message": "Pornographie"
+  },
+  "blocklist_cat_porn_desc": {
+    "message": "Sites de contenu pour adultes"
+  },
+  "blocklist_cat_gambling": {
+    "message": "Jeux d'argent"
+  },
+  "blocklist_cat_gambling_desc": {
+    "message": "Sites de jeux d'argent et de paris"
+  },
+  "blocklist_cat_fakenews": {
+    "message": "Fausses informations"
+  },
+  "blocklist_cat_fakenews_desc": {
+    "message": "Sources de desinformation"
+  }
+}

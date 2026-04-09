@@ -1,0 +1,629 @@
+{
+  "ext_name": {
+    "message": "Focus Tools"
+  },
+  "ext_description": {
+    "message": "حظر المواقع المشتتة وإخفاء عناصر واجهة المستخدم المسببة للإدمان على وسائل التواصل الاجتماعي."
+  },
+  "options_language": {
+    "message": "اللغة"
+  },
+  "popup_title": {
+    "message": "🧠 Focus Tools"
+  },
+  "popup_settings_title": {
+    "message": "الإعدادات"
+  },
+  "popup_controlled_by_schedule": {
+    "message": "يتحكم به الجدول الزمني"
+  },
+  "popup_enter_password": {
+    "message": "أدخل كلمة المرور لإلغاء القفل"
+  },
+  "popup_password_placeholder": {
+    "message": "كلمة المرور"
+  },
+  "popup_unlock": {
+    "message": "إلغاء القفل"
+  },
+  "popup_incorrect_password": {
+    "message": "كلمة مرور غير صحيحة"
+  },
+  "popup_ok": {
+    "message": "موافق"
+  },
+  "popup_cancel": {
+    "message": "إلغاء"
+  },
+  "popup_block_url": {
+    "message": "حظر الرابط"
+  },
+  "popup_block_domain": {
+    "message": "حظر النطاق"
+  },
+  "popup_status_active": {
+    "message": "مفعّل"
+  },
+  "popup_status_active_scheduled": {
+    "message": "مفعّل (مجدول)"
+  },
+  "popup_status_disabled": {
+    "message": "معطّل"
+  },
+  "popup_status_disabled_scheduled": {
+    "message": "معطّل (مجدول)"
+  },
+  "popup_confirm_disable": {
+    "message": "تأكيد التعطيل؟"
+  },
+  "popup_disabling": {
+    "message": "جارٍ التعطيل..."
+  },
+  "popup_btn_cancel": {
+    "message": "إلغاء"
+  },
+  "popup_btn_disable": {
+    "message": "تعطيل"
+  },
+  "popup_btn_enable": {
+    "message": "تفعيل"
+  },
+  "popup_already_blocked": {
+    "message": "محظور بالفعل"
+  },
+  "popup_block_url_title": {
+    "message": "حظر $URL$",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "popup_block_domain_title": {
+    "message": "حظر $DOMAIN$",
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      }
+    }
+  },
+  "timer_paused": {
+    "message": "$TIME$ (متوقف مؤقتاً)",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocked_page_title": {
+    "message": "محظور — Focus Tools"
+  },
+  "blocked_title": {
+    "message": "هذا الموقع محظور"
+  },
+  "blocked_subtitle": {
+    "message": "Focus Tools يساعدك على التركيز. هذا الموقع مدرج في قائمة الحظر الخاصة بك."
+  },
+  "options_page_title": {
+    "message": "Focus Tools — الإعدادات"
+  },
+  "options_title": {
+    "message": "🧠 إعدادات Focus Tools"
+  },
+  "options_subtitle": {
+    "message": "تكوين القيود لكل موقع وقائمة الحظر."
+  },
+  "options_tip": {
+    "message": "<strong style=\"color:#4ade80;\">نصيحة:</strong> لاستخدام Focus Tools في وضع التصفح المتخفي، انتقل إلى <strong style=\"color:#ccc;\">chrome://extensions</strong> ← ابحث عن Focus Tools ← <strong style=\"color:#ccc;\">التفاصيل</strong> ← فعّل <strong style=\"color:#ccc;\">\"السماح في وضع التصفح المتخفي\"</strong>."
+  },
+  "section_general": {
+    "message": "⚙️ عام"
+  },
+  "options_block_ext_page": {
+    "message": "🧩 حظر صفحة الإضافات"
+  },
+  "options_block_ext_desc": {
+    "message": "يمنع التعطيل السريع عبر chrome://extensions"
+  },
+  "options_countdown_timer": {
+    "message": "⏱️ مؤقت العد التنازلي"
+  },
+  "options_seconds": {
+    "message": "ثوانٍ"
+  },
+  "section_blocked_sites": {
+    "message": "🚫 المواقع المحظورة"
+  },
+  "options_search_sites_placeholder": {
+    "message": "البحث في المواقع المحظورة..."
+  },
+  "options_add": {
+    "message": "+ إضافة"
+  },
+  "section_blocked_keywords": {
+    "message": "🔑 الكلمات المفتاحية المحظورة"
+  },
+  "options_keywords_help": {
+    "message": "حظر أي رابط يحتوي على هذه الكلمات المفتاحية. مثال: \"poker\" يحظر جميع الروابط التي تحتوي على \"poker\"."
+  },
+  "options_search_keywords_placeholder": {
+    "message": "البحث في الكلمات المفتاحية المحظورة..."
+  },
+  "section_blocklists": {
+    "message": "📋 قوائم الحظر"
+  },
+  "options_blocklists_help": {
+    "message": "قوائم حظر يديرها المجتمع من <a href=\"https://github.com/StevenBlack/hosts\" target=\"_blank\" style=\"color:#4ade80;\">StevenBlack/hosts</a>."
+  },
+  "section_site_restrictions": {
+    "message": "🔧 قيود المواقع"
+  },
+  "section_schedule": {
+    "message": "📅 الجدول الزمني"
+  },
+  "options_calendar_label": {
+    "message": "📅 الحظر حسب التقويم"
+  },
+  "options_calendar_desc": {
+    "message": "تفعيل/تعطيل تلقائي وفق جدول أسبوعي"
+  },
+  "options_active_days": {
+    "message": "الأيام النشطة"
+  },
+  "options_active_hours": {
+    "message": "الساعات النشطة"
+  },
+  "options_hours_to": {
+    "message": "إلى"
+  },
+  "options_save_schedule": {
+    "message": "حفظ الجدول"
+  },
+  "options_calendar_note": {
+    "message": "ستكون الإضافة نشطة خلال الساعات المحددة في الأيام المختارة. لا يمكن تجاوزها يدوياً."
+  },
+  "section_advanced": {
+    "message": "🛠️ متقدم"
+  },
+  "options_pause_timer": {
+    "message": "⏸️ إيقاف المؤقت عند عدم الظهور"
+  },
+  "options_pause_timer_desc": {
+    "message": "يتوقف المؤقت عند التبديل بين علامات التبويب. إغلاق النافذة المنبثقة يعيد تعيين المؤقت."
+  },
+  "options_require_confirm": {
+    "message": "✅ طلب التأكيد بعد العد التنازلي"
+  },
+  "options_require_confirm_desc": {
+    "message": "عرض موافق/إلغاء عند انتهاء المؤقت بدلاً من التنفيذ التلقائي"
+  },
+  "options_password_lock": {
+    "message": "🔒 قفل بكلمة مرور"
+  },
+  "options_password_lock_desc": {
+    "message": "قفل النافذة المنبثقة والإعدادات بكلمة مرور"
+  },
+  "options_password_placeholder": {
+    "message": "تعيين كلمة مرور (اتركه فارغاً للتعطيل)"
+  },
+  "options_save": {
+    "message": "حفظ"
+  },
+  "options_password_warning": {
+    "message": "⚠ إذا نسيت كلمة المرور هذه، ستحتاج إلى إعادة تثبيت الإضافة لإعادة تعيينها.<br><strong>⚠ تابع بحذر:</strong> إذا كانت الإضافة مسموحاً بها في وضع التصفح المتخفي وكان خيار \"حظر صفحة الإضافات\" مفعلاً، فإن نسيان كلمة المرور يعني أنك لن تتمكن من الوصول إلى chrome://extensions لإزالتها. الطريقة الوحيدة للخروج قد تكون إعادة تثبيت Chrome بالكامل. تأكد من أنك تتذكر كلمة المرور!"
+  },
+  "options_custom_redirect": {
+    "message": "🔗 رابط إعادة توجيه مخصص"
+  },
+  "options_custom_redirect_help": {
+    "message": "سيتم إعادة توجيه الصفحات المحظورة إلى هنا بدلاً من صفحة الحظر الافتراضية. اتركه فارغاً لاستخدام الصفحة المدمجة."
+  },
+  "options_custom_redirect_placeholder": {
+    "message": "https://example.com"
+  },
+  "options_clear": {
+    "message": "مسح"
+  },
+  "modal_add_sites_title": {
+    "message": "إضافة مواقع إلى قائمة الحظر"
+  },
+  "modal_add_sites_desc": {
+    "message": "الصق موقعاً واحداً في كل سطر. تتم إزالة البروتوكولات وwww. تلقائياً."
+  },
+  "modal_add_sites_placeholder": {
+    "message": "reddit.com\n9gag.com\nbuzzfeed.com"
+  },
+  "modal_cancel": {
+    "message": "إلغاء"
+  },
+  "modal_add_sites_confirm": {
+    "message": "إضافة إلى قائمة الحظر"
+  },
+  "modal_add_keywords_title": {
+    "message": "إضافة كلمات مفتاحية للحظر"
+  },
+  "modal_add_keywords_desc": {
+    "message": "أدخل كلمة مفتاحية واحدة في كل سطر. سيتم حظر أي رابط يحتوي على الكلمة المفتاحية."
+  },
+  "modal_add_keywords_placeholder": {
+    "message": "poker\ngambling\ntiktok"
+  },
+  "modal_add_keywords_confirm": {
+    "message": "إضافة كلمات مفتاحية"
+  },
+  "options_enter_password": {
+    "message": "أدخل كلمة المرور للوصول إلى الإعدادات"
+  },
+  "options_unlock": {
+    "message": "إلغاء القفل"
+  },
+  "options_incorrect_password": {
+    "message": "كلمة مرور غير صحيحة"
+  },
+  "countdown_waiting": {
+    "message": "في انتظار تطبيق التغيير..."
+  },
+  "countdown_ok": {
+    "message": "موافق"
+  },
+  "countdown_cancel": {
+    "message": "إلغاء"
+  },
+  "options_password_set": {
+    "message": "تم تعيين كلمة المرور!"
+  },
+  "options_password_removed": {
+    "message": "تمت إزالة كلمة المرور."
+  },
+  "options_unlock_to_edit": {
+    "message": "أَلغِ القفل للتعديل"
+  },
+  "countdown_disabling_ext_block": {
+    "message": "جارٍ تعطيل حظر صفحة الإضافات..."
+  },
+  "countdown_unlocking_setting": {
+    "message": "جارٍ إلغاء قفل الإعداد..."
+  },
+  "countdown_confirm_action": {
+    "message": "تأكيد الإجراء؟"
+  },
+  "blocklist_sites_count_placeholder": {
+    "message": "$COUNT$ موقع محظور — انقر للعرض",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocklist_no_sites_placeholder": {
+    "message": "لا توجد مواقع محظورة بعد"
+  },
+  "blocklist_search_sites": {
+    "message": "البحث في المواقع المحظورة..."
+  },
+  "blocklist_no_matching_sites": {
+    "message": "لا توجد مواقع مطابقة"
+  },
+  "blocklist_no_sites_yet": {
+    "message": "لا توجد مواقع محظورة بعد. انقر + إضافة للبدء."
+  },
+  "blocklist_remove_title": {
+    "message": "إزالة (يتطلب عداً تنازلياً)"
+  },
+  "countdown_removing_site": {
+    "message": "جارٍ إزالة \"$SITE$\" من قائمة الحظر...",
+    "placeholders": {
+      "site": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocklist_filtered_count": {
+    "message": "$SHOWN$ من $TOTAL$ موقع معروض",
+    "placeholders": {
+      "shown": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "blocklist_total_count": {
+    "message": "$COUNT$ موقع محظور",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "keywords_count_placeholder": {
+    "message": "$COUNT$ كلمة مفتاحية محظورة — انقر للعرض",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "keywords_no_keywords_placeholder": {
+    "message": "لا توجد كلمات مفتاحية محظورة بعد"
+  },
+  "keywords_search": {
+    "message": "البحث في الكلمات المفتاحية المحظورة..."
+  },
+  "keywords_no_matching": {
+    "message": "لا توجد كلمات مفتاحية مطابقة"
+  },
+  "keywords_no_keywords_yet": {
+    "message": "لا توجد كلمات مفتاحية محظورة بعد. انقر + إضافة للبدء."
+  },
+  "countdown_removing_keyword": {
+    "message": "جارٍ إزالة \"$KEYWORD$\" من الكلمات المفتاحية...",
+    "placeholders": {
+      "keyword": {
+        "content": "$1"
+      }
+    }
+  },
+  "keywords_filtered_count": {
+    "message": "$SHOWN$ من $TOTAL$ كلمة مفتاحية معروضة",
+    "placeholders": {
+      "shown": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "keywords_total_count": {
+    "message": "$COUNT$ كلمة مفتاحية محظورة",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "blocklist_cat_domains_updated": {
+    "message": "$COUNT$ نطاق · آخر تحديث $DATE$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "date": {
+        "content": "$2"
+      }
+    }
+  },
+  "blocklist_cat_refresh": {
+    "message": "تحديث"
+  },
+  "blocklist_cat_fetching": {
+    "message": "جارٍ الجلب..."
+  },
+  "blocklist_cat_fetch_failed": {
+    "message": "فشل الجلب"
+  },
+  "countdown_disabling_blocklist": {
+    "message": "جارٍ تعطيل قائمة الحظر $LABEL$...",
+    "placeholders": {
+      "label": {
+        "content": "$1"
+      }
+    }
+  },
+  "mode_allow": {
+    "message": "سماح"
+  },
+  "mode_filter": {
+    "message": "تصفية"
+  },
+  "mode_block": {
+    "message": "حظر"
+  },
+  "countdown_changing_mode": {
+    "message": "جارٍ تغيير $SITE$ إلى \"$MODE$\"...",
+    "placeholders": {
+      "site": {
+        "content": "$1"
+      },
+      "mode": {
+        "content": "$2"
+      }
+    }
+  },
+  "countdown_disabling_toggle": {
+    "message": "جارٍ تعطيل \"$TOGGLE$\" على $SITE$...",
+    "placeholders": {
+      "toggle": {
+        "content": "$1"
+      },
+      "site": {
+        "content": "$2"
+      }
+    }
+  },
+  "day_sun": {
+    "message": "أحد"
+  },
+  "day_mon": {
+    "message": "إثنين"
+  },
+  "day_tue": {
+    "message": "ثلاثاء"
+  },
+  "day_wed": {
+    "message": "أربعاء"
+  },
+  "day_thu": {
+    "message": "خميس"
+  },
+  "day_fri": {
+    "message": "جمعة"
+  },
+  "day_sat": {
+    "message": "سبت"
+  },
+  "options_calendar_error_hours": {
+    "message": "يجب أن تكون ساعة البداية قبل ساعة النهاية."
+  },
+  "options_schedule_saved": {
+    "message": "تم حفظ الجدول!"
+  },
+  "countdown_disabling_schedule": {
+    "message": "جارٍ تعطيل الجدول الزمني..."
+  },
+  "countdown_disabling_confirm": {
+    "message": "جارٍ تعطيل شرط التأكيد..."
+  },
+  "countdown_disabling_freeze": {
+    "message": "جارٍ تعطيل تجميد المؤقت..."
+  },
+  "options_redirect_error_protocol": {
+    "message": "يُسمح فقط بروابط http:// وhttps://."
+  },
+  "options_redirect_error_invalid": {
+    "message": "يرجى إدخال رابط صالح يبدأ بـ http:// أو https://"
+  },
+  "site_facebook": {
+    "message": "Facebook"
+  },
+  "site_youtube": {
+    "message": "YouTube"
+  },
+  "site_instagram": {
+    "message": "Instagram"
+  },
+  "site_x_twitter": {
+    "message": "X / Twitter"
+  },
+  "site_reddit": {
+    "message": "Reddit"
+  },
+  "site_linkedin": {
+    "message": "LinkedIn"
+  },
+  "site_tiktok": {
+    "message": "TikTok"
+  },
+  "toggle_facebook_hide_messenger": {
+    "message": "إخفاء رابط Messenger"
+  },
+  "toggle_facebook_redirect_friends": {
+    "message": "إعادة التوجيه إلى خلاصة الأصدقاء"
+  },
+  "toggle_facebook_hide_likes_comments": {
+    "message": "إخفاء الإعجابات والتعليقات"
+  },
+  "toggle_facebook_hide_chat_sidebar": {
+    "message": "إخفاء شريط الدردشة الجانبي"
+  },
+  "toggle_facebook_hide_marketplace": {
+    "message": "إخفاء رابط Marketplace"
+  },
+  "toggle_facebook_hide_video_reels": {
+    "message": "إخفاء روابط الفيديو وReels"
+  },
+  "toggle_facebook_block_reels": {
+    "message": "حظر صفحات Reels"
+  },
+  "toggle_facebook_hide_gaming": {
+    "message": "إخفاء رابط الألعاب"
+  },
+  "toggle_facebook_block_gaming": {
+    "message": "حظر صفحات الألعاب"
+  },
+  "toggle_remove_colors": {
+    "message": "إزالة الألوان (تدرج رمادي)"
+  },
+  "toggle_youtube_hide_home_feed": {
+    "message": "إخفاء الخلاصة الرئيسية / التوصيات"
+  },
+  "toggle_youtube_hide_shorts": {
+    "message": "إخفاء زر ورف Shorts"
+  },
+  "toggle_youtube_block_shorts": {
+    "message": "حظر صفحات Shorts"
+  },
+  "toggle_youtube_hide_comments": {
+    "message": "إخفاء التعليقات"
+  },
+  "toggle_youtube_hide_sidebar": {
+    "message": "إخفاء اقتراحات الشريط الجانبي"
+  },
+  "toggle_youtube_hide_end_cards": {
+    "message": "إخفاء بطاقات شاشة النهاية"
+  },
+  "toggle_instagram_hide_feed": {
+    "message": "إخفاء الخلاصة"
+  },
+  "toggle_instagram_hide_reels": {
+    "message": "إخفاء رابط Reels"
+  },
+  "toggle_instagram_hide_explore": {
+    "message": "إخفاء رابط الاستكشاف"
+  },
+  "toggle_instagram_hide_stories": {
+    "message": "إخفاء القصص"
+  },
+  "toggle_instagram_block_reels": {
+    "message": "حظر صفحات Reels"
+  },
+  "toggle_x_hide_feed": {
+    "message": "إخفاء الخلاصة / الجدول الزمني"
+  },
+  "toggle_x_hide_trending": {
+    "message": "إخفاء الشائع / الاستكشاف"
+  },
+  "toggle_x_hide_who_to_follow": {
+    "message": "إخفاء مقترحات المتابعة"
+  },
+  "toggle_x_block_explore": {
+    "message": "حظر صفحة الاستكشاف"
+  },
+  "toggle_reddit_hide_feed": {
+    "message": "إخفاء الخلاصة"
+  },
+  "toggle_reddit_hide_popular": {
+    "message": "إخفاء روابط الشائع / الكل"
+  },
+  "toggle_reddit_hide_awards": {
+    "message": "إخفاء الجوائز"
+  },
+  "toggle_linkedin_redirect_feed": {
+    "message": "إعادة توجيه الخلاصة إلى شبكتي"
+  },
+  "toggle_linkedin_block_feed": {
+    "message": "حظر صفحة الخلاصة بالكامل"
+  },
+  "toggle_linkedin_block_games": {
+    "message": "حظر الألعاب / الألغاز"
+  },
+  "toggle_linkedin_hide_home": {
+    "message": "إخفاء زر الرئيسية"
+  },
+  "toggle_linkedin_hide_news": {
+    "message": "إخفاء شريط الأخبار الجانبي"
+  },
+  "toggle_linkedin_hide_notifications": {
+    "message": "إخفاء شارة الإشعارات"
+  },
+  "blocklist_cat_porn": {
+    "message": "إباحية"
+  },
+  "blocklist_cat_porn_desc": {
+    "message": "مواقع محتوى للبالغين"
+  },
+  "blocklist_cat_gambling": {
+    "message": "قمار"
+  },
+  "blocklist_cat_gambling_desc": {
+    "message": "مواقع القمار والمراهنات"
+  },
+  "blocklist_cat_fakenews": {
+    "message": "أخبار مزيفة"
+  },
+  "blocklist_cat_fakenews_desc": {
+    "message": "مصادر المعلومات المضللة"
+  }
+}
