@@ -22,7 +22,6 @@ The extension requests the following browser permissions:
 - **declarativeNetRequest** — to block URLs based on your blocklist
 - **alarms** — for the disable countdown timer
 - **activeTab / tabs** — to interact with the current tab (e.g. blocking the current site)
-- **webNavigation** — to enforce blocking before pages load
 - **Host permissions (all URLs)** — required because the extension supports blocking any user-specified website and injects content scripts into supported social media sites
 
 ## Contact
