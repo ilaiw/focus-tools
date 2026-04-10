@@ -66,9 +66,6 @@ Stores all user settings locally, including blocked sites, blocked keywords, per
 **tabs**
 Used to redirect the current tab to the blocked page when a site is blocked, and to detect when a user navigates to the browser extensions page (if that protection is enabled).
 
-**webNavigation**
-Monitors page navigations to enforce community blocklist blocking before the page loads, since declarativeNetRequest dynamic rules don't cover the large volume of community blocklist domains.
-
 **Host permissions (all URLs)**
 The extension needs broad host access because users can block any website of their choosing. Content scripts also inject CSS on supported social media sites to hide distracting UI elements.
 

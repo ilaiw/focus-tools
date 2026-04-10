@@ -1,24 +1,56 @@
 // Focus Tools — Background Service Worker
 importScripts("site-config.js");
 
-let blocklistDomainSet = new Set();
+// Rebuild session rules for community blocklist categories.
+// Uses requestDomains so one rule covers an entire category (no 5k-rule-limit issue).
+// Session rules survive service-worker sleep but are cleared on browser restart,
+// so this is called on startup and whenever blocklist or enabled state changes.
+async function updateBlocklistRules() {
+  const catKeys = Object.keys(BLOCKLIST_CATEGORIES);
+  // Fixed rule IDs: one per category. Always remove all before re-adding
+  // to avoid race conditions between concurrent calls.
+  const allRuleIds = catKeys.map((_, i) => i + 1);
 
-// Load enabled blocklist domains into memory (called on startup and after changes)
-async function loadBlocklistIntoMemory() {
-  const { blocklistCategories } = await chrome.storage.local.get("blocklistCategories");
-  const cats = blocklistCategories || DEFAULT_BLOCKLIST_CATEGORIES;
-  const keys = [];
-  for (const [cat, info] of Object.entries(cats)) {
-    if (info.enabled) keys.push(`blocklistDomains_${cat}`);
-  }
-  if (keys.length === 0) { blocklistDomainSet = new Set(); return; }
+  const storageKeys = ["enabled", "blocklistCategories", "customRedirectUrl",
+    ...catKeys.map(k => `blocklistDomains_${k}`)];
 
-  const data = await chrome.storage.local.get(keys);
-  const combined = new Set();
-  for (const key of keys) {
-    if (data[key]) for (const d of data[key]) combined.add(d);
+  const data = await chrome.storage.local.get(storageKeys);
+
+  if (data.enabled === false) {
+    await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: allRuleIds })
+      .catch(err => console.error("updateSessionRules clear failed:", err));
+    return;
   }
-  blocklistDomainSet = combined;
+
+  const cats = data.blocklistCategories || DEFAULT_BLOCKLIST_CATEGORIES;
+  const blockedAction = data.customRedirectUrl
+    ? { type: "redirect", redirect: { url: data.customRedirectUrl } }
+    : { type: "redirect", redirect: { extensionPath: "/blocked.html" } };
+
+  const addRules = [];
+
+  for (let i = 0; i < catKeys.length; i++) {
+    const catInfo = cats[catKeys[i]];
+    if (!catInfo || !catInfo.enabled) continue;
+
+    const domains = data[`blocklistDomains_${catKeys[i]}`];
+    if (!domains || domains.length === 0) continue;
+
+    addRules.push({
+      id: i + 1,
+      priority: 1,
+      action: blockedAction,
+      condition: {
+        requestDomains: domains,
+        resourceTypes: ["main_frame"]
+      }
+    });
+  }
+
+  await chrome.declarativeNetRequest.updateSessionRules({
+    removeRuleIds: allRuleIds,
+    addRules
+  }).catch(err => console.error("updateSessionRules failed:", err));
 }
 
 // Fetch and parse a StevenBlack hosts file for a category
@@ -48,12 +80,12 @@ async function fetchBlocklistCategory(category) {
     blocklistCategories: cats
   });
 
-  await loadBlocklistIntoMemory();
+  await updateBlocklistRules();
   return cats;
 }
 
-// Load blocklist on service worker startup
-loadBlocklistIntoMemory();
+// Rebuild blocklist session rules on service worker startup
+updateBlocklistRules();
 
 // Only create calendar alarm if calendar is enabled
 chrome.storage.local.get("calendarEnabled", (result) => {
@@ -105,6 +137,7 @@ chrome.runtime.onInstalled.addListener(() => {
     if (Object.keys(updates).length) chrome.storage.local.set(updates);
   });
   updateRules();
+  updateBlocklistRules();
 });
 
 // Block chrome://extensions and edge://extensions when enabled
@@ -156,6 +189,7 @@ function evaluateCalendar() {
     if (shouldBeEnabled !== currentlyEnabled) {
       chrome.storage.local.set({ enabled: shouldBeEnabled, calendarControlling: true });
       updateRules();
+      updateBlocklistRules();
     } else {
       chrome.storage.local.set({ calendarControlling: true });
     }
@@ -178,26 +212,11 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       } else {
         chrome.storage.local.set({ enabled: false, disabling: false });
         updateRules();
+        updateBlocklistRules();
         chrome.runtime.sendMessage({ type: "disabled" }).catch(() => {});
       }
     });
   }
-});
-
-// Block domains from community blocklists via webNavigation
-chrome.webNavigation.onBeforeNavigate.addListener((details) => {
-  if (details.frameId !== 0) return;
-  if (blocklistDomainSet.size === 0) return;
-
-  chrome.storage.local.get(["enabled", "customRedirectUrl"], (result) => {
-    if (result.enabled === false) return;
-    let hostname;
-    try { hostname = new URL(details.url).hostname.replace(/^www\./, ""); } catch { return; }
-    if (blocklistDomainSet.has(hostname)) {
-      const redirectUrl = result.customRedirectUrl || chrome.runtime.getURL("blocked.html");
-      chrome.tabs.update(details.tabId, { url: redirectUrl });
-    }
-  });
 });
 
 // Listen for messages
@@ -268,6 +287,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.type === "confirmDisable") {
     chrome.storage.local.set({ enabled: false, disableWaitingConfirm: false, disabling: false });
     updateRules();
+    updateBlocklistRules();
     sendResponse({ enabled: false });
     return true;
   }
@@ -302,6 +322,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       chrome.alarms.clear("disableExtension");
       chrome.storage.local.set({ enabled: true, disabling: false, disableAt: null });
       updateRules();
+      updateBlocklistRules();
       sendResponse({ enabled: true });
     });
     return true;
@@ -418,6 +439,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.type === "saveCustomRedirectUrl") {
     chrome.storage.local.set({ customRedirectUrl: msg.url });
     updateRules();
+    updateBlocklistRules();
     sendResponse({ ok: true });
     return true;
   }
@@ -478,7 +500,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       const cats = result.blocklistCategories || DEFAULT_BLOCKLIST_CATEGORIES;
       if (cats[msg.category]) cats[msg.category].enabled = false;
       chrome.storage.local.set({ blocklistCategories: cats }, () => {
-        loadBlocklistIntoMemory();
+        updateBlocklistRules();
         sendResponse({ ok: true, blocklistCategories: cats });
       });
     });
