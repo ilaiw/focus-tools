@@ -20,17 +20,23 @@ into the Chrome Web Store Developer Dashboard.
 
 ## Description
 
-Block distracting websites and take control of your social media experience.
+I built Focus Tools for myself because I needed help staying focused — then figured, why not share it? Completely free, no ads, no tracking. Just a tool that does what it says.
 
-Focus Tools helps you stay focused by letting you block any website — manually, by keyword, or using community-maintained blocklists. For popular social media sites, you can selectively hide distracting elements like feeds, recommendations, shorts, and comments without fully blocking the site.
+Block distracting websites and take control of your social media experience. Focus Tools lets you block any website — manually, by keyword, or using community-maintained blocklists. For popular social media sites, you can selectively hide distracting elements like feeds, recommendations, shorts, and comments without fully blocking the site.
 
 Key features:
 - Block any website by URL, domain, or keyword
 - Community blocklists for adult content, gambling, and misinformation (powered by StevenBlack/hosts)
-- Filter mode: hide specific UI elements on social media — feeds, reels, comments, sidebars, and more
+- Filter mode: hide specific UI elements on social media — feeds, reels, comments, sidebars, and more (40+ toggles across 7 platforms)
 - Three modes per site: Allow, Filter, or Block
 - Grayscale mode to make sites less appealing
-- Anti-impulse countdown timer that delays disabling the extension
+- Weekly schedule: automatically enable/disable blocking by day and time
+- Anti-impulse countdown timer that delays disabling — with optional confirmation step and timer freeze when the popup closes
+- Password lock to protect your settings and popup from being changed
+- Block the extensions page to prevent quick-disabling the extension
+- Custom redirect URL — send blocked sites to any page you choose
+- Motivational quotes on the blocked page to keep you inspired
+- Available in 8 languages: English, Spanish, French, Italian, Russian, Arabic, Hebrew, and auto-detect — with full RTL support
 - All data stored locally — no accounts, no tracking, no data collection
 
 Works on Chrome, Edge, and other Chromium-based browsers.
@@ -39,7 +45,7 @@ Works on Chrome, Edge, and other Chromium-based browsers.
 
 ## Single Purpose Description
 
-Blocks distracting websites and hides addictive UI elements on social media to help users stay focused.
+Blocks distracting websites, hides addictive UI elements on social media, and provides scheduled focus sessions to help users stay focused.
 
 ---
 
