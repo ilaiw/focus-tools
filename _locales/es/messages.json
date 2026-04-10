@@ -210,7 +210,7 @@
     "message": "Guardar"
   },
   "options_password_warning": {
-    "message": "⚠ Si olvidas esta contraseña, tendrás que reinstalar la extensión para restablecerla.<br><strong>⚠ Procede con precaución:</strong> Si la extensión está permitida en modo Incógnito y \"Bloquear página de extensiones\" está activado, olvidar tu contraseña significa que no podrás acceder a chrome://extensions para eliminarla. La única salida podría ser reinstalar Chrome por completo. ¡Asegúrate de recordar tu contraseña!"
+    "message": "<strong>⚠ Procede con precaución:</strong> Si la extensión está permitida en modo Incógnito y \"Bloquear página de extensiones\" está activado, olvidar tu contraseña significa que no podrás acceder a chrome://extensions para eliminarla. La única salida podría ser reinstalar Chrome por completo. ¡Asegúrate de recordar tu contraseña!"
   },
   "options_custom_redirect": {
     "message": "🔗 URL de redirección personalizada"

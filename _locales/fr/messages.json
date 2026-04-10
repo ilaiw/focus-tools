@@ -210,7 +210,7 @@
     "message": "Enregistrer"
   },
   "options_password_warning": {
-    "message": "⚠ Si vous oubliez ce mot de passe, vous devrez reinstaller l'extension pour le reinitialiser.<br><strong>⚠ Procedez avec prudence :</strong> Si l'extension est autorisee en mode navigation privee et que \"Bloquer la page des extensions\" est active, oublier votre mot de passe signifie que vous ne pourrez pas acceder a chrome://extensions pour la supprimer. La seule solution pourrait etre de reinstaller completement Chrome. Assurez-vous de retenir votre mot de passe !"
+    "message": "<strong>⚠ Procedez avec prudence :</strong> Si l'extension est autorisee en mode navigation privee et que \"Bloquer la page des extensions\" est active, oublier votre mot de passe signifie que vous ne pourrez pas acceder a chrome://extensions pour la supprimer. La seule solution pourrait etre de reinstaller completement Chrome. Assurez-vous de retenir votre mot de passe !"
   },
   "options_custom_redirect": {
     "message": "🔗 URL de redirection personnalisee"

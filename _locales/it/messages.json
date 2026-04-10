@@ -210,7 +210,7 @@
     "message": "Salva"
   },
   "options_password_warning": {
-    "message": "⚠ Se dimentichi questa password, dovrai reinstallare l'estensione per reimpostarla.<br><strong>⚠ Procedi con cautela:</strong> Se l'estensione è consentita in modalità incognito e \"Blocca la pagina delle estensioni\" è attivato, dimenticare la password significa non poter accedere a chrome://extensions per rimuoverla. L'unica soluzione potrebbe essere reinstallare completamente Chrome. Assicurati di ricordare la password!"
+    "message": "<strong>⚠ Procedi con cautela:</strong> Se l'estensione è consentita in modalità incognito e \"Blocca la pagina delle estensioni\" è attivato, dimenticare la password significa non poter accedere a chrome://extensions per rimuoverla. L'unica soluzione potrebbe essere reinstallare completamente Chrome. Assicurati di ricordare la password!"
   },
   "options_custom_redirect": {
     "message": "🔗 URL di reindirizzamento personalizzato"

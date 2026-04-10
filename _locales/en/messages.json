@@ -96,7 +96,7 @@
   "options_password_placeholder": { "message": "Set password (leave empty to disable)" },
   "options_save": { "message": "Save" },
   "options_password_warning": {
-    "message": "⚠ If you forget this password, you'll need to reinstall the extension to reset it.<br><strong>⚠ Proceed with caution:</strong> If the extension is allowed in Incognito mode and \"Block extensions page\" is enabled, forgetting your password means you cannot access chrome://extensions to remove it. The only way out may be to completely reinstall Chrome. Make sure you remember your password!",
+    "message": "<strong>⚠ Proceed with caution:</strong> If the extension is allowed in Incognito mode and \"Block extensions page\" is enabled, forgetting your password means you cannot access chrome://extensions to remove it. The only way out may be to completely reinstall Chrome. Make sure you remember your password!",
     "description": "Password warning text. Keep HTML tags intact when translating."
   },
   "options_custom_redirect": { "message": "🔗 Custom redirect URL" },

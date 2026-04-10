@@ -123,7 +123,6 @@ optionsLockPassword.addEventListener("keydown", (e) => {
 });
 
 passwordInput.addEventListener("input", () => {
-  passwordWarning.style.display = passwordInput.value ? "" : "none";
   passwordStatus.style.display = "none";
 });
 
@@ -135,14 +134,12 @@ savePasswordBtn.addEventListener("click", async () => {
     state.passwordHash = hash;
     passwordStatus.textContent = msg("options_password_set");
     passwordStatus.style.display = "";
-    passwordWarning.style.display = "none";
     passwordInput.value = "";
   } else {
     chrome.storage.local.set({ passwordHash: "" });
     state.passwordHash = "";
     passwordStatus.textContent = msg("options_password_removed");
     passwordStatus.style.display = "";
-    passwordWarning.style.display = "none";
   }
   setTimeout(() => { passwordStatus.style.display = "none"; }, 3000);
 });
