@@ -8,11 +8,15 @@ Steps:
    - background.js
    - content.js
    - site-config.js
+   - i18n.js
+   - quotes.js
    - popup.html, popup.js
    - options.html, options.js
    - blocked.html
    - css/ folder
    - icons/ folder
-4. Do NOT include: .git, .claude, screenshots, README.md, CONTRIBUTING.md, LICENSE, PRIVACY_POLICY.md, .gitignore, any .zip files
+   - _locales/ folder (required by `default_locale` in manifest.json)
+4. Do NOT include: .git, .claude, screenshots, README.md, CONTRIBUTING.md, LICENSE, PRIVACY_POLICY.md, STORE_LISTING.md, .gitignore, any .zip files
+   Note: On Windows, the `zip` command may not be available — use PowerShell's `Compress-Archive` instead.
 5. Print the final zip file name and its size
 6. List the contents of the zip so the user can verify
