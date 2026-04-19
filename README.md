@@ -50,8 +50,7 @@ Focus Tools uses **Manifest V3** and works on:
 ## Installation
 
 ### From the Chrome Web Store
-<!-- Coming soon -->
-*Coming soon.*
+Install Focus Tools from the official Chrome Web Store listing: [Focus Tools on the Chrome Web Store](https://chromewebstore.google.com/detail/focus-tools/ghihkfkjelphchgaceckeddnofkoonjh).
 
 ### Manual Install (from source)
 1. Clone or download this repository
