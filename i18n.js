@@ -29,14 +29,18 @@ function msg(key, substitutions) {
  * Available languages with display info.
  */
 const LANGUAGES = [
-  { code: "auto", name: "🌐 Chrome default" },
-  { code: "en",   name: "English" },
-  { code: "es",   name: "Español" },
-  { code: "ar",   name: "العربية" },
-  { code: "ru",   name: "Русский" },
-  { code: "fr",   name: "Français" },
-  { code: "it",   name: "Italiano" },
-  { code: "he",   name: "עברית" }
+  { code: "auto",  name: "🌐 Chrome default" },
+  { code: "en",    name: "English" },
+  { code: "es",    name: "Español" },
+  { code: "ar",    name: "العربية" },
+  { code: "ru",    name: "Русский" },
+  { code: "fr",    name: "Français" },
+  { code: "it",    name: "Italiano" },
+  { code: "he",    name: "עברית" },
+  { code: "zh_CN", name: "简体中文" },
+  { code: "zh_TW", name: "繁體中文" },
+  { code: "ja",    name: "日本語" },
+  { code: "ko",    name: "한국어" }
 ];
 
 /**

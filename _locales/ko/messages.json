@@ -1,0 +1,268 @@
+{
+  "ext_name": {
+    "message": "Focus Tools",
+    "description": "Extension name"
+  },
+  "ext_description": {
+    "message": "집중을 방해하는 웹사이트를 차단하고 소셜 미디어의 중독성 있는 UI 요소를 숨깁니다.",
+    "description": "Extension description for Chrome Web Store"
+  },
+
+  "popup_title": { "message": "🧠 Focus Tools" },
+  "popup_settings_title": { "message": "설정" },
+  "popup_controlled_by_schedule": { "message": "일정에 의해 제어됨" },
+  "popup_enter_password": { "message": "잠금을 해제하려면 비밀번호를 입력하세요" },
+  "popup_password_placeholder": { "message": "비밀번호" },
+  "popup_unlock": { "message": "잠금 해제" },
+  "popup_incorrect_password": { "message": "잘못된 비밀번호입니다" },
+  "popup_ok": { "message": "확인" },
+  "popup_cancel": { "message": "취소" },
+  "popup_block_url": { "message": "URL 차단" },
+  "popup_block_domain": { "message": "도메인 차단" },
+  "popup_status_active": { "message": "활성" },
+  "popup_status_active_scheduled": { "message": "활성 (일정)" },
+  "popup_status_disabled": { "message": "비활성화됨" },
+  "popup_status_disabled_scheduled": { "message": "비활성화됨 (일정)" },
+  "popup_confirm_disable": { "message": "비활성화하시겠습니까?" },
+  "popup_disabling": { "message": "비활성화 중…" },
+  "popup_btn_cancel": { "message": "취소" },
+  "popup_btn_disable": { "message": "비활성화" },
+  "popup_btn_enable": { "message": "활성화" },
+  "popup_already_blocked": { "message": "이미 차단됨" },
+  "popup_block_url_title": {
+    "message": "$URL$ 차단",
+    "placeholders": { "url": { "content": "$1" } }
+  },
+  "popup_block_domain_title": {
+    "message": "$DOMAIN$ 차단",
+    "placeholders": { "domain": { "content": "$1" } }
+  },
+  "timer_paused": {
+    "message": "$TIME$ (일시 정지됨)",
+    "placeholders": { "time": { "content": "$1" } }
+  },
+
+  "blocked_page_title": { "message": "차단됨 — Focus Tools" },
+  "blocked_title": { "message": "이 사이트는 차단되었습니다" },
+  "blocked_subtitle": { "message": "Focus Tools가 집중을 도와드리고 있습니다. 이 사이트는 차단 목록에 있습니다." },
+
+  "options_page_title": { "message": "Focus Tools — 설정" },
+  "options_title": { "message": "🧠 Focus Tools 설정" },
+  "options_subtitle": { "message": "사이트별 제한 및 차단 목록을 구성합니다." },
+  "options_tip": {
+    "message": "<strong style=\"color:#4ade80;\">팁:</strong> 시크릿 모드에서 Focus Tools를 사용하려면 <strong style=\"color:#ccc;\">chrome://extensions</strong>로 이동 → Focus Tools 찾기 → <strong style=\"color:#ccc;\">세부정보</strong> → <strong style=\"color:#ccc;\">「시크릿 모드에서 허용」</strong>을 활성화하세요.",
+    "description": "Tip about enabling in incognito mode. Keep HTML tags intact when translating."
+  },
+
+  "options_language": { "message": "언어" },
+  "section_general": { "message": "⚙️ 일반" },
+  "options_block_ext_page": { "message": "🧩 확장 프로그램 페이지 차단" },
+  "options_block_ext_desc": { "message": "chrome://extensions을 통한 빠른 비활성화를 방지합니다" },
+  "options_countdown_timer": { "message": "⏱️ 카운트다운 타이머" },
+  "options_seconds": { "message": "초" },
+
+  "section_blocked_sites": { "message": "🚫 차단된 사이트" },
+  "options_search_sites_placeholder": { "message": "차단된 사이트 검색…" },
+  "options_add": { "message": "+ 추가" },
+
+  "section_blocked_keywords": { "message": "🔑 차단할 키워드" },
+  "options_keywords_help": { "message": "이 키워드를 포함하는 모든 URL을 차단합니다. 예를 들어 「poker」는 「poker」가 포함된 모든 URL을 차단합니다." },
+  "options_search_keywords_placeholder": { "message": "차단된 키워드 검색…" },
+
+  "section_blocklists": { "message": "📋 차단 목록" },
+  "options_blocklists_help": {
+    "message": "<a href=\"https://github.com/StevenBlack/hosts\" target=\"_blank\" style=\"color:#4ade80;\">StevenBlack/hosts</a>에서 제공하는 커뮤니티 관리 차단 목록입니다.",
+    "description": "Keep the HTML link intact when translating."
+  },
+
+  "section_site_restrictions": { "message": "🔧 사이트 제한" },
+
+  "section_schedule": { "message": "📅 일정" },
+  "options_calendar_label": { "message": "📅 캘린더 기반 차단" },
+  "options_calendar_desc": { "message": "주간 일정에 따라 자동으로 활성화/비활성화" },
+  "options_active_days": { "message": "활성 요일" },
+  "options_active_hours": { "message": "활성 시간" },
+  "options_hours_to": { "message": "~" },
+  "options_save_schedule": { "message": "일정 저장" },
+  "options_calendar_note": { "message": "확장 프로그램은 선택된 요일의 지정된 시간 동안 활성화됩니다. 수동으로 재정의할 수 없습니다." },
+
+  "section_advanced": { "message": "🛠️ 고급" },
+  "options_pause_timer": { "message": "⏸️ 보이지 않을 때 타이머 일시 정지" },
+  "options_pause_timer_desc": { "message": "탭을 전환하면 타이머가 일시 정지됩니다. 팝업을 닫으면 타이머가 재설정됩니다." },
+  "options_require_confirm": { "message": "✅ 카운트다운 후 확인 요청" },
+  "options_require_confirm_desc": { "message": "타이머 종료 시 자동 실행 대신 확인/취소를 표시합니다" },
+  "options_password_lock": { "message": "🔒 비밀번호 잠금" },
+  "options_password_lock_desc": { "message": "비밀번호로 팝업과 설정을 잠급니다" },
+  "options_password_placeholder": { "message": "비밀번호 설정 (비활성화하려면 비워두세요)" },
+  "options_save": { "message": "저장" },
+  "options_password_warning": {
+    "message": "<strong>⚠ 신중하게 진행하세요:</strong> 시크릿 모드에서 확장 프로그램이 허용되고 「확장 프로그램 페이지 차단」이 활성화된 경우, 비밀번호를 잊으면 chrome://extensions에 접근하여 제거할 수 없습니다. 유일한 해결책은 Chrome을 완전히 다시 설치하는 것일 수 있습니다. 비밀번호를 꼭 기억하세요!",
+    "description": "Password warning text. Keep HTML tags intact when translating."
+  },
+  "options_custom_redirect": { "message": "🔗 사용자 정의 리디렉션 URL" },
+  "options_custom_redirect_help": { "message": "차단된 페이지는 기본 차단 페이지 대신 이 URL로 리디렉션됩니다. 기본 페이지를 사용하려면 비워두세요." },
+  "options_custom_redirect_placeholder": { "message": "https://example.com" },
+  "options_clear": { "message": "지우기" },
+
+  "modal_add_sites_title": { "message": "차단 목록에 웹사이트 추가" },
+  "modal_add_sites_desc": { "message": "한 줄에 하나씩 웹사이트를 붙여넣으세요. 프로토콜과 www.은 자동으로 제거됩니다." },
+  "modal_add_sites_placeholder": { "message": "reddit.com\n9gag.com\nbuzzfeed.com" },
+  "modal_cancel": { "message": "취소" },
+  "modal_add_sites_confirm": { "message": "차단 목록에 추가" },
+  "modal_add_keywords_title": { "message": "차단할 키워드 추가" },
+  "modal_add_keywords_desc": { "message": "한 줄에 하나씩 키워드를 입력하세요. 키워드를 포함하는 모든 URL이 차단됩니다." },
+  "modal_add_keywords_placeholder": { "message": "poker\ngambling\ntiktok" },
+  "modal_add_keywords_confirm": { "message": "키워드 추가" },
+
+  "options_enter_password": { "message": "설정에 액세스하려면 비밀번호를 입력하세요" },
+  "options_unlock": { "message": "잠금 해제" },
+  "options_incorrect_password": { "message": "잘못된 비밀번호입니다" },
+  "countdown_waiting": { "message": "변경 사항 적용 대기 중…" },
+  "countdown_ok": { "message": "확인" },
+  "countdown_cancel": { "message": "취소" },
+
+  "options_password_set": { "message": "비밀번호가 설정되었습니다!" },
+  "options_password_removed": { "message": "비밀번호가 제거되었습니다." },
+  "options_unlock_to_edit": { "message": "편집하려면 잠금 해제" },
+  "countdown_disabling_ext_block": { "message": "확장 프로그램 페이지 차단을 비활성화하는 중…" },
+  "countdown_unlocking_setting": { "message": "카운트다운 설정 잠금 해제 중…" },
+  "countdown_confirm_action": { "message": "이 작업을 확인하시겠습니까?" },
+
+  "blocklist_sites_count_placeholder": {
+    "message": "차단된 사이트 $COUNT$개 — 클릭하여 보기",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "blocklist_no_sites_placeholder": { "message": "아직 차단된 사이트가 없습니다" },
+  "blocklist_search_sites": { "message": "차단된 사이트 검색…" },
+  "blocklist_no_matching_sites": { "message": "일치하는 사이트가 없습니다" },
+  "blocklist_no_sites_yet": { "message": "아직 차단된 사이트가 없습니다. + 추가를 클릭하여 시작하세요." },
+  "blocklist_remove_title": { "message": "제거 (카운트다운 필요)" },
+  "countdown_removing_site": {
+    "message": "차단 목록에서 「$SITE$」 제거 중…",
+    "placeholders": { "site": { "content": "$1" } }
+  },
+  "blocklist_filtered_count": {
+    "message": "전체 $TOTAL$개 중 $SHOWN$개 표시",
+    "placeholders": { "shown": { "content": "$1" }, "total": { "content": "$2" } }
+  },
+  "blocklist_total_count": {
+    "message": "$COUNT$개 사이트 차단됨",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+
+  "keywords_count_placeholder": {
+    "message": "차단된 키워드 $COUNT$개 — 클릭하여 보기",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "keywords_no_keywords_placeholder": { "message": "아직 차단된 키워드가 없습니다" },
+  "keywords_search": { "message": "차단된 키워드 검색…" },
+  "keywords_no_matching": { "message": "일치하는 키워드가 없습니다" },
+  "keywords_no_keywords_yet": { "message": "아직 차단된 키워드가 없습니다. + 추가를 클릭하여 시작하세요." },
+  "countdown_removing_keyword": {
+    "message": "키워드에서 「$KEYWORD$」 제거 중…",
+    "placeholders": { "keyword": { "content": "$1" } }
+  },
+  "keywords_filtered_count": {
+    "message": "전체 $TOTAL$개 중 $SHOWN$개 표시",
+    "placeholders": { "shown": { "content": "$1" }, "total": { "content": "$2" } }
+  },
+  "keywords_total_count": {
+    "message": "$COUNT$개 키워드 차단됨",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+
+  "blocklist_cat_domains_updated": {
+    "message": "$COUNT$개 도메인 · 업데이트: $DATE$",
+    "placeholders": { "count": { "content": "$1" }, "date": { "content": "$2" } }
+  },
+  "blocklist_cat_refresh": { "message": "새로 고침" },
+  "blocklist_cat_fetching": { "message": "가져오는 중…" },
+  "blocklist_cat_fetch_failed": { "message": "가져오기 실패" },
+  "countdown_disabling_blocklist": {
+    "message": "$LABEL$ 차단 목록 비활성화 중…",
+    "placeholders": { "label": { "content": "$1" } }
+  },
+
+  "mode_allow": { "message": "허용" },
+  "mode_filter": { "message": "필터" },
+  "mode_block": { "message": "차단" },
+  "countdown_changing_mode": {
+    "message": "$SITE$를 「$MODE$」(으)로 변경 중…",
+    "placeholders": { "site": { "content": "$1" }, "mode": { "content": "$2" } }
+  },
+  "countdown_disabling_toggle": {
+    "message": "$SITE$의 「$TOGGLE$」 비활성화 중…",
+    "placeholders": { "toggle": { "content": "$1" }, "site": { "content": "$2" } }
+  },
+
+  "day_sun": { "message": "일" },
+  "day_mon": { "message": "월" },
+  "day_tue": { "message": "화" },
+  "day_wed": { "message": "수" },
+  "day_thu": { "message": "목" },
+  "day_fri": { "message": "금" },
+  "day_sat": { "message": "토" },
+
+  "options_calendar_error_hours": { "message": "시작 시간은 종료 시간보다 빨라야 합니다." },
+  "options_schedule_saved": { "message": "일정이 저장되었습니다!" },
+  "countdown_disabling_schedule": { "message": "캘린더 일정 비활성화 중…" },
+  "countdown_disabling_confirm": { "message": "확인 요청 비활성화 중…" },
+  "countdown_disabling_freeze": { "message": "타이머 일시 정지 비활성화 중…" },
+  "options_redirect_error_protocol": { "message": "http:// 및 https:// URL만 허용됩니다." },
+  "options_redirect_error_invalid": { "message": "http:// 또는 https://로 시작하는 유효한 URL을 입력하세요" },
+
+  "site_facebook": { "message": "Facebook" },
+  "site_youtube": { "message": "YouTube" },
+  "site_instagram": { "message": "Instagram" },
+  "site_x_twitter": { "message": "X / Twitter" },
+  "site_reddit": { "message": "Reddit" },
+  "site_linkedin": { "message": "LinkedIn" },
+  "site_tiktok": { "message": "TikTok" },
+
+  "toggle_facebook_hide_messenger": { "message": "메신저 링크 숨기기" },
+  "toggle_facebook_redirect_friends": { "message": "친구 피드로 리디렉션" },
+  "toggle_facebook_hide_likes_comments": { "message": "좋아요와 댓글 숨기기" },
+  "toggle_facebook_hide_chat_sidebar": { "message": "채팅 사이드바 숨기기" },
+  "toggle_facebook_hide_marketplace": { "message": "Marketplace 링크 숨기기" },
+  "toggle_facebook_hide_video_reels": { "message": "동영상 및 릴스 링크 숨기기" },
+  "toggle_facebook_block_reels": { "message": "릴스 페이지 차단" },
+  "toggle_facebook_hide_gaming": { "message": "게임 링크 숨기기" },
+  "toggle_facebook_block_gaming": { "message": "게임 페이지 차단" },
+  "toggle_remove_colors": { "message": "색상 제거 (흑백)" },
+
+  "toggle_youtube_hide_home_feed": { "message": "홈 피드 / 추천 숨기기" },
+  "toggle_youtube_hide_shorts": { "message": "Shorts 버튼 및 선반 숨기기" },
+  "toggle_youtube_block_shorts": { "message": "Shorts 페이지 차단" },
+  "toggle_youtube_hide_comments": { "message": "댓글 숨기기" },
+  "toggle_youtube_hide_sidebar": { "message": "사이드바 추천 숨기기" },
+  "toggle_youtube_hide_end_cards": { "message": "종료 화면 카드 숨기기" },
+
+  "toggle_instagram_hide_feed": { "message": "피드 숨기기" },
+  "toggle_instagram_hide_reels": { "message": "릴스 링크 숨기기" },
+  "toggle_instagram_hide_explore": { "message": "탐색 링크 숨기기" },
+  "toggle_instagram_hide_stories": { "message": "스토리 숨기기" },
+  "toggle_instagram_block_reels": { "message": "릴스 페이지 차단" },
+
+  "toggle_x_hide_feed": { "message": "피드 / 타임라인 숨기기" },
+  "toggle_x_hide_trending": { "message": "트렌드 / 탐색 숨기기" },
+  "toggle_x_hide_who_to_follow": { "message": "팔로우 추천 숨기기" },
+  "toggle_x_block_explore": { "message": "탐색 페이지 차단" },
+
+  "toggle_reddit_hide_feed": { "message": "피드 숨기기" },
+  "toggle_reddit_hide_popular": { "message": "「Popular / All」 링크 숨기기" },
+  "toggle_reddit_hide_awards": { "message": "어워드 숨기기" },
+
+  "toggle_linkedin_redirect_feed": { "message": "피드를 「내 네트워크」로 리디렉션" },
+  "toggle_linkedin_block_feed": { "message": "피드 페이지 완전히 차단" },
+  "toggle_linkedin_block_games": { "message": "게임 / 퍼즐 차단" },
+  "toggle_linkedin_hide_home": { "message": "홈 버튼 숨기기" },
+  "toggle_linkedin_hide_news": { "message": "뉴스 사이드바 숨기기" },
+  "toggle_linkedin_hide_notifications": { "message": "알림 배지 숨기기" },
+
+  "blocklist_cat_porn": { "message": "성인물" },
+  "blocklist_cat_porn_desc": { "message": "성인 콘텐츠 웹사이트" },
+  "blocklist_cat_gambling": { "message": "도박" },
+  "blocklist_cat_gambling_desc": { "message": "도박 및 베팅 사이트" },
+  "blocklist_cat_fakenews": { "message": "가짜 뉴스" },
+  "blocklist_cat_fakenews_desc": { "message": "잘못된 정보 출처" }
+}

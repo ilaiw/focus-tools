@@ -1,0 +1,268 @@
+{
+  "ext_name": {
+    "message": "Focus Tools",
+    "description": "Extension name"
+  },
+  "ext_description": {
+    "message": "封鎖令人分心的網站，並隱藏社群媒體中令人上癮的介面元素。",
+    "description": "Extension description for Chrome Web Store"
+  },
+
+  "popup_title": { "message": "🧠 Focus Tools" },
+  "popup_settings_title": { "message": "設定" },
+  "popup_controlled_by_schedule": { "message": "由排程控制" },
+  "popup_enter_password": { "message": "輸入密碼以解鎖" },
+  "popup_password_placeholder": { "message": "密碼" },
+  "popup_unlock": { "message": "解鎖" },
+  "popup_incorrect_password": { "message": "密碼錯誤" },
+  "popup_ok": { "message": "確定" },
+  "popup_cancel": { "message": "取消" },
+  "popup_block_url": { "message": "封鎖網址" },
+  "popup_block_domain": { "message": "封鎖網域" },
+  "popup_status_active": { "message": "已啟用" },
+  "popup_status_active_scheduled": { "message": "已啟用（依排程）" },
+  "popup_status_disabled": { "message": "已停用" },
+  "popup_status_disabled_scheduled": { "message": "已停用（依排程）" },
+  "popup_confirm_disable": { "message": "確認停用？" },
+  "popup_disabling": { "message": "正在停用…" },
+  "popup_btn_cancel": { "message": "取消" },
+  "popup_btn_disable": { "message": "停用" },
+  "popup_btn_enable": { "message": "啟用" },
+  "popup_already_blocked": { "message": "已封鎖" },
+  "popup_block_url_title": {
+    "message": "封鎖 $URL$",
+    "placeholders": { "url": { "content": "$1" } }
+  },
+  "popup_block_domain_title": {
+    "message": "封鎖 $DOMAIN$",
+    "placeholders": { "domain": { "content": "$1" } }
+  },
+  "timer_paused": {
+    "message": "$TIME$（已暫停）",
+    "placeholders": { "time": { "content": "$1" } }
+  },
+
+  "blocked_page_title": { "message": "已封鎖 — Focus Tools" },
+  "blocked_title": { "message": "此網站已被封鎖" },
+  "blocked_subtitle": { "message": "Focus Tools 正在幫助你保持專注。此網站位於你的封鎖清單中。" },
+
+  "options_page_title": { "message": "Focus Tools — 設定" },
+  "options_title": { "message": "🧠 Focus Tools 設定" },
+  "options_subtitle": { "message": "設定各網站的限制與封鎖清單。" },
+  "options_tip": {
+    "message": "<strong style=\"color:#4ade80;\">提示：</strong>若要在無痕模式下使用 Focus Tools，請前往 <strong style=\"color:#ccc;\">chrome://extensions</strong> → 找到 Focus Tools → <strong style=\"color:#ccc;\">詳細資料</strong> → 啟用 <strong style=\"color:#ccc;\">「在無痕模式中啟用」</strong>。",
+    "description": "Tip about enabling in incognito mode. Keep HTML tags intact when translating."
+  },
+
+  "options_language": { "message": "語言" },
+  "section_general": { "message": "⚙️ 一般" },
+  "options_block_ext_page": { "message": "🧩 封鎖擴充功能頁面" },
+  "options_block_ext_desc": { "message": "防止透過 chrome://extensions 快速停用" },
+  "options_countdown_timer": { "message": "⏱️ 倒數計時" },
+  "options_seconds": { "message": "秒" },
+
+  "section_blocked_sites": { "message": "🚫 封鎖網站" },
+  "options_search_sites_placeholder": { "message": "搜尋已封鎖的網站…" },
+  "options_add": { "message": "+ 新增" },
+
+  "section_blocked_keywords": { "message": "🔑 封鎖關鍵字" },
+  "options_keywords_help": { "message": "封鎖包含這些關鍵字的所有網址。例如「poker」會封鎖所有含「poker」的網址。" },
+  "options_search_keywords_placeholder": { "message": "搜尋已封鎖的關鍵字…" },
+
+  "section_blocklists": { "message": "📋 封鎖清單" },
+  "options_blocklists_help": {
+    "message": "由社群維護的封鎖清單，來自 <a href=\"https://github.com/StevenBlack/hosts\" target=\"_blank\" style=\"color:#4ade80;\">StevenBlack/hosts</a>。",
+    "description": "Keep the HTML link intact when translating."
+  },
+
+  "section_site_restrictions": { "message": "🔧 網站限制" },
+
+  "section_schedule": { "message": "📅 排程" },
+  "options_calendar_label": { "message": "📅 依日曆封鎖" },
+  "options_calendar_desc": { "message": "依每週排程自動啟用/停用" },
+  "options_active_days": { "message": "啟用日期" },
+  "options_active_hours": { "message": "啟用時段" },
+  "options_hours_to": { "message": "至" },
+  "options_save_schedule": { "message": "儲存排程" },
+  "options_calendar_note": { "message": "擴充功能將在所選日期的指定時段內啟用。無法手動覆寫。" },
+
+  "section_advanced": { "message": "🛠️ 進階" },
+  "options_pause_timer": { "message": "⏸️ 看不見時暫停計時器" },
+  "options_pause_timer_desc": { "message": "切換分頁時計時器會暫停。關閉彈出視窗會重設計時器。" },
+  "options_require_confirm": { "message": "✅ 倒數結束後需確認" },
+  "options_require_confirm_desc": { "message": "計時器結束時顯示「確定/取消」，而非自動執行" },
+  "options_password_lock": { "message": "🔒 密碼鎖" },
+  "options_password_lock_desc": { "message": "以密碼鎖定彈出視窗與設定" },
+  "options_password_placeholder": { "message": "設定密碼（留空以停用）" },
+  "options_save": { "message": "儲存" },
+  "options_password_warning": {
+    "message": "<strong>⚠ 請謹慎操作：</strong>如果在無痕模式中啟用了此擴充功能，且已啟用「封鎖擴充功能頁面」，一旦忘記密碼，你將無法存取 chrome://extensions 來移除它。唯一的解法可能是完全重新安裝 Chrome。請務必記住你的密碼！",
+    "description": "Password warning text. Keep HTML tags intact when translating."
+  },
+  "options_custom_redirect": { "message": "🔗 自訂重新導向網址" },
+  "options_custom_redirect_help": { "message": "被封鎖的頁面將重新導向至此處，而非預設的封鎖頁面。留空則使用內建頁面。" },
+  "options_custom_redirect_placeholder": { "message": "https://example.com" },
+  "options_clear": { "message": "清除" },
+
+  "modal_add_sites_title": { "message": "將網站加入封鎖清單" },
+  "modal_add_sites_desc": { "message": "每行貼上一個網站。通訊協定和 www. 會自動移除。" },
+  "modal_add_sites_placeholder": { "message": "reddit.com\n9gag.com\nbuzzfeed.com" },
+  "modal_cancel": { "message": "取消" },
+  "modal_add_sites_confirm": { "message": "加入封鎖清單" },
+  "modal_add_keywords_title": { "message": "新增要封鎖的關鍵字" },
+  "modal_add_keywords_desc": { "message": "每行輸入一個關鍵字。任何包含該關鍵字的網址都會被封鎖。" },
+  "modal_add_keywords_placeholder": { "message": "poker\ngambling\ntiktok" },
+  "modal_add_keywords_confirm": { "message": "新增關鍵字" },
+
+  "options_enter_password": { "message": "輸入密碼以存取設定" },
+  "options_unlock": { "message": "解鎖" },
+  "options_incorrect_password": { "message": "密碼錯誤" },
+  "countdown_waiting": { "message": "等待套用變更…" },
+  "countdown_ok": { "message": "確定" },
+  "countdown_cancel": { "message": "取消" },
+
+  "options_password_set": { "message": "密碼已設定！" },
+  "options_password_removed": { "message": "密碼已移除。" },
+  "options_unlock_to_edit": { "message": "解鎖以編輯" },
+  "countdown_disabling_ext_block": { "message": "正在停用擴充功能頁面封鎖…" },
+  "countdown_unlocking_setting": { "message": "正在解鎖倒數計時設定…" },
+  "countdown_confirm_action": { "message": "確認此操作？" },
+
+  "blocklist_sites_count_placeholder": {
+    "message": "已封鎖 $COUNT$ 個網站 — 點擊檢視",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "blocklist_no_sites_placeholder": { "message": "尚無封鎖的網站" },
+  "blocklist_search_sites": { "message": "搜尋已封鎖的網站…" },
+  "blocklist_no_matching_sites": { "message": "找不到符合的網站" },
+  "blocklist_no_sites_yet": { "message": "尚無封鎖的網站。點擊「+ 新增」開始。" },
+  "blocklist_remove_title": { "message": "移除（需要倒數）" },
+  "countdown_removing_site": {
+    "message": "正在從封鎖清單中移除「$SITE$」…",
+    "placeholders": { "site": { "content": "$1" } }
+  },
+  "blocklist_filtered_count": {
+    "message": "顯示 $SHOWN$ / $TOTAL$ 個網站",
+    "placeholders": { "shown": { "content": "$1" }, "total": { "content": "$2" } }
+  },
+  "blocklist_total_count": {
+    "message": "已封鎖 $COUNT$ 個網站",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+
+  "keywords_count_placeholder": {
+    "message": "已封鎖 $COUNT$ 個關鍵字 — 點擊檢視",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "keywords_no_keywords_placeholder": { "message": "尚無封鎖的關鍵字" },
+  "keywords_search": { "message": "搜尋已封鎖的關鍵字…" },
+  "keywords_no_matching": { "message": "找不到符合的關鍵字" },
+  "keywords_no_keywords_yet": { "message": "尚無封鎖的關鍵字。點擊「+ 新增」開始。" },
+  "countdown_removing_keyword": {
+    "message": "正在從關鍵字中移除「$KEYWORD$」…",
+    "placeholders": { "keyword": { "content": "$1" } }
+  },
+  "keywords_filtered_count": {
+    "message": "顯示 $SHOWN$ / $TOTAL$ 個關鍵字",
+    "placeholders": { "shown": { "content": "$1" }, "total": { "content": "$2" } }
+  },
+  "keywords_total_count": {
+    "message": "已封鎖 $COUNT$ 個關鍵字",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+
+  "blocklist_cat_domains_updated": {
+    "message": "$COUNT$ 個網域 · 更新於 $DATE$",
+    "placeholders": { "count": { "content": "$1" }, "date": { "content": "$2" } }
+  },
+  "blocklist_cat_refresh": { "message": "重新整理" },
+  "blocklist_cat_fetching": { "message": "擷取中…" },
+  "blocklist_cat_fetch_failed": { "message": "擷取失敗" },
+  "countdown_disabling_blocklist": {
+    "message": "正在停用 $LABEL$ 封鎖清單…",
+    "placeholders": { "label": { "content": "$1" } }
+  },
+
+  "mode_allow": { "message": "允許" },
+  "mode_filter": { "message": "篩選" },
+  "mode_block": { "message": "封鎖" },
+  "countdown_changing_mode": {
+    "message": "正在將 $SITE$ 切換為「$MODE$」…",
+    "placeholders": { "site": { "content": "$1" }, "mode": { "content": "$2" } }
+  },
+  "countdown_disabling_toggle": {
+    "message": "正在停用 $SITE$ 上的「$TOGGLE$」…",
+    "placeholders": { "toggle": { "content": "$1" }, "site": { "content": "$2" } }
+  },
+
+  "day_sun": { "message": "日" },
+  "day_mon": { "message": "一" },
+  "day_tue": { "message": "二" },
+  "day_wed": { "message": "三" },
+  "day_thu": { "message": "四" },
+  "day_fri": { "message": "五" },
+  "day_sat": { "message": "六" },
+
+  "options_calendar_error_hours": { "message": "開始時間必須早於結束時間。" },
+  "options_schedule_saved": { "message": "排程已儲存！" },
+  "countdown_disabling_schedule": { "message": "正在停用日曆排程…" },
+  "countdown_disabling_confirm": { "message": "正在停用確認要求…" },
+  "countdown_disabling_freeze": { "message": "正在停用計時器凍結…" },
+  "options_redirect_error_protocol": { "message": "僅允許 http:// 與 https:// 開頭的網址。" },
+  "options_redirect_error_invalid": { "message": "請輸入以 http:// 或 https:// 開頭的有效網址" },
+
+  "site_facebook": { "message": "Facebook" },
+  "site_youtube": { "message": "YouTube" },
+  "site_instagram": { "message": "Instagram" },
+  "site_x_twitter": { "message": "X / Twitter" },
+  "site_reddit": { "message": "Reddit" },
+  "site_linkedin": { "message": "LinkedIn" },
+  "site_tiktok": { "message": "TikTok" },
+
+  "toggle_facebook_hide_messenger": { "message": "隱藏 Messenger 連結" },
+  "toggle_facebook_redirect_friends": { "message": "重新導向至「好友」動態" },
+  "toggle_facebook_hide_likes_comments": { "message": "隱藏按讚與留言" },
+  "toggle_facebook_hide_chat_sidebar": { "message": "隱藏聊天側邊欄" },
+  "toggle_facebook_hide_marketplace": { "message": "隱藏 Marketplace 連結" },
+  "toggle_facebook_hide_video_reels": { "message": "隱藏影片與 Reels 連結" },
+  "toggle_facebook_block_reels": { "message": "封鎖 Reels 頁面" },
+  "toggle_facebook_hide_gaming": { "message": "隱藏遊戲連結" },
+  "toggle_facebook_block_gaming": { "message": "封鎖遊戲頁面" },
+  "toggle_remove_colors": { "message": "移除色彩（灰階）" },
+
+  "toggle_youtube_hide_home_feed": { "message": "隱藏首頁動態 / 推薦" },
+  "toggle_youtube_hide_shorts": { "message": "隱藏 Shorts 按鈕與欄位" },
+  "toggle_youtube_block_shorts": { "message": "封鎖 Shorts 頁面" },
+  "toggle_youtube_hide_comments": { "message": "隱藏留言" },
+  "toggle_youtube_hide_sidebar": { "message": "隱藏側邊欄推薦" },
+  "toggle_youtube_hide_end_cards": { "message": "隱藏片尾推薦卡片" },
+
+  "toggle_instagram_hide_feed": { "message": "隱藏動態消息" },
+  "toggle_instagram_hide_reels": { "message": "隱藏 Reels 連結" },
+  "toggle_instagram_hide_explore": { "message": "隱藏「探索」連結" },
+  "toggle_instagram_hide_stories": { "message": "隱藏限時動態" },
+  "toggle_instagram_block_reels": { "message": "封鎖 Reels 頁面" },
+
+  "toggle_x_hide_feed": { "message": "隱藏動態 / 時間軸" },
+  "toggle_x_hide_trending": { "message": "隱藏熱門 / 探索" },
+  "toggle_x_hide_who_to_follow": { "message": "隱藏「追蹤推薦」" },
+  "toggle_x_block_explore": { "message": "封鎖探索頁面" },
+
+  "toggle_reddit_hide_feed": { "message": "隱藏動態" },
+  "toggle_reddit_hide_popular": { "message": "隱藏「熱門 / 全部」連結" },
+  "toggle_reddit_hide_awards": { "message": "隱藏獎勵" },
+
+  "toggle_linkedin_redirect_feed": { "message": "將動態重新導向至「我的人脈」" },
+  "toggle_linkedin_block_feed": { "message": "完全封鎖動態頁面" },
+  "toggle_linkedin_block_games": { "message": "封鎖遊戲 / 益智遊戲" },
+  "toggle_linkedin_hide_home": { "message": "隱藏首頁按鈕" },
+  "toggle_linkedin_hide_news": { "message": "隱藏新聞側邊欄" },
+  "toggle_linkedin_hide_notifications": { "message": "隱藏通知標記" },
+
+  "blocklist_cat_porn": { "message": "色情" },
+  "blocklist_cat_porn_desc": { "message": "成人內容網站" },
+  "blocklist_cat_gambling": { "message": "賭博" },
+  "blocklist_cat_gambling_desc": { "message": "賭博與博弈網站" },
+  "blocklist_cat_fakenews": { "message": "假新聞" },
+  "blocklist_cat_fakenews_desc": { "message": "不實資訊來源" }
+}

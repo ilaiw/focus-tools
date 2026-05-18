@@ -1,0 +1,268 @@
+{
+  "ext_name": {
+    "message": "Focus Tools",
+    "description": "Extension name"
+  },
+  "ext_description": {
+    "message": "屏蔽干扰网站，并隐藏社交媒体中令人上瘾的界面元素。",
+    "description": "Extension description for Chrome Web Store"
+  },
+
+  "popup_title": { "message": "🧠 Focus Tools" },
+  "popup_settings_title": { "message": "设置" },
+  "popup_controlled_by_schedule": { "message": "由日程控制" },
+  "popup_enter_password": { "message": "输入密码以解锁" },
+  "popup_password_placeholder": { "message": "密码" },
+  "popup_unlock": { "message": "解锁" },
+  "popup_incorrect_password": { "message": "密码错误" },
+  "popup_ok": { "message": "确定" },
+  "popup_cancel": { "message": "取消" },
+  "popup_block_url": { "message": "屏蔽网址" },
+  "popup_block_domain": { "message": "屏蔽域名" },
+  "popup_status_active": { "message": "已启用" },
+  "popup_status_active_scheduled": { "message": "已启用（按日程）" },
+  "popup_status_disabled": { "message": "已禁用" },
+  "popup_status_disabled_scheduled": { "message": "已禁用（按日程）" },
+  "popup_confirm_disable": { "message": "确认禁用？" },
+  "popup_disabling": { "message": "正在禁用…" },
+  "popup_btn_cancel": { "message": "取消" },
+  "popup_btn_disable": { "message": "禁用" },
+  "popup_btn_enable": { "message": "启用" },
+  "popup_already_blocked": { "message": "已屏蔽" },
+  "popup_block_url_title": {
+    "message": "屏蔽 $URL$",
+    "placeholders": { "url": { "content": "$1" } }
+  },
+  "popup_block_domain_title": {
+    "message": "屏蔽 $DOMAIN$",
+    "placeholders": { "domain": { "content": "$1" } }
+  },
+  "timer_paused": {
+    "message": "$TIME$（已暂停）",
+    "placeholders": { "time": { "content": "$1" } }
+  },
+
+  "blocked_page_title": { "message": "已屏蔽 — Focus Tools" },
+  "blocked_title": { "message": "此网站已被屏蔽" },
+  "blocked_subtitle": { "message": "Focus Tools 正帮助你保持专注。此网站在你的屏蔽列表中。" },
+
+  "options_page_title": { "message": "Focus Tools — 设置" },
+  "options_title": { "message": "🧠 Focus Tools 设置" },
+  "options_subtitle": { "message": "配置各网站的限制和屏蔽列表。" },
+  "options_tip": {
+    "message": "<strong style=\"color:#4ade80;\">提示：</strong>若要在无痕模式下使用 Focus Tools，请打开 <strong style=\"color:#ccc;\">chrome://extensions</strong> → 找到 Focus Tools → <strong style=\"color:#ccc;\">详细信息</strong> → 启用 <strong style=\"color:#ccc;\">「在无痕模式下启用」</strong>。",
+    "description": "Tip about enabling in incognito mode. Keep HTML tags intact when translating."
+  },
+
+  "options_language": { "message": "语言" },
+  "section_general": { "message": "⚙️ 通用" },
+  "options_block_ext_page": { "message": "🧩 屏蔽扩展程序页面" },
+  "options_block_ext_desc": { "message": "防止通过 chrome://extensions 快速禁用" },
+  "options_countdown_timer": { "message": "⏱️ 倒计时" },
+  "options_seconds": { "message": "秒" },
+
+  "section_blocked_sites": { "message": "🚫 屏蔽网站" },
+  "options_search_sites_placeholder": { "message": "搜索已屏蔽的网站…" },
+  "options_add": { "message": "+ 添加" },
+
+  "section_blocked_keywords": { "message": "🔑 屏蔽关键词" },
+  "options_keywords_help": { "message": "屏蔽包含这些关键词的所有网址。例如「poker」会屏蔽所有含「poker」的网址。" },
+  "options_search_keywords_placeholder": { "message": "搜索已屏蔽的关键词…" },
+
+  "section_blocklists": { "message": "📋 屏蔽列表" },
+  "options_blocklists_help": {
+    "message": "由社区维护的屏蔽列表，来自 <a href=\"https://github.com/StevenBlack/hosts\" target=\"_blank\" style=\"color:#4ade80;\">StevenBlack/hosts</a>。",
+    "description": "Keep the HTML link intact when translating."
+  },
+
+  "section_site_restrictions": { "message": "🔧 网站限制" },
+
+  "section_schedule": { "message": "📅 日程" },
+  "options_calendar_label": { "message": "📅 按日历屏蔽" },
+  "options_calendar_desc": { "message": "按每周日程自动启用/禁用" },
+  "options_active_days": { "message": "启用日期" },
+  "options_active_hours": { "message": "启用时段" },
+  "options_hours_to": { "message": "至" },
+  "options_save_schedule": { "message": "保存日程" },
+  "options_calendar_note": { "message": "扩展将在所选日期的指定时段内启用。无法手动覆盖。" },
+
+  "section_advanced": { "message": "🛠️ 高级" },
+  "options_pause_timer": { "message": "⏸️ 不可见时暂停计时器" },
+  "options_pause_timer_desc": { "message": "切换标签页时计时器暂停。关闭弹出窗口会重置计时器。" },
+  "options_require_confirm": { "message": "✅ 倒计时结束后需确认" },
+  "options_require_confirm_desc": { "message": "计时器结束时显示「确定/取消」，而不是自动执行" },
+  "options_password_lock": { "message": "🔒 密码锁" },
+  "options_password_lock_desc": { "message": "用密码锁定弹出窗口和设置" },
+  "options_password_placeholder": { "message": "设置密码（留空以禁用）" },
+  "options_save": { "message": "保存" },
+  "options_password_warning": {
+    "message": "<strong>⚠ 请谨慎操作：</strong>如果在无痕模式下启用了本扩展，且开启了「屏蔽扩展程序页面」，一旦忘记密码，你将无法访问 chrome://extensions 来移除它。唯一的办法可能是彻底重装 Chrome。请务必记住你的密码！",
+    "description": "Password warning text. Keep HTML tags intact when translating."
+  },
+  "options_custom_redirect": { "message": "🔗 自定义重定向网址" },
+  "options_custom_redirect_help": { "message": "被屏蔽的页面将重定向到此处，而不是默认的屏蔽页面。留空则使用内置页面。" },
+  "options_custom_redirect_placeholder": { "message": "https://example.com" },
+  "options_clear": { "message": "清除" },
+
+  "modal_add_sites_title": { "message": "添加网站到屏蔽列表" },
+  "modal_add_sites_desc": { "message": "每行粘贴一个网站。协议和 www. 会被自动移除。" },
+  "modal_add_sites_placeholder": { "message": "reddit.com\n9gag.com\nbuzzfeed.com" },
+  "modal_cancel": { "message": "取消" },
+  "modal_add_sites_confirm": { "message": "添加到屏蔽列表" },
+  "modal_add_keywords_title": { "message": "添加要屏蔽的关键词" },
+  "modal_add_keywords_desc": { "message": "每行输入一个关键词。任何包含该关键词的网址都将被屏蔽。" },
+  "modal_add_keywords_placeholder": { "message": "poker\ngambling\ntiktok" },
+  "modal_add_keywords_confirm": { "message": "添加关键词" },
+
+  "options_enter_password": { "message": "输入密码以访问设置" },
+  "options_unlock": { "message": "解锁" },
+  "options_incorrect_password": { "message": "密码错误" },
+  "countdown_waiting": { "message": "等待应用更改…" },
+  "countdown_ok": { "message": "确定" },
+  "countdown_cancel": { "message": "取消" },
+
+  "options_password_set": { "message": "密码已设置！" },
+  "options_password_removed": { "message": "密码已移除。" },
+  "options_unlock_to_edit": { "message": "解锁以编辑" },
+  "countdown_disabling_ext_block": { "message": "正在禁用扩展程序页面屏蔽…" },
+  "countdown_unlocking_setting": { "message": "正在解锁倒计时设置…" },
+  "countdown_confirm_action": { "message": "确认此操作？" },
+
+  "blocklist_sites_count_placeholder": {
+    "message": "已屏蔽 $COUNT$ 个网站 — 点击查看",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "blocklist_no_sites_placeholder": { "message": "尚无屏蔽的网站" },
+  "blocklist_search_sites": { "message": "搜索已屏蔽的网站…" },
+  "blocklist_no_matching_sites": { "message": "未找到匹配的网站" },
+  "blocklist_no_sites_yet": { "message": "尚无屏蔽的网站。点击「+ 添加」开始。" },
+  "blocklist_remove_title": { "message": "移除（需要倒计时）" },
+  "countdown_removing_site": {
+    "message": "正在从屏蔽列表中移除「$SITE$」…",
+    "placeholders": { "site": { "content": "$1" } }
+  },
+  "blocklist_filtered_count": {
+    "message": "已显示 $SHOWN$ / $TOTAL$ 个网站",
+    "placeholders": { "shown": { "content": "$1" }, "total": { "content": "$2" } }
+  },
+  "blocklist_total_count": {
+    "message": "已屏蔽 $COUNT$ 个网站",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+
+  "keywords_count_placeholder": {
+    "message": "已屏蔽 $COUNT$ 个关键词 — 点击查看",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+  "keywords_no_keywords_placeholder": { "message": "尚无屏蔽的关键词" },
+  "keywords_search": { "message": "搜索已屏蔽的关键词…" },
+  "keywords_no_matching": { "message": "未找到匹配的关键词" },
+  "keywords_no_keywords_yet": { "message": "尚无屏蔽的关键词。点击「+ 添加」开始。" },
+  "countdown_removing_keyword": {
+    "message": "正在从关键词中移除「$KEYWORD$」…",
+    "placeholders": { "keyword": { "content": "$1" } }
+  },
+  "keywords_filtered_count": {
+    "message": "已显示 $SHOWN$ / $TOTAL$ 个关键词",
+    "placeholders": { "shown": { "content": "$1" }, "total": { "content": "$2" } }
+  },
+  "keywords_total_count": {
+    "message": "已屏蔽 $COUNT$ 个关键词",
+    "placeholders": { "count": { "content": "$1" } }
+  },
+
+  "blocklist_cat_domains_updated": {
+    "message": "$COUNT$ 个域名 · 更新于 $DATE$",
+    "placeholders": { "count": { "content": "$1" }, "date": { "content": "$2" } }
+  },
+  "blocklist_cat_refresh": { "message": "刷新" },
+  "blocklist_cat_fetching": { "message": "正在获取…" },
+  "blocklist_cat_fetch_failed": { "message": "获取失败" },
+  "countdown_disabling_blocklist": {
+    "message": "正在禁用 $LABEL$ 屏蔽列表…",
+    "placeholders": { "label": { "content": "$1" } }
+  },
+
+  "mode_allow": { "message": "允许" },
+  "mode_filter": { "message": "过滤" },
+  "mode_block": { "message": "屏蔽" },
+  "countdown_changing_mode": {
+    "message": "正在将 $SITE$ 切换为「$MODE$」…",
+    "placeholders": { "site": { "content": "$1" }, "mode": { "content": "$2" } }
+  },
+  "countdown_disabling_toggle": {
+    "message": "正在停用 $SITE$ 上的「$TOGGLE$」…",
+    "placeholders": { "toggle": { "content": "$1" }, "site": { "content": "$2" } }
+  },
+
+  "day_sun": { "message": "日" },
+  "day_mon": { "message": "一" },
+  "day_tue": { "message": "二" },
+  "day_wed": { "message": "三" },
+  "day_thu": { "message": "四" },
+  "day_fri": { "message": "五" },
+  "day_sat": { "message": "六" },
+
+  "options_calendar_error_hours": { "message": "开始时间必须早于结束时间。" },
+  "options_schedule_saved": { "message": "日程已保存！" },
+  "countdown_disabling_schedule": { "message": "正在禁用日历日程…" },
+  "countdown_disabling_confirm": { "message": "正在停用确认要求…" },
+  "countdown_disabling_freeze": { "message": "正在停用计时器冻结…" },
+  "options_redirect_error_protocol": { "message": "仅允许 http:// 和 https:// 开头的网址。" },
+  "options_redirect_error_invalid": { "message": "请输入以 http:// 或 https:// 开头的有效网址" },
+
+  "site_facebook": { "message": "Facebook" },
+  "site_youtube": { "message": "YouTube" },
+  "site_instagram": { "message": "Instagram" },
+  "site_x_twitter": { "message": "X / Twitter" },
+  "site_reddit": { "message": "Reddit" },
+  "site_linkedin": { "message": "LinkedIn" },
+  "site_tiktok": { "message": "TikTok" },
+
+  "toggle_facebook_hide_messenger": { "message": "隐藏 Messenger 链接" },
+  "toggle_facebook_redirect_friends": { "message": "重定向至「好友」动态" },
+  "toggle_facebook_hide_likes_comments": { "message": "隐藏点赞和评论" },
+  "toggle_facebook_hide_chat_sidebar": { "message": "隐藏聊天侧边栏" },
+  "toggle_facebook_hide_marketplace": { "message": "隐藏 Marketplace 链接" },
+  "toggle_facebook_hide_video_reels": { "message": "隐藏视频和 Reels 链接" },
+  "toggle_facebook_block_reels": { "message": "屏蔽 Reels 页面" },
+  "toggle_facebook_hide_gaming": { "message": "隐藏游戏链接" },
+  "toggle_facebook_block_gaming": { "message": "屏蔽游戏页面" },
+  "toggle_remove_colors": { "message": "移除色彩（灰度模式）" },
+
+  "toggle_youtube_hide_home_feed": { "message": "隐藏首页信息流 / 推荐" },
+  "toggle_youtube_hide_shorts": { "message": "隐藏 Shorts 按钮和栏目" },
+  "toggle_youtube_block_shorts": { "message": "屏蔽 Shorts 页面" },
+  "toggle_youtube_hide_comments": { "message": "隐藏评论" },
+  "toggle_youtube_hide_sidebar": { "message": "隐藏侧边栏推荐" },
+  "toggle_youtube_hide_end_cards": { "message": "隐藏片尾推荐卡片" },
+
+  "toggle_instagram_hide_feed": { "message": "隐藏信息流" },
+  "toggle_instagram_hide_reels": { "message": "隐藏 Reels 链接" },
+  "toggle_instagram_hide_explore": { "message": "隐藏「发现」链接" },
+  "toggle_instagram_hide_stories": { "message": "隐藏快拍" },
+  "toggle_instagram_block_reels": { "message": "屏蔽 Reels 页面" },
+
+  "toggle_x_hide_feed": { "message": "隐藏信息流 / 时间线" },
+  "toggle_x_hide_trending": { "message": "隐藏热门 / 探索" },
+  "toggle_x_hide_who_to_follow": { "message": "隐藏「关注推荐」" },
+  "toggle_x_block_explore": { "message": "屏蔽探索页面" },
+
+  "toggle_reddit_hide_feed": { "message": "隐藏信息流" },
+  "toggle_reddit_hide_popular": { "message": "隐藏「热门 / 全部」链接" },
+  "toggle_reddit_hide_awards": { "message": "隐藏奖励" },
+
+  "toggle_linkedin_redirect_feed": { "message": "将动态重定向至「我的人脉」" },
+  "toggle_linkedin_block_feed": { "message": "完全屏蔽动态页面" },
+  "toggle_linkedin_block_games": { "message": "屏蔽游戏 / 益智游戏" },
+  "toggle_linkedin_hide_home": { "message": "隐藏首页按钮" },
+  "toggle_linkedin_hide_news": { "message": "隐藏新闻侧栏" },
+  "toggle_linkedin_hide_notifications": { "message": "隐藏通知徽标" },
+
+  "blocklist_cat_porn": { "message": "色情" },
+  "blocklist_cat_porn_desc": { "message": "成人内容网站" },
+  "blocklist_cat_gambling": { "message": "赌博" },
+  "blocklist_cat_gambling_desc": { "message": "赌博和博彩网站" },
+  "blocklist_cat_fakenews": { "message": "假新闻" },
+  "blocklist_cat_fakenews_desc": { "message": "虚假信息来源" }
+}
