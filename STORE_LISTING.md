@@ -36,7 +36,7 @@ Key features:
 - Block the extensions page to prevent quick-disabling the extension
 - Custom redirect URL — send blocked sites to any page you choose
 - Motivational quotes on the blocked page to keep you inspired
-- Available in 8 languages: English, Spanish, French, Italian, Russian, Arabic, Hebrew, and auto-detect — with full RTL support
+- Available in 12 languages: English, Spanish, French, Italian, Russian, Arabic, Hebrew, Simplified Chinese, Traditional Chinese, Japanese, Korean, and auto-detect — with full RTL support for Arabic and Hebrew
 - All data stored locally — no accounts, no tracking, no data collection
 
 Works on Chrome, Edge, and other Chromium-based browsers.
