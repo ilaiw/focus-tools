@@ -268,5 +268,17 @@
   "blocklist_cat_gambling": { "message": "도박" },
   "blocklist_cat_gambling_desc": { "message": "도박 및 베팅 사이트" },
   "blocklist_cat_fakenews": { "message": "가짜 뉴스" },
-  "blocklist_cat_fakenews_desc": { "message": "잘못된 정보 출처" }
+  "blocklist_cat_fakenews_desc": { "message": "잘못된 정보 출처" },
+
+  "section_safe_search": { "message": "세이프서치 및 제한 모드" },
+  "safesearch_master_label": { "message": "검색 엔진에서 세이프서치 강제" },
+  "safesearch_master_desc": { "message": "Google, Bing, DuckDuckGo, Yahoo, Yandex, Brave, Ecosia, Startpage에서 세이프서치를 강제합니다. 이미지 검색을 포함하여 노골적인 이미지를 필터링합니다. Google과 Bing은 서버 측에서 적용되므로 URL 조작으로는 우회할 수 없습니다." },
+  "youtube_restricted_label": { "message": "YouTube 제한 모드" },
+  "youtube_restricted_desc": { "message": "YouTube 제한 모드를 활성화합니다. 모든 동영상의 댓글도 숨기며, YouTube가 성인용으로 표시한 뉴스, 교육, LGBTQ+ 콘텐츠가 필터링될 수 있습니다. 다른 사이트에 임베드된 YouTube 동영상에도 영향을 미칩니다." },
+  "safesearch_label_search": { "message": "세이프서치" },
+  "safesearch_label_youtube": { "message": "YouTube 제한 모드" },
+  "countdown_disabling_safety": {
+    "message": "$LABEL$ 비활성화 중...",
+    "placeholders": { "label": { "content": "$1" } }
+  }
 }

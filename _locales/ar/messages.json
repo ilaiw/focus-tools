@@ -637,5 +637,31 @@
   },
   "blocklist_cat_fakenews_desc": {
     "message": "مصادر المعلومات المضللة"
+  },
+
+  "section_safe_search": {
+    "message": "البحث الآمن والوضع المقيد"
+  },
+  "safesearch_master_label": {
+    "message": "فرض البحث الآمن على محركات البحث"
+  },
+  "safesearch_master_desc": {
+    "message": "يفرض البحث الآمن على Google و Bing و DuckDuckGo و Yahoo و Yandex و Brave و Ecosia و Startpage. يصفّي الصور الفاضحة — بما في ذلك في البحث عن الصور. يُطبَّق من جانب الخادم بالنسبة لـ Google و Bing، لذلك لا يمكن تجاوزه بتعديل الروابط."
+  },
+  "youtube_restricted_label": {
+    "message": "وضع YouTube المقيد"
+  },
+  "youtube_restricted_desc": {
+    "message": "يفعّل الوضع المقيد في YouTube. يُخفي أيضًا التعليقات على كل فيديو وقد يحجب المحتوى الإخباري والتعليمي ومحتوى مجتمع الميم الذي صنّفه YouTube على أنه للبالغين. يؤثر أيضًا على مقاطع YouTube المُضمَّنة في المواقع الأخرى."
+  },
+  "safesearch_label_search": {
+    "message": "البحث الآمن"
+  },
+  "safesearch_label_youtube": {
+    "message": "وضع YouTube المقيد"
+  },
+  "countdown_disabling_safety": {
+    "message": "جارٍ تعطيل $LABEL$...",
+    "placeholders": { "label": { "content": "$1" } }
   }
 }

@@ -637,5 +637,31 @@
   },
   "blocklist_cat_fakenews_desc": {
     "message": "מקורות מידע שגוי"
+  },
+
+  "section_safe_search": {
+    "message": "חיפוש בטוח ומצב מוגבל"
+  },
+  "safesearch_master_label": {
+    "message": "אכוף חיפוש בטוח במנועי חיפוש"
+  },
+  "safesearch_master_desc": {
+    "message": "מאלץ חיפוש בטוח ב-Google, Bing, DuckDuckGo, Yahoo, Yandex, Brave, Ecosia ו-Startpage. מסנן תמונות מפורשות — כולל בחיפוש תמונות. נאכף בצד השרת עבור Google ו-Bing, כך שלא ניתן לעקוף זאת על ידי שינוי כתובת ה-URL."
+  },
+  "youtube_restricted_label": {
+    "message": "מצב מוגבל של YouTube"
+  },
+  "youtube_restricted_desc": {
+    "message": "מפעיל את המצב המוגבל של YouTube. בנוסף מסתיר תגובות בכל סרטון ועלול לסנן תוכן חדשותי, חינוכי ותוכן של הקהילה הגאה ש-YouTube סימן כתוכן למבוגרים. משפיע גם על סרטוני YouTube המוטמעים באתרים אחרים."
+  },
+  "safesearch_label_search": {
+    "message": "חיפוש בטוח"
+  },
+  "safesearch_label_youtube": {
+    "message": "מצב מוגבל של YouTube"
+  },
+  "countdown_disabling_safety": {
+    "message": "משבית את $LABEL$...",
+    "placeholders": { "label": { "content": "$1" } }
   }
 }

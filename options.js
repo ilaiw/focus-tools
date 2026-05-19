@@ -41,6 +41,8 @@ const timerClickOkToggle = document.getElementById("timerClickOkToggle");
 const timerFreezeToggle = document.getElementById("timerFreezeToggle");
 const autoReenableToggle = document.getElementById("autoReenableToggle");
 const autoReenableMinutesInput = document.getElementById("autoReenableMinutesInput");
+const safeSearchToggle = document.getElementById("safeSearchToggle");
+const youtubeRestrictedToggle = document.getElementById("youtubeRestrictedToggle");
 
 let state = {
   enabled: true,
@@ -61,7 +63,9 @@ let state = {
   calendarEndHour: 17,
   calendarControlling: false,
   autoReenableEnabled: false,
-  autoReenableMinutes: 60
+  autoReenableMinutes: 60,
+  safeSearchEnabled: false,
+  youtubeRestrictedEnabled: false
 };
 
 let searchFilter = "";
@@ -106,6 +110,7 @@ async function init() {
     renderBlocklist();
     renderKeywords();
     renderBlocklistCategories();
+    renderSafety();
     renderSiteToggles();
     renderCalendar();
     renderAdvanced();
@@ -240,6 +245,7 @@ function cancelCountdown() {
   renderBlocklist();
   renderKeywords();
   renderBlocklistCategories();
+  renderSafety();
 }
 
 countdownCancel.addEventListener("click", cancelCountdown);
@@ -652,6 +658,42 @@ function handleBlocklistCategoryToggle(category, wantEnabled, checkbox) {
     });
   }
 }
+
+// ============================================================
+// Safe Search & YouTube Restricted Mode
+// ============================================================
+
+function renderSafety() {
+  safeSearchToggle.checked = !!state.safeSearchEnabled;
+  youtubeRestrictedToggle.checked = !!state.youtubeRestrictedEnabled;
+}
+
+function handleSafetyToggle(checkbox, stateKey, msgType, labelKey) {
+  const wantOn = checkbox.checked;
+  if (wantOn) {
+    chrome.runtime.sendMessage({ type: msgType, value: true }, () => {
+      if (chrome.runtime.lastError) return;
+      state[stateKey] = true;
+    });
+  } else {
+    checkbox.checked = true;
+    startCountdown(msg("countdown_disabling_safety", [msg(labelKey)]), () => {
+      chrome.runtime.sendMessage({ type: msgType, value: false }, () => {
+        if (chrome.runtime.lastError) return;
+        state[stateKey] = false;
+        checkbox.checked = false;
+      });
+    });
+  }
+}
+
+safeSearchToggle.addEventListener("change", () => {
+  handleSafetyToggle(safeSearchToggle, "safeSearchEnabled", "setSafeSearchEnabled", "safesearch_label_search");
+});
+
+youtubeRestrictedToggle.addEventListener("change", () => {
+  handleSafetyToggle(youtubeRestrictedToggle, "youtubeRestrictedEnabled", "setYoutubeRestrictedEnabled", "safesearch_label_youtube");
+});
 
 // ============================================================
 // Site Toggles — Accordion with 3-way mode

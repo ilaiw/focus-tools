@@ -637,5 +637,31 @@
   },
   "blocklist_cat_fakenews_desc": {
     "message": "Источники дезинформации"
+  },
+
+  "section_safe_search": {
+    "message": "Безопасный поиск и режим с ограничениями"
+  },
+  "safesearch_master_label": {
+    "message": "Принудительный безопасный поиск в поисковых системах"
+  },
+  "safesearch_master_desc": {
+    "message": "Принудительно включает безопасный поиск в Google, Bing, DuckDuckGo, Yahoo, Yandex, Brave, Ecosia и Startpage. Фильтрует откровенные изображения — в том числе в поиске картинок. В Google и Bing применяется на стороне сервера, поэтому обойти изменением URL невозможно."
+  },
+  "youtube_restricted_label": {
+    "message": "Безопасный режим YouTube"
+  },
+  "youtube_restricted_desc": {
+    "message": "Включает безопасный режим YouTube. Также скрывает комментарии под всеми видео и может скрывать новостной, образовательный и ЛГБТК+-контент, помеченный YouTube как материал для взрослых. Действует и на ролики YouTube, встроенные на других сайтах."
+  },
+  "safesearch_label_search": {
+    "message": "Безопасный поиск"
+  },
+  "safesearch_label_youtube": {
+    "message": "Безопасный режим YouTube"
+  },
+  "countdown_disabling_safety": {
+    "message": "Отключение $LABEL$...",
+    "placeholders": { "label": { "content": "$1" } }
   }
 }

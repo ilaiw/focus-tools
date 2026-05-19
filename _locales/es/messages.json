@@ -637,5 +637,31 @@
   },
   "blocklist_cat_fakenews_desc": {
     "message": "Fuentes de desinformación"
+  },
+
+  "section_safe_search": {
+    "message": "Búsqueda segura y modo restringido"
+  },
+  "safesearch_master_label": {
+    "message": "Forzar búsqueda segura en motores de búsqueda"
+  },
+  "safesearch_master_desc": {
+    "message": "Fuerza SafeSearch en Google, Bing, DuckDuckGo, Yahoo, Yandex, Brave, Ecosia y Startpage. Filtra imágenes explícitas, también en la búsqueda de imágenes. Se aplica del lado del servidor en Google y Bing, por lo que no se puede eludir modificando la URL."
+  },
+  "youtube_restricted_label": {
+    "message": "Modo restringido de YouTube"
+  },
+  "youtube_restricted_desc": {
+    "message": "Activa el modo restringido de YouTube. También oculta los comentarios en todos los vídeos y puede filtrar contenido informativo, educativo y LGBTQ+ que YouTube haya marcado como para adultos. También afecta a los vídeos de YouTube incrustados en otros sitios."
+  },
+  "safesearch_label_search": {
+    "message": "Búsqueda segura"
+  },
+  "safesearch_label_youtube": {
+    "message": "Modo restringido de YouTube"
+  },
+  "countdown_disabling_safety": {
+    "message": "Desactivando $LABEL$...",
+    "placeholders": { "label": { "content": "$1" } }
   }
 }

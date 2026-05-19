@@ -268,5 +268,17 @@
   "blocklist_cat_gambling": { "message": "賭博" },
   "blocklist_cat_gambling_desc": { "message": "賭博與博弈網站" },
   "blocklist_cat_fakenews": { "message": "假新聞" },
-  "blocklist_cat_fakenews_desc": { "message": "不實資訊來源" }
+  "blocklist_cat_fakenews_desc": { "message": "不實資訊來源" },
+
+  "section_safe_search": { "message": "安全搜尋與限制模式" },
+  "safesearch_master_label": { "message": "在搜尋引擎上強制啟用安全搜尋" },
+  "safesearch_master_desc": { "message": "在 Google、Bing、DuckDuckGo、Yahoo、Yandex、Brave、Ecosia 和 Startpage 上強制啟用安全搜尋。過濾露骨圖片 — 包括圖片搜尋中的圖片。Google 與 Bing 由伺服器端強制執行，因此無法透過修改網址繞過。" },
+  "youtube_restricted_label": { "message": "YouTube 限制模式" },
+  "youtube_restricted_desc": { "message": "啟用 YouTube 限制模式。同時隱藏所有影片下方的留言，並可能過濾掉 YouTube 標記為成人向的新聞、教育和 LGBTQ+ 內容。也會影響嵌入在其他網站上的 YouTube 影片。" },
+  "safesearch_label_search": { "message": "安全搜尋" },
+  "safesearch_label_youtube": { "message": "YouTube 限制模式" },
+  "countdown_disabling_safety": {
+    "message": "正在停用 $LABEL$...",
+    "placeholders": { "label": { "content": "$1" } }
+  }
 }

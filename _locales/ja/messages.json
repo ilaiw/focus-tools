@@ -268,5 +268,17 @@
   "blocklist_cat_gambling": { "message": "ギャンブル" },
   "blocklist_cat_gambling_desc": { "message": "ギャンブル・賭博サイト" },
   "blocklist_cat_fakenews": { "message": "フェイクニュース" },
-  "blocklist_cat_fakenews_desc": { "message": "誤情報の発信源" }
+  "blocklist_cat_fakenews_desc": { "message": "誤情報の発信源" },
+
+  "section_safe_search": { "message": "セーフサーチと制限付きモード" },
+  "safesearch_master_label": { "message": "検索エンジンでセーフサーチを強制" },
+  "safesearch_master_desc": { "message": "Google、Bing、DuckDuckGo、Yahoo、Yandex、Brave、Ecosia、Startpage でセーフサーチを強制します。画像検索を含め、露骨な画像をフィルタリングします。Google と Bing はサーバー側で適用されるため、URL の改変では回避できません。" },
+  "youtube_restricted_label": { "message": "YouTube 制限付きモード" },
+  "youtube_restricted_desc": { "message": "YouTube の制限付きモードを有効にします。すべての動画でコメントを非表示にし、YouTube が成人向けとフラグを立てたニュース、教育、LGBTQ+ コンテンツがフィルタリングされる可能性があります。他サイトに埋め込まれた YouTube 動画にも影響します。" },
+  "safesearch_label_search": { "message": "セーフサーチ" },
+  "safesearch_label_youtube": { "message": "YouTube 制限付きモード" },
+  "countdown_disabling_safety": {
+    "message": "$LABEL$ を無効化中...",
+    "placeholders": { "label": { "content": "$1" } }
+  }
 }

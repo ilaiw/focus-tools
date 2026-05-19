@@ -327,6 +327,31 @@
       <div id="blocklistCategoriesContainer"></div>
     </div>
 
+    <!-- Safe Search & Restricted Mode -->
+    <div class="section">
+      <div class="section-title" data-i18n="section_safe_search">Safe Search &amp; Restricted Mode</div>
+      <div class="setting-row">
+        <label>
+          <span data-i18n="safesearch_master_label">Force Safe Search on search engines</span><br>
+          <span class="sub-label" data-i18n="safesearch_master_desc">Forces SafeSearch on Google, Bing, DuckDuckGo, Yahoo, Yandex, Brave, Ecosia, and Startpage. Filters explicit images — including in image search. Enforced server-side for Google and Bing, so it cannot be bypassed with URL tweaks.</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="safeSearchToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="setting-row">
+        <label>
+          <span data-i18n="youtube_restricted_label">YouTube Restricted Mode</span><br>
+          <span class="sub-label" data-i18n="youtube_restricted_desc">Enables YouTube's Restricted Mode. Also hides comments on every video and may filter out news, educational, and LGBTQ+ content that YouTube has flagged as mature. Affects embedded YouTube videos on other sites too.</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="youtubeRestrictedToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
     <!-- Site Restrictions -->
     <div class="section">
       <div class="section-title" data-i18n="section_site_restrictions">Site Restrictions</div>

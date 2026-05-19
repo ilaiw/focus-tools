@@ -139,6 +139,88 @@ for (const catKey of Object.keys(BLOCKLIST_CATEGORIES)) {
   DEFAULT_BLOCKLIST_CATEGORIES[catKey] = { enabled: false, lastUpdated: null, domainCount: 0 };
 }
 
+// --- Safe Search engines ---
+// Each entry compiles to one declarativeNetRequest session rule (IDs 100-199).
+// All use query-param injection: forcesafesearch.google.com and strict.bing.com
+// reject direct HTTP requests (they require Host: www.google.com / Host: www.bing.com
+// via DNS CNAME), so url-level redirects to them 404. Param injection is what
+// actually works in a browser extension context.
+// Chrome DNR no-ops the redirect when the post-transform URL equals the original,
+// so a request that already carries the param does not loop.
+// Match shape: either `requestDomains` (exact host list) or `regexFilter` (covers
+// all TLDs in one rule — used for Google).
+const SAFE_SEARCH_ENGINES = [
+  {
+    id: 100,
+    regexFilter: "^https?://(?:www|images)\\.google\\.[a-z]{2,}(?:\\.[a-z]{2})?/",
+    param: { key: "safe", value: "active" }
+  },
+  {
+    id: 110,
+    // Bing opens image/video tabs via target=_blank. Chrome's DNR redirect strands new popup
+    // tabs at about:blank, so we can't safely inject adlt= into those URLs. Instead: param-inject
+    // on /search only, and BLOCK image/video search outright (redirects to blocked.html, which
+    // works on popups because it's an extension-page redirect). Users can use Google image search
+    // when SafeSearch is on; it's verified to filter properly.
+    regexFilter: "^https?://(?:www\\.)?bing\\.com/search\\?",
+    param: { key: "adlt", value: "strict" },
+    blockUrls: [
+      { id: 111, urlFilter: "||bing.com/images/search" },
+      { id: 112, urlFilter: "||bing.com/videos/search" }
+    ]
+  },
+  {
+    id: 120,
+    // DuckDuckGo uses ?iar=images on the same URL for image search, so kp=1 covers it.
+    requestDomains: ["duckduckgo.com", "www.duckduckgo.com"],
+    param: { key: "kp", value: "1" }
+  },
+  {
+    id: 130,
+    requestDomains: ["search.yahoo.com"],
+    param: { key: "vm", value: "r" },
+    blockUrls: [
+      { id: 131, urlFilter: "||images.search.yahoo.com/" },
+      { id: 132, urlFilter: "||video.search.yahoo.com/" }
+    ]
+  },
+  {
+    id: 140,
+    requestDomains: ["yandex.com", "www.yandex.com", "yandex.ru", "www.yandex.ru"],
+    param: { key: "family", value: "yes" },
+    blockUrls: [
+      { id: 141, urlFilter: "||yandex.com/images" },
+      { id: 142, urlFilter: "||yandex.ru/images" },
+      { id: 143, urlFilter: "||yandex.com/video" },
+      { id: 144, urlFilter: "||yandex.ru/video" }
+    ]
+  },
+  {
+    id: 150,
+    // Same-tab nav for image/video tabs (verified) — param injection on requestDomains
+    // covers /images and /videos paths inline. No block rules needed.
+    requestDomains: ["search.brave.com"],
+    param: { key: "safesearch", value: "strict" }
+  },
+  {
+    id: 160,
+    requestDomains: ["ecosia.org", "www.ecosia.org"],
+    param: { key: "safesearch", value: "strict" }
+  },
+  {
+    id: 170,
+    requestDomains: ["startpage.com", "www.startpage.com"],
+    param: { key: "qadf", value: "heavy" }
+  }
+];
+
+const YOUTUBE_RESTRICTED_RULE_ID = 200;
+const YOUTUBE_RESTRICTED_DOMAINS = [
+  "youtube.com", "www.youtube.com", "m.youtube.com",
+  "youtu.be", "www.youtu.be",
+  "youtube-nocookie.com", "www.youtube-nocookie.com"
+];
+
 // --- Shared utilities ---
 
 function formatTime(totalSeconds) {

@@ -268,5 +268,17 @@
   "blocklist_cat_gambling": { "message": "赌博" },
   "blocklist_cat_gambling_desc": { "message": "赌博和博彩网站" },
   "blocklist_cat_fakenews": { "message": "假新闻" },
-  "blocklist_cat_fakenews_desc": { "message": "虚假信息来源" }
+  "blocklist_cat_fakenews_desc": { "message": "虚假信息来源" },
+
+  "section_safe_search": { "message": "安全搜索与受限模式" },
+  "safesearch_master_label": { "message": "在搜索引擎上强制启用安全搜索" },
+  "safesearch_master_desc": { "message": "在 Google、Bing、DuckDuckGo、Yahoo、Yandex、Brave、Ecosia 和 Startpage 上强制启用安全搜索。过滤露骨图像 — 包括图像搜索中的图像。Google 和 Bing 在服务器端强制执行，因此无法通过修改 URL 绕过。" },
+  "youtube_restricted_label": { "message": "YouTube 受限模式" },
+  "youtube_restricted_desc": { "message": "启用 YouTube 受限模式。同时隐藏所有视频下方的评论，并可能过滤掉 YouTube 标记为成人向的新闻、教育和 LGBTQ+ 内容。也会影响嵌入在其他网站上的 YouTube 视频。" },
+  "safesearch_label_search": { "message": "安全搜索" },
+  "safesearch_label_youtube": { "message": "YouTube 受限模式" },
+  "countdown_disabling_safety": {
+    "message": "正在禁用 $LABEL$...",
+    "placeholders": { "label": { "content": "$1" } }
+  }
 }

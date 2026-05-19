@@ -84,8 +84,99 @@ async function fetchBlocklistCategory(category) {
   return cats;
 }
 
+// Rebuild Safe Search session rules. IDs 100-199.
+// Each engine emits: 1 param-injection rule (id = engine.id) + 0..N block rules from engine.blockUrls.
+// Block rules cover image/video search paths that can't be safely redirected on popup tabs
+// (Chrome strands DNR-redirected popups at about:blank).
+async function updateSafeSearchRules() {
+  const allRuleIds = [];
+  for (const engine of SAFE_SEARCH_ENGINES) {
+    allRuleIds.push(engine.id);
+    if (engine.blockUrls) for (const b of engine.blockUrls) allRuleIds.push(b.id);
+  }
+
+  const { enabled, safeSearchEnabled, customRedirectUrl } =
+    await chrome.storage.local.get(["enabled", "safeSearchEnabled", "customRedirectUrl"]);
+
+  if (enabled === false || !safeSearchEnabled) {
+    await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: allRuleIds })
+      .catch(err => console.error("updateSessionRules safesearch clear failed:", err));
+    return;
+  }
+
+  const blockedAction = customRedirectUrl
+    ? { type: "redirect", redirect: { url: customRedirectUrl } }
+    : { type: "redirect", redirect: { extensionPath: "/blocked.html" } };
+
+  const addRules = [];
+  for (const engine of SAFE_SEARCH_ENGINES) {
+    const condition = { resourceTypes: ["main_frame"] };
+    if (engine.regexFilter) condition.regexFilter = engine.regexFilter;
+    if (engine.requestDomains) condition.requestDomains = engine.requestDomains;
+
+    addRules.push({
+      id: engine.id,
+      priority: 1,
+      action: {
+        type: "redirect",
+        redirect: {
+          transform: {
+            queryTransform: { addOrReplaceParams: [{ key: engine.param.key, value: engine.param.value }] }
+          }
+        }
+      },
+      condition
+    });
+
+    if (engine.blockUrls) {
+      for (const b of engine.blockUrls) {
+        addRules.push({
+          id: b.id,
+          priority: 2,
+          action: blockedAction,
+          condition: { urlFilter: b.urlFilter, resourceTypes: ["main_frame"] }
+        });
+      }
+    }
+  }
+
+  await chrome.declarativeNetRequest.updateSessionRules({
+    removeRuleIds: allRuleIds,
+    addRules
+  }).catch(err => console.error("updateSessionRules safesearch failed:", err));
+}
+
+// Rebuild YouTube Restricted Mode session rule. ID 200, single modifyHeaders rule.
+async function updateYoutubeRestrictedRule() {
+  const { enabled, youtubeRestrictedEnabled } = await chrome.storage.local.get(["enabled", "youtubeRestrictedEnabled"]);
+
+  if (enabled === false || !youtubeRestrictedEnabled) {
+    await chrome.declarativeNetRequest.updateSessionRules({ removeRuleIds: [YOUTUBE_RESTRICTED_RULE_ID] })
+      .catch(err => console.error("updateSessionRules youtube-restrict clear failed:", err));
+    return;
+  }
+
+  await chrome.declarativeNetRequest.updateSessionRules({
+    removeRuleIds: [YOUTUBE_RESTRICTED_RULE_ID],
+    addRules: [{
+      id: YOUTUBE_RESTRICTED_RULE_ID,
+      priority: 1,
+      action: {
+        type: "modifyHeaders",
+        requestHeaders: [{ header: "YouTube-Restrict", operation: "set", value: "Strict" }]
+      },
+      condition: {
+        requestDomains: YOUTUBE_RESTRICTED_DOMAINS,
+        resourceTypes: ["main_frame", "sub_frame", "xmlhttprequest"]
+      }
+    }]
+  }).catch(err => console.error("updateSessionRules youtube-restrict failed:", err));
+}
+
 // Rebuild blocklist session rules on service worker startup
 updateBlocklistRules();
+updateSafeSearchRules();
+updateYoutubeRestrictedRule();
 
 // Only create calendar alarm if calendar is enabled
 chrome.storage.local.get("calendarEnabled", (result) => {
@@ -136,10 +227,14 @@ chrome.runtime.onInstalled.addListener(() => {
     if (result.calendarEndHour === undefined) updates.calendarEndHour = 17;
     if (result.autoReenableEnabled === undefined) updates.autoReenableEnabled = false;
     if (result.autoReenableMinutes === undefined) updates.autoReenableMinutes = 60;
+    if (result.safeSearchEnabled === undefined) updates.safeSearchEnabled = false;
+    if (result.youtubeRestrictedEnabled === undefined) updates.youtubeRestrictedEnabled = false;
     if (Object.keys(updates).length) chrome.storage.local.set(updates);
   });
   updateRules();
   updateBlocklistRules();
+  updateSafeSearchRules();
+  updateYoutubeRestrictedRule();
 });
 
 // Block chrome://extensions and edge://extensions when enabled
@@ -193,6 +288,8 @@ function evaluateCalendar() {
       if (shouldBeEnabled) chrome.alarms.clear("autoReenableExtension");
       updateRules();
       updateBlocklistRules();
+      updateSafeSearchRules();
+      updateYoutubeRestrictedRule();
     } else {
       chrome.storage.local.set({ calendarControlling: true });
     }
@@ -219,6 +316,8 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     chrome.storage.local.set({ enabled: true });
     updateRules();
     updateBlocklistRules();
+    updateSafeSearchRules();
+    updateYoutubeRestrictedRule();
     chrome.runtime.sendMessage({ type: "enabled" }).catch(() => {});
     return;
   }
@@ -233,6 +332,8 @@ chrome.alarms.onAlarm.addListener((alarm) => {
         chrome.storage.local.set({ enabled: false, disabling: false });
         updateRules();
         updateBlocklistRules();
+        updateSafeSearchRules();
+        updateYoutubeRestrictedRule();
         scheduleAutoReenableIfNeeded();
         chrome.runtime.sendMessage({ type: "disabled" }).catch(() => {});
       }
@@ -277,7 +378,9 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         disablePausedRemaining: result.disablePausedRemaining || null,
         calendarControlling: result.calendarControlling || false,
         autoReenableEnabled: result.autoReenableEnabled || false,
-        autoReenableMinutes: result.autoReenableMinutes || 60
+        autoReenableMinutes: result.autoReenableMinutes || 60,
+        safeSearchEnabled: result.safeSearchEnabled || false,
+        youtubeRestrictedEnabled: result.youtubeRestrictedEnabled || false
       });
     });
     return true;
@@ -311,6 +414,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     chrome.storage.local.set({ enabled: false, disableWaitingConfirm: false, disabling: false });
     updateRules();
     updateBlocklistRules();
+    updateSafeSearchRules();
+    updateYoutubeRestrictedRule();
     scheduleAutoReenableIfNeeded();
     sendResponse({ enabled: false });
     return true;
@@ -348,6 +453,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       chrome.storage.local.set({ enabled: true, disabling: false, disableAt: null });
       updateRules();
       updateBlocklistRules();
+      updateSafeSearchRules();
+      updateYoutubeRestrictedRule();
       sendResponse({ enabled: true });
     });
     return true;
@@ -485,6 +592,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     chrome.storage.local.set({ customRedirectUrl: msg.url });
     updateRules();
     updateBlocklistRules();
+    updateSafeSearchRules();
     sendResponse({ ok: true });
     return true;
   }
@@ -556,6 +664,24 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     fetchBlocklistCategory(msg.category)
       .then((cats) => sendResponse({ ok: true, blocklistCategories: cats }))
       .catch((err) => sendResponse({ ok: false, error: err.message }));
+    return true;
+  }
+
+  // --- Safe Search & YouTube Restricted Mode ---
+
+  if (msg.type === "setSafeSearchEnabled") {
+    chrome.storage.local.set({ safeSearchEnabled: !!msg.value }, () => {
+      updateSafeSearchRules();
+      sendResponse({ ok: true });
+    });
+    return true;
+  }
+
+  if (msg.type === "setYoutubeRestrictedEnabled") {
+    chrome.storage.local.set({ youtubeRestrictedEnabled: !!msg.value }, () => {
+      updateYoutubeRestrictedRule();
+      sendResponse({ ok: true });
+    });
     return true;
   }
 });

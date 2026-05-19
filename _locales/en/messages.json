@@ -268,5 +268,17 @@
   "blocklist_cat_gambling": { "message": "Gambling" },
   "blocklist_cat_gambling_desc": { "message": "Gambling and betting sites" },
   "blocklist_cat_fakenews": { "message": "Fake News" },
-  "blocklist_cat_fakenews_desc": { "message": "Misinformation sources" }
+  "blocklist_cat_fakenews_desc": { "message": "Misinformation sources" },
+
+  "section_safe_search": { "message": "Safe Search & Restricted Mode" },
+  "safesearch_master_label": { "message": "Force Safe Search on search engines" },
+  "safesearch_master_desc": { "message": "Forces SafeSearch on Google, Bing, DuckDuckGo, Yahoo, Yandex, Brave, Ecosia, and Startpage. Filters explicit images — including in image search. Enforced server-side for Google and Bing, so it cannot be bypassed with URL tweaks." },
+  "youtube_restricted_label": { "message": "YouTube Restricted Mode" },
+  "youtube_restricted_desc": { "message": "Enables YouTube's Restricted Mode. Also hides comments on every video and may filter out news, educational, and LGBTQ+ content that YouTube has flagged as mature. Affects embedded YouTube videos on other sites too." },
+  "safesearch_label_search": { "message": "Safe Search" },
+  "safesearch_label_youtube": { "message": "YouTube Restricted Mode" },
+  "countdown_disabling_safety": {
+    "message": "Disabling $LABEL$...",
+    "placeholders": { "label": { "content": "$1" } }
+  }
 }
