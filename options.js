@@ -39,6 +39,8 @@ const countdownOk = document.getElementById("countdownOk");
 const countdownConfirmCancelBtn = document.getElementById("countdownConfirmCancel");
 const timerClickOkToggle = document.getElementById("timerClickOkToggle");
 const timerFreezeToggle = document.getElementById("timerFreezeToggle");
+const autoReenableToggle = document.getElementById("autoReenableToggle");
+const autoReenableMinutesInput = document.getElementById("autoReenableMinutesInput");
 
 let state = {
   enabled: true,
@@ -57,7 +59,9 @@ let state = {
   calendarDays: [false,false,false,false,false,false,false],
   calendarStartHour: 9,
   calendarEndHour: 17,
-  calendarControlling: false
+  calendarControlling: false,
+  autoReenableEnabled: false,
+  autoReenableMinutes: 60
 };
 
 let searchFilter = "";
@@ -291,6 +295,8 @@ function renderGeneral() {
   countdownInput.value = state.countdownSeconds;
   countdownInput.disabled = true;
   renderCountdownActions();
+  autoReenableToggle.checked = !!state.autoReenableEnabled;
+  autoReenableMinutesInput.value = state.autoReenableMinutes || 60;
 }
 
 function renderCountdownActions() {
@@ -316,6 +322,23 @@ function saveCountdown() {
     renderGeneral();
   });
 }
+
+autoReenableToggle.addEventListener("change", () => {
+  const value = autoReenableToggle.checked;
+  chrome.runtime.sendMessage({ type: "setAutoReenableEnabled", value }, () => {
+    if (chrome.runtime.lastError) return;
+    state.autoReenableEnabled = value;
+  });
+});
+
+autoReenableMinutesInput.addEventListener("change", () => {
+  const val = Math.max(1, Math.min(1440, parseInt(autoReenableMinutesInput.value, 10) || 60));
+  autoReenableMinutesInput.value = val;
+  chrome.runtime.sendMessage({ type: "saveAutoReenableMinutes", minutes: val }, () => {
+    if (chrome.runtime.lastError) return;
+    state.autoReenableMinutes = val;
+  });
+});
 
 // ============================================================
 // Blocklist

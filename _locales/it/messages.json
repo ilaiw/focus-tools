@@ -131,6 +131,18 @@
   "options_seconds": {
     "message": "secondi"
   },
+  "options_auto_reenable": {
+    "message": "♻️ Riattivazione automatica"
+  },
+  "options_auto_reenable_desc": {
+    "message": "Riattiva automaticamente l'estensione dopo averla disattivata"
+  },
+  "options_auto_reenable_after": {
+    "message": "Riattiva dopo"
+  },
+  "options_minutes": {
+    "message": "minuti"
+  },
   "section_blocked_sites": {
     "message": "🚫 Siti bloccati"
   },

@@ -60,6 +60,10 @@
   "options_block_ext_desc": { "message": "Prevents quick-disabling via chrome://extensions" },
   "options_countdown_timer": { "message": "⏱️ Countdown timer" },
   "options_seconds": { "message": "seconds" },
+  "options_auto_reenable": { "message": "♻️ Auto re-enable" },
+  "options_auto_reenable_desc": { "message": "Automatically turn the extension back on after being disabled" },
+  "options_auto_reenable_after": { "message": "Re-enable after" },
+  "options_minutes": { "message": "minutes" },
 
   "section_blocked_sites": { "message": "🚫 Blocked Sites" },
   "options_search_sites_placeholder": { "message": "Search blocked sites..." },

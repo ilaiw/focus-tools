@@ -131,6 +131,18 @@
   "options_seconds": {
     "message": "שניות"
   },
+  "options_auto_reenable": {
+    "message": "♻️ הפעלה אוטומטית מחדש"
+  },
+  "options_auto_reenable_desc": {
+    "message": "הפעל את ההרחבה מחדש באופן אוטומטי לאחר השבתה"
+  },
+  "options_auto_reenable_after": {
+    "message": "הפעל מחדש אחרי"
+  },
+  "options_minutes": {
+    "message": "דקות"
+  },
   "section_blocked_sites": {
     "message": "🚫 אתרים חסומים"
   },

@@ -60,6 +60,10 @@
   "options_block_ext_desc": { "message": "防止通过 chrome://extensions 快速禁用" },
   "options_countdown_timer": { "message": "⏱️ 倒计时" },
   "options_seconds": { "message": "秒" },
+  "options_auto_reenable": { "message": "♻️ 自动重新启用" },
+  "options_auto_reenable_desc": { "message": "禁用后自动重新启用扩展" },
+  "options_auto_reenable_after": { "message": "延迟重新启用" },
+  "options_minutes": { "message": "分钟" },
 
   "section_blocked_sites": { "message": "🚫 屏蔽网站" },
   "options_search_sites_placeholder": { "message": "搜索已屏蔽的网站…" },

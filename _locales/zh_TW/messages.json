@@ -60,6 +60,10 @@
   "options_block_ext_desc": { "message": "防止透過 chrome://extensions 快速停用" },
   "options_countdown_timer": { "message": "⏱️ 倒數計時" },
   "options_seconds": { "message": "秒" },
+  "options_auto_reenable": { "message": "♻️ 自動重新啟用" },
+  "options_auto_reenable_desc": { "message": "停用後自動重新啟用擴充功能" },
+  "options_auto_reenable_after": { "message": "延遲重新啟用" },
+  "options_minutes": { "message": "分鐘" },
 
   "section_blocked_sites": { "message": "🚫 封鎖網站" },
   "options_search_sites_placeholder": { "message": "搜尋已封鎖的網站…" },

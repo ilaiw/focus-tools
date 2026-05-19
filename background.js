@@ -134,6 +134,8 @@ chrome.runtime.onInstalled.addListener(() => {
     if (result.calendarDays === undefined) updates.calendarDays = [false,false,false,false,false,false,false];
     if (result.calendarStartHour === undefined) updates.calendarStartHour = 9;
     if (result.calendarEndHour === undefined) updates.calendarEndHour = 17;
+    if (result.autoReenableEnabled === undefined) updates.autoReenableEnabled = false;
+    if (result.autoReenableMinutes === undefined) updates.autoReenableMinutes = 60;
     if (Object.keys(updates).length) chrome.storage.local.set(updates);
   });
   updateRules();
@@ -188,6 +190,7 @@ function evaluateCalendar() {
 
     if (shouldBeEnabled !== currentlyEnabled) {
       chrome.storage.local.set({ enabled: shouldBeEnabled, calendarControlling: true });
+      if (shouldBeEnabled) chrome.alarms.clear("autoReenableExtension");
       updateRules();
       updateBlocklistRules();
     } else {
@@ -196,10 +199,27 @@ function evaluateCalendar() {
   });
 }
 
+// Schedule an auto re-enable alarm if the feature is on and extension is currently disabled.
+function scheduleAutoReenableIfNeeded() {
+  chrome.storage.local.get(["autoReenableEnabled", "autoReenableMinutes", "enabled"], (r) => {
+    if (r.autoReenableEnabled && r.enabled === false) {
+      const minutes = Math.max(1, Math.min(1440, r.autoReenableMinutes || 60));
+      chrome.alarms.create("autoReenableExtension", { delayInMinutes: minutes });
+    }
+  });
+}
+
 // Listen for alarms
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === "calendarCheck") {
     evaluateCalendar();
+    return;
+  }
+  if (alarm.name === "autoReenableExtension") {
+    chrome.storage.local.set({ enabled: true });
+    updateRules();
+    updateBlocklistRules();
+    chrome.runtime.sendMessage({ type: "enabled" }).catch(() => {});
     return;
   }
   if (alarm.name === "disableExtension") {
@@ -213,6 +233,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
         chrome.storage.local.set({ enabled: false, disabling: false });
         updateRules();
         updateBlocklistRules();
+        scheduleAutoReenableIfNeeded();
         chrome.runtime.sendMessage({ type: "disabled" }).catch(() => {});
       }
     });
@@ -254,7 +275,9 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         timerFreeze: result.timerFreeze || false,
         disablePaused: result.disablePaused || false,
         disablePausedRemaining: result.disablePausedRemaining || null,
-        calendarControlling: result.calendarControlling || false
+        calendarControlling: result.calendarControlling || false,
+        autoReenableEnabled: result.autoReenableEnabled || false,
+        autoReenableMinutes: result.autoReenableMinutes || 60
       });
     });
     return true;
@@ -288,6 +311,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     chrome.storage.local.set({ enabled: false, disableWaitingConfirm: false, disabling: false });
     updateRules();
     updateBlocklistRules();
+    scheduleAutoReenableIfNeeded();
     sendResponse({ enabled: false });
     return true;
   }
@@ -320,6 +344,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         return;
       }
       chrome.alarms.clear("disableExtension");
+      chrome.alarms.clear("autoReenableExtension");
       chrome.storage.local.set({ enabled: true, disabling: false, disableAt: null });
       updateRules();
       updateBlocklistRules();
@@ -433,6 +458,26 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.type === "saveCountdown") {
     chrome.storage.local.set({ countdownSeconds: msg.countdownSeconds });
     sendResponse({ ok: true });
+    return true;
+  }
+
+  // --- Auto re-enable ---
+
+  if (msg.type === "setAutoReenableEnabled") {
+    chrome.storage.local.set({ autoReenableEnabled: !!msg.value }, () => {
+      if (msg.value) {
+        scheduleAutoReenableIfNeeded();
+      } else {
+        chrome.alarms.clear("autoReenableExtension");
+      }
+      sendResponse({ ok: true });
+    });
+    return true;
+  }
+
+  if (msg.type === "saveAutoReenableMinutes") {
+    const val = Math.max(1, Math.min(1440, parseInt(msg.minutes, 10) || 60));
+    chrome.storage.local.set({ autoReenableMinutes: val }, () => sendResponse({ ok: true, autoReenableMinutes: val }));
     return true;
   }
 

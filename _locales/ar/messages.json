@@ -131,6 +131,18 @@
   "options_seconds": {
     "message": "ثوانٍ"
   },
+  "options_auto_reenable": {
+    "message": "♻️ إعادة التفعيل التلقائي"
+  },
+  "options_auto_reenable_desc": {
+    "message": "يعيد تشغيل الإضافة تلقائيًا بعد تعطيلها"
+  },
+  "options_auto_reenable_after": {
+    "message": "إعادة التفعيل بعد"
+  },
+  "options_minutes": {
+    "message": "دقائق"
+  },
   "section_blocked_sites": {
     "message": "🚫 المواقع المحظورة"
   },

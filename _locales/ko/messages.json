@@ -60,6 +60,10 @@
   "options_block_ext_desc": { "message": "chrome://extensions을 통한 빠른 비활성화를 방지합니다" },
   "options_countdown_timer": { "message": "⏱️ 카운트다운 타이머" },
   "options_seconds": { "message": "초" },
+  "options_auto_reenable": { "message": "♻️ 자동 재활성화" },
+  "options_auto_reenable_desc": { "message": "비활성화 후 확장 프로그램을 자동으로 다시 활성화합니다" },
+  "options_auto_reenable_after": { "message": "재활성화 지연" },
+  "options_minutes": { "message": "분" },
 
   "section_blocked_sites": { "message": "🚫 차단된 사이트" },
   "options_search_sites_placeholder": { "message": "차단된 사이트 검색…" },

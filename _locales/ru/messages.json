@@ -131,6 +131,18 @@
   "options_seconds": {
     "message": "секунд"
   },
+  "options_auto_reenable": {
+    "message": "♻️ Автовключение"
+  },
+  "options_auto_reenable_desc": {
+    "message": "Автоматически снова включать расширение после отключения"
+  },
+  "options_auto_reenable_after": {
+    "message": "Включить через"
+  },
+  "options_minutes": {
+    "message": "минут"
+  },
   "section_blocked_sites": {
     "message": "🚫 Заблокированные сайты"
   },

@@ -131,6 +131,18 @@
   "options_seconds": {
     "message": "secondes"
   },
+  "options_auto_reenable": {
+    "message": "♻️ Reactivation automatique"
+  },
+  "options_auto_reenable_desc": {
+    "message": "Reactive automatiquement l'extension apres l'avoir desactivee"
+  },
+  "options_auto_reenable_after": {
+    "message": "Reactiver apres"
+  },
+  "options_minutes": {
+    "message": "minutes"
+  },
   "section_blocked_sites": {
     "message": "🚫 Sites bloques"
   },

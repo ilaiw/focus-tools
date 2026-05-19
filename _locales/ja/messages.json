@@ -60,6 +60,10 @@
   "options_block_ext_desc": { "message": "chrome://extensions 経由でのクイック無効化を防止します" },
   "options_countdown_timer": { "message": "⏱️ カウントダウンタイマー" },
   "options_seconds": { "message": "秒" },
+  "options_auto_reenable": { "message": "♻️ 自動再有効化" },
+  "options_auto_reenable_desc": { "message": "無効化後に拡張機能を自動的に再有効化します" },
+  "options_auto_reenable_after": { "message": "再有効化までの時間" },
+  "options_minutes": { "message": "分" },
 
   "section_blocked_sites": { "message": "🚫 ブロック中のサイト" },
   "options_search_sites_placeholder": { "message": "ブロック中のサイトを検索…" },

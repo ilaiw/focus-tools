@@ -42,7 +42,9 @@
     .setting-row input[type="number"]:focus { border-color: #4ade80; }
     .setting-row input[type="number"]:disabled { opacity: 0.4; cursor: not-allowed; }
     .setting-row .unit { font-size: 12px; color: #666; }
-    .unlock-row { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
+    .inline-actions { display: flex; align-items: center; gap: 8px; }
+    .inline-actions:empty { display: none; }
+    .inline-actions button { padding: 6px 12px; font-size: 12px; }
 
     /* Buttons */
     button {
@@ -277,8 +279,17 @@
         <label data-i18n="options_countdown_timer">Countdown timer</label>
         <input type="number" id="countdownInput" min="1" max="3600" disabled>
         <span class="unit" data-i18n="options_seconds">seconds</span>
+        <div id="countdownActions" class="inline-actions"></div>
       </div>
-      <div class="unlock-row" id="countdownActions"></div>
+      <div class="setting-row">
+        <label><span data-i18n="options_auto_reenable">Auto re-enable</span><br><span class="sub-label" data-i18n="options_auto_reenable_desc">Automatically turn the extension back on after being disabled</span></label>
+        <input type="number" id="autoReenableMinutesInput" min="1" max="1440">
+        <span class="unit" data-i18n="options_minutes">minutes</span>
+        <label class="switch">
+          <input type="checkbox" id="autoReenableToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
     </div>
 
     <!-- Blocked Sites -->
