@@ -221,6 +221,241 @@ const YOUTUBE_RESTRICTED_DOMAINS = [
   "youtube-nocookie.com", "www.youtube-nocookie.com"
 ];
 
+// Per-site CSS. Injected at runtime by content.js via a <style> element only
+// when `enabled !== false`. NOT declared as static content_scripts CSS in
+// manifest.json so that popup-disable truly puts zero stylesheets in the page
+// (matches chrome://extensions disable behavior). Edit these strings to change
+// site styling — the css/*.css files in the repo are kept for reference only.
+const SITE_CSS = {
+  "facebook.com": `
+html.ft-hide-messenger a[href*="messenger.com"],
+html.ft-hide-messenger a[aria-label="Messenger"],
+html.ft-hide-messenger a[href="/messages/"] {
+  display: none !important;
+}
+html.ft-hide-chat div[aria-label="Chats"],
+html.ft-hide-chat div[aria-label="Chat"],
+html.ft-hide-chat div[aria-label*="Messenger"] {
+  display: none !important;
+}
+html.ft-hide-marketplace a[href="/marketplace/"],
+html.ft-hide-marketplace a[href*="/marketplace"],
+html.ft-hide-marketplace a[aria-label="Marketplace"] {
+  display: none !important;
+}
+html.ft-hide-reels a[href="/reel/"],
+html.ft-hide-reels a[href*="/reel"],
+html.ft-hide-reels a[aria-label="Reels"],
+html.ft-hide-reels a[href*="reel"][role="link"],
+html.ft-hide-reels div[aria-label="Reels"],
+html.ft-hide-reels a[href="/watch/reels/"],
+html.ft-hide-reels a[href="/watch/"],
+html.ft-hide-reels a[href*="/watch"],
+html.ft-hide-reels a[aria-label="Watch"],
+html.ft-hide-reels a[aria-label="Video"] {
+  display: none !important;
+}
+html.ft-hide-gaming a[href="/gaming/"],
+html.ft-hide-gaming a[href*="/gaming"],
+html.ft-hide-gaming a[aria-label="Gaming"],
+html.ft-hide-gaming a[aria-label="Gaming video"] {
+  display: none !important;
+}
+html.ft-hide-likes-comments span[aria-label*="Like"],
+html.ft-hide-likes-comments span[aria-label*="like"],
+html.ft-hide-likes-comments span[aria-label*="reaction"],
+html.ft-hide-likes-comments span[aria-label*="Reaction"],
+html.ft-hide-likes-comments div[aria-label*="reactions"],
+html.ft-hide-likes-comments div[aria-label*="Reactions"],
+html.ft-hide-likes-comments span[aria-label*="others"],
+html.ft-hide-likes-comments div[aria-label*="Leave a comment"],
+html.ft-hide-likes-comments div[aria-label*="Write a comment"],
+html.ft-hide-likes-comments div[aria-label*="Comment"],
+html.ft-hide-likes-comments form[aria-label*="Comment"],
+html.ft-hide-likes-comments ul[aria-label*="Comment"],
+html.ft-hide-likes-comments div[aria-label*="Like"][role="button"],
+html.ft-hide-likes-comments div[aria-label*="Comment"][role="button"],
+html.ft-hide-likes-comments div[aria-label*="Share"][role="button"] {
+  display: none !important;
+}
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}
+`,
+  "youtube.com": `
+html.ft-hide-home-feed ytd-rich-grid-renderer,
+html.ft-hide-home-feed ytd-two-column-browse-results-renderer,
+html.ft-hide-home-feed ytd-shelf-renderer,
+html.ft-hide-home-feed ytd-rich-section-renderer,
+html.ft-hide-home-feed ytd-browse[page-subtype="home"] #contents {
+  display: none !important;
+}
+html.ft-hide-shorts ytd-reel-shelf-renderer,
+html.ft-hide-shorts ytd-rich-section-renderer[is-shorts],
+html.ft-hide-shorts a[title="Shorts"],
+html.ft-hide-shorts a[href="/shorts"],
+html.ft-hide-shorts ytd-mini-guide-entry-renderer a[title="Shorts"],
+html.ft-hide-shorts ytd-guide-entry-renderer a[title="Shorts"],
+html.ft-hide-shorts ytd-reel-item-renderer,
+html.ft-hide-shorts ytd-video-renderer a[href*="/shorts/"],
+html.ft-hide-shorts ytd-grid-video-renderer a[href*="/shorts/"] {
+  display: none !important;
+}
+html.ft-hide-comments ytd-comments#comments,
+html.ft-hide-comments #comments,
+html.ft-hide-comments ytd-item-section-renderer#sections,
+html.ft-hide-comments ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-comments-section"] {
+  display: none !important;
+}
+html.ft-hide-sidebar #related,
+html.ft-hide-sidebar #secondary,
+html.ft-hide-sidebar #secondary-inner,
+html.ft-hide-sidebar ytd-watch-next-secondary-results-renderer,
+html.ft-hide-sidebar ytd-compact-video-renderer,
+html.ft-hide-sidebar ytd-compact-playlist-renderer {
+  display: none !important;
+}
+html.ft-hide-end-cards .ytp-endscreen-content,
+html.ft-hide-end-cards .ytp-ce-element,
+html.ft-hide-end-cards .ytp-ce-covering-overlay,
+html.ft-hide-end-cards .ytp-ce-element-shadow {
+  display: none !important;
+}
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}
+`,
+  "instagram.com": `
+html.ft-hide-feed main[role="main"] article,
+html.ft-hide-feed div[role="feed"],
+html.ft-hide-feed main[role="main"] > div > div > div:has(article) {
+  display: none !important;
+}
+html.ft-hide-reels a[href="/reels/"],
+html.ft-hide-reels a[href*="/reels"],
+html.ft-hide-reels a[aria-label*="Reels"],
+html.ft-hide-reels div[aria-label*="Reels"],
+html.ft-hide-reels svg[aria-label*="Reels"] {
+  display: none !important;
+}
+html.ft-hide-explore a[href="/explore/"],
+html.ft-hide-explore a[href*="/explore"],
+html.ft-hide-explore a[aria-label*="Explore"],
+html.ft-hide-explore svg[aria-label*="Explore"] {
+  display: none !important;
+}
+html.ft-hide-stories div[aria-label="Stories"],
+html.ft-hide-stories div[aria-label*="Stories"],
+html.ft-hide-stories div[role="menu"][aria-label*="Stories"],
+html.ft-hide-stories canvas[aria-label*="story" i],
+html.ft-hide-stories div[role="presentation"]:has(canvas[aria-label*="story" i]) {
+  display: none !important;
+}
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}
+`,
+  "x.com": `
+html.ft-hide-feed div[data-testid="primaryColumn"] section[role="region"],
+html.ft-hide-feed div[aria-label="Timeline: Your Home Timeline"],
+html.ft-hide-feed div[aria-label*="Timeline"]:not([aria-label*="Trending"]),
+html.ft-hide-feed div[data-testid="cellInnerDiv"] {
+  display: none !important;
+}
+html.ft-hide-trending div[aria-label="Trending"],
+html.ft-hide-trending div[aria-label*="trending"],
+html.ft-hide-trending a[href="/explore"],
+html.ft-hide-trending a[href*="/explore"],
+html.ft-hide-trending a[data-testid="AppTabBar_Explore_Link"],
+html.ft-hide-trending section[aria-labelledby*="accessible-list"],
+html.ft-hide-trending div[data-testid="sidebarColumn"] section[role="region"] {
+  display: none !important;
+}
+html.ft-hide-who-to-follow aside[aria-label="Who to follow"],
+html.ft-hide-who-to-follow div[aria-label="Who to follow"],
+html.ft-hide-who-to-follow aside[aria-label*="Who to follow"],
+html.ft-hide-who-to-follow div[data-testid="UserCell"] {
+  display: none !important;
+}
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}
+`,
+  "reddit.com": `
+html.ft-hide-feed shreddit-post,
+html.ft-hide-feed article[data-testid="post-container"],
+html.ft-hide-feed div[data-testid="post-container"],
+html.ft-hide-feed shreddit-feed,
+html.ft-hide-feed faceplate-batch:has(shreddit-post),
+html.ft-hide-feed main article {
+  display: none !important;
+}
+html.ft-hide-popular a[href*="/r/popular"],
+html.ft-hide-popular a[href*="/r/all"],
+html.ft-hide-popular a[href="/r/popular/"],
+html.ft-hide-popular a[href="/r/all/"],
+html.ft-hide-popular a[href="/popular/"],
+html.ft-hide-popular a[href="/popular"],
+html.ft-hide-popular faceplate-tracker a[href*="/popular"],
+html.ft-hide-popular faceplate-tracker a[href*="/all"],
+html.ft-hide-popular nav a[href*="popular"],
+html.ft-hide-popular nav a[href*="/all"],
+html.ft-hide-popular li:has(> a[href*="/r/popular"]),
+html.ft-hide-popular li:has(> a[href*="/r/all"]),
+html.ft-hide-popular faceplate-tracker:has(a[href*="/popular"]),
+html.ft-hide-popular faceplate-tracker:has(a[href*="/all"]) {
+  display: none !important;
+}
+html.ft-hide-awards [data-testid="award-button"],
+html.ft-hide-awards .awardings-bar,
+html.ft-hide-awards shreddit-post-award-button,
+html.ft-hide-awards button[aria-label*="award" i],
+html.ft-hide-awards button[aria-label*="Award"] {
+  display: none !important;
+}
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}
+`,
+  "linkedin.com": `
+html.ft-hide-home a[href*="/feed"],
+html.ft-hide-home a[data-link-to="feed"],
+html.ft-hide-home li:has(a[href*="/feed"]),
+html.ft-hide-home span:has(> a[href*="/feed"]),
+html.ft-hide-home nav a[href*="/feed"],
+html.ft-hide-home header a[href*="/feed"] {
+  display: none !important;
+}
+html.ft-hide-home li.global-nav__primary-item:has(a[href*="/feed"]) {
+  width: 0 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+html.ft-hide-news aside[aria-label*="News"],
+html.ft-hide-news aside[aria-label*="LinkedIn News"],
+html.ft-hide-news .news-module,
+html.ft-hide-news aside .ad-banner-container,
+html.ft-hide-news div[data-view-name="news-module"] {
+  display: none !important;
+}
+html.ft-hide-notifications .notification-badge,
+html.ft-hide-notifications .notification-badge__count,
+html.ft-hide-notifications span[class*="notification-badge"],
+html.ft-hide-notifications .nav-item__badge-count {
+  display: none !important;
+}
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}
+`,
+  "tiktok.com": `
+html.ft-remove-colors {
+  filter: grayscale(100%) !important;
+}
+`
+};
+
 // --- Shared utilities ---
 
 function formatTime(totalSeconds) {

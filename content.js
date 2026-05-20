@@ -12,6 +12,23 @@
   let currentMode = "allow";
   let feedRedirectActive = false;
   let historyPatched = false;
+  let styleEl = null;
+
+  // CSS is injected via JS (not as static content_scripts CSS) so that when the
+  // extension is popup-disabled, no stylesheets get added to the page at all.
+  function ensureStyleInjected() {
+    if (styleEl && styleEl.isConnected) return;
+    const css = SITE_CSS[siteKey];
+    if (!css) return;
+    styleEl = document.createElement("style");
+    styleEl.setAttribute("data-focus-tools", "");
+    styleEl.textContent = css;
+    document.documentElement.appendChild(styleEl);
+  }
+
+  function removeStyleElement() {
+    if (styleEl) { styleEl.remove(); styleEl = null; }
+  }
 
   // Apply CSS classes based on toggle state and mode
   function applyState(mode, toggles) {
@@ -23,6 +40,8 @@
       removeAllClasses();
       return;
     }
+
+    ensureStyleInjected();
 
     // Mode is "filter": apply toggles
     for (const def of toggleDefs) {
@@ -192,6 +211,7 @@
     if (changes.enabled) {
       if (changes.enabled.newValue === false) {
         removeAllClasses();
+        removeStyleElement();
         return;
       }
       // Re-enabled

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_ext_name__",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "default_locale": "en",
   "description": "__MSG_ext_description__",
   "permissions": [
@@ -37,15 +37,6 @@
         "*://*.reddit.com/*",
         "*://*.linkedin.com/*",
         "*://*.tiktok.com/*"
-      ],
-      "css": [
-        "css/facebook.css",
-        "css/youtube.css",
-        "css/instagram.css",
-        "css/twitter.css",
-        "css/reddit.css",
-        "css/linkedin.css",
-        "css/tiktok.css"
       ],
       "js": ["site-config.js", "content.js"],
       "run_at": "document_start"
