@@ -50,6 +50,7 @@
   "blocked_reason_category": { "message": "被社群封鎖清單攔截" },
   "blocked_reason_safesearch": { "message": "被安全搜尋攔截" },
   "blocked_reason_extensions": { "message": "Focus Tools 開啟時擴充功能頁面會被封鎖" },
+  "site_block_auth_note": { "message": "即使在封鎖模式下,$DOMAINS$ 仍保持允許——登入流程會經過該網域,封鎖它會導致相關服務無法登入。", "placeholders": { "domains": { "content": "$1" } } },
 
   "options_page_title": { "message": "Focus Tools — 設定" },
   "options_title": { "message": "🧠 Focus Tools 設定" },

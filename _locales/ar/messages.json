@@ -119,6 +119,12 @@
   "blocked_reason_extensions": {
     "message": "صفحة الإضافات محظورة أثناء تفعيل Focus Tools"
   },
+  "site_block_auth_note": {
+    "message": "يظل $DOMAINS$ مسموحًا به حتى في وضع الحظر — تمر عمليات تسجيل الدخول عبره، وحظره سيعطل تسجيل الدخول إلى الخدمات المرتبطة.",
+    "placeholders": {
+      "domains": { "content": "$1" }
+    }
+  },
   "options_page_title": {
     "message": "Focus Tools — الإعدادات"
   },

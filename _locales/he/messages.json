@@ -119,6 +119,12 @@
   "blocked_reason_extensions": {
     "message": "דף התוספים חסום כאשר Focus Tools פעיל"
   },
+  "site_block_auth_note": {
+    "message": "$DOMAINS$ נשאר מותר גם במצב חסימה — תהליכי התחברות עוברים דרכו, וחסימתו תשבור את ההתחברות לשירותים קשורים.",
+    "placeholders": {
+      "domains": { "content": "$1" }
+    }
+  },
   "options_page_title": {
     "message": "Focus Tools — הגדרות"
   },

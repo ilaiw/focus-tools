@@ -50,6 +50,7 @@
   "blocked_reason_category": { "message": "コミュニティブロックリストによりブロック" },
   "blocked_reason_safesearch": { "message": "セーフサーチによりブロック" },
   "blocked_reason_extensions": { "message": "Focus Tools が有効な間、拡張機能ページはブロックされます" },
+  "site_block_auth_note": { "message": "$DOMAINS$ はブロックモードでも許可されたままです。サインイン処理がこのドメインを経由するため、ブロックすると関連サービスへのサインインができなくなります。", "placeholders": { "domains": { "content": "$1" } } },
 
   "options_page_title": { "message": "Focus Tools — 設定" },
   "options_title": { "message": "🧠 Focus Tools 設定" },

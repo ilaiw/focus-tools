@@ -50,6 +50,7 @@
   "blocked_reason_category": { "message": "Blocked by community blocklist" },
   "blocked_reason_safesearch": { "message": "Blocked by Safe Search" },
   "blocked_reason_extensions": { "message": "The extensions page is blocked while Focus Tools is on" },
+  "site_block_auth_note": { "message": "$DOMAINS$ stays allowed even in Block mode — sign-in flows pass through it, and blocking it would break sign-in to related services.", "placeholders": { "domains": { "content": "$1" } } },
 
   "options_page_title": { "message": "Focus Tools — Settings" },
   "options_title": { "message": "🧠 Focus Tools Settings" },

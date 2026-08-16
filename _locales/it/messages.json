@@ -119,6 +119,12 @@
   "blocked_reason_extensions": {
     "message": "La pagina delle estensioni è bloccata mentre Focus Tools è attivo"
   },
+  "site_block_auth_note": {
+    "message": "$DOMAINS$ resta consentito anche in modalità Blocca: i flussi di accesso passano da questo dominio e bloccarlo impedirebbe l'accesso ai servizi collegati.",
+    "placeholders": {
+      "domains": { "content": "$1" }
+    }
+  },
   "options_page_title": {
     "message": "Focus Tools — Impostazioni"
   },

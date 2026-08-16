@@ -119,6 +119,12 @@
   "blocked_reason_extensions": {
     "message": "Страница расширений заблокирована, пока Focus Tools включён"
   },
+  "site_block_auth_note": {
+    "message": "$DOMAINS$ остаётся разрешённым даже в режиме блокировки — через него проходит вход в аккаунт, и его блокировка нарушит вход в связанные сервисы.",
+    "placeholders": {
+      "domains": { "content": "$1" }
+    }
+  },
   "options_page_title": {
     "message": "Focus Tools — Настройки"
   },

@@ -774,6 +774,17 @@ function renderSiteToggles() {
     }
 
     section.appendChild(header);
+
+    // Auth-exception note — shown only in Block mode, explains that sign-in
+    // subdomains (e.g. accounts.youtube.com) stay allowed
+    if (config.authExceptions) {
+      const note = el("div", { className: "site-note" });
+      note.dataset.noteFor = siteKey;
+      note.textContent = msg("site_block_auth_note", [config.authExceptions.join(", ")]);
+      note.style.display = mode === "block" ? "" : "none";
+      section.appendChild(note);
+    }
+
     section.appendChild(body);
     siteTogglesContainer.appendChild(section);
   }
@@ -798,6 +809,9 @@ function updateSiteToggles() {
         btn.className = mode === btn.dataset.mode ? `active-${btn.dataset.mode}` : "";
       }
     }
+
+    const note = siteTogglesContainer.querySelector(`[data-note-for="${siteKey}"]`);
+    if (note) note.style.display = mode === "block" ? "" : "none";
 
     for (const toggle of config.toggles) {
       const key = `${siteKey}:${toggle.key}`;

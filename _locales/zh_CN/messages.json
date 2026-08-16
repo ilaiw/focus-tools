@@ -50,6 +50,7 @@
   "blocked_reason_category": { "message": "被社区屏蔽列表拦截" },
   "blocked_reason_safesearch": { "message": "被安全搜索拦截" },
   "blocked_reason_extensions": { "message": "Focus Tools 开启时扩展程序页面被屏蔽" },
+  "site_block_auth_note": { "message": "即使在屏蔽模式下,$DOMAINS$ 仍保持允许——登录流程会经过该域名,屏蔽它会导致相关服务无法登录。", "placeholders": { "domains": { "content": "$1" } } },
 
   "options_page_title": { "message": "Focus Tools — 设置" },
   "options_title": { "message": "🧠 Focus Tools 设置" },

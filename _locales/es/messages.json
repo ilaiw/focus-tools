@@ -119,6 +119,12 @@
   "blocked_reason_extensions": {
     "message": "La página de extensiones está bloqueada mientras Focus Tools está activado"
   },
+  "site_block_auth_note": {
+    "message": "$DOMAINS$ permanece permitido incluso en modo Bloquear: los flujos de inicio de sesión pasan por este dominio, y bloquearlo rompería el inicio de sesión en servicios relacionados.",
+    "placeholders": {
+      "domains": { "content": "$1" }
+    }
+  },
   "options_page_title": {
     "message": "Focus Tools — Configuración"
   },

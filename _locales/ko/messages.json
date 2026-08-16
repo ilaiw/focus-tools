@@ -50,6 +50,7 @@
   "blocked_reason_category": { "message": "커뮤니티 차단 목록에 의해 차단됨" },
   "blocked_reason_safesearch": { "message": "세이프서치에 의해 차단됨" },
   "blocked_reason_extensions": { "message": "Focus Tools가 켜져 있는 동안 확장 프로그램 페이지가 차단됩니다" },
+  "site_block_auth_note": { "message": "$DOMAINS$은(는) 차단 모드에서도 허용됩니다. 로그인 과정이 이 도메인을 거치므로, 차단하면 관련 서비스 로그인이 중단됩니다.", "placeholders": { "domains": { "content": "$1" } } },
 
   "options_page_title": { "message": "Focus Tools — 설정" },
   "options_title": { "message": "🧠 Focus Tools 설정" },

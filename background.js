@@ -753,6 +753,29 @@ async function updateRules() {
     }
   }
 
+  // Auth exceptions — allow rules for auth-only subdomains (e.g.
+  // accounts.youtube.com) of sites that are blocked by mode or manually.
+  // Google bounces top-level sign-in navigations through them, so blocking
+  // breaks sign-in to unrelated Google services. Higher priority than every
+  // block rule; the parent domain itself stays fully blocked.
+  const blockedSiteSet = new Set(blockedSites || []);
+  const authAllowDomains = new Set();
+  for (const [siteKey, config] of Object.entries(SITE_CONFIG)) {
+    if (!config.authExceptions) continue;
+    const blockedByMode = modes[siteKey] === "block";
+    const blockedManually = config.matches.some((d) => blockedSiteSet.has(d));
+    if (blockedByMode || blockedManually) {
+      for (const d of config.authExceptions) authAllowDomains.add(d);
+    }
+  }
+  if (authAllowDomains.size) {
+    rules.push({
+      id: ruleId++, priority: 3,
+      action: { type: "allow" },
+      condition: { requestDomains: [...authAllowDomains], resourceTypes: ["main_frame"] }
+    });
+  }
+
   // block-url and redirect-url toggles (only when site is in "filter" mode)
   const storedToggles = siteToggles || {};
   for (const [siteKey, config] of Object.entries(SITE_CONFIG)) {

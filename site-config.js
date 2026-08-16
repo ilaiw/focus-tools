@@ -28,6 +28,11 @@ const SITE_CONFIG = {
     label: "YouTube",
     labelKey: "site_youtube",
     matches: ["youtube.com"],
+    // Auth-only subdomains that stay allowed even when the site is blocked.
+    // Google routes top-level sign-in redirects through accounts.youtube.com
+    // to set the YouTube session cookie; blocking it strands sign-in to
+    // every Google service halfway through the redirect chain.
+    authExceptions: ["accounts.youtube.com"],
     toggles: [
       { key: "hideHomeFeed",   label: "Hide Home Feed / Recommendations", labelKey: "toggle_youtube_hide_home_feed",  type: "css", cssClass: "ft-hide-home-feed" },
       { key: "hideShorts",     label: "Hide Shorts button & shelf",      labelKey: "toggle_youtube_hide_shorts",      type: "css", cssClass: "ft-hide-shorts" },
