@@ -12,7 +12,7 @@ Steps:
    - quotes.js
    - popup.html, popup.js
    - options.html, options.js
-   - blocked.html
+   - blocked.html, blocked.js
    - css/ folder
    - icons/ folder
    - _locales/ folder (required by `default_locale` in manifest.json)
