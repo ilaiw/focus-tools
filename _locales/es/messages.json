@@ -104,6 +104,21 @@
   "blocked_subtitle": {
     "message": "Focus Tools te mantiene enfocado. Este sitio está en tu lista de bloqueo."
   },
+  "blocked_reason_keyword": {
+    "message": "Palabra clave bloqueada detectada"
+  },
+  "blocked_reason_site": {
+    "message": "Sitio bloqueado"
+  },
+  "blocked_reason_category": {
+    "message": "Bloqueado por la lista de bloqueo comunitaria"
+  },
+  "blocked_reason_safesearch": {
+    "message": "Bloqueado por Búsqueda Segura"
+  },
+  "blocked_reason_extensions": {
+    "message": "La página de extensiones está bloqueada mientras Focus Tools está activado"
+  },
   "options_page_title": {
     "message": "Focus Tools — Configuración"
   },

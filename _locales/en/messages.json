@@ -45,6 +45,11 @@
   "blocked_page_title": { "message": "Blocked — Focus Tools" },
   "blocked_title": { "message": "This site is blocked" },
   "blocked_subtitle": { "message": "Focus Tools is keeping you on track. This site is on your blocklist." },
+  "blocked_reason_keyword": { "message": "Matched blocked keyword" },
+  "blocked_reason_site": { "message": "Blocked site" },
+  "blocked_reason_category": { "message": "Blocked by community blocklist" },
+  "blocked_reason_safesearch": { "message": "Blocked by Safe Search" },
+  "blocked_reason_extensions": { "message": "The extensions page is blocked while Focus Tools is on" },
 
   "options_page_title": { "message": "Focus Tools — Settings" },
   "options_title": { "message": "🧠 Focus Tools Settings" },

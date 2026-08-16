@@ -30,6 +30,20 @@
       font-style: italic;
       color: #ccc;
     }
+    .reason {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      font-size: 14px;
+      color: #8892b0;
+    }
+    .reason .value {
+      color: #e0e0e0;
+      font-weight: 600;
+      word-break: break-all;
+    }
   </style>
 </head>
 <body>
@@ -37,6 +51,7 @@
     <div class="icon">🧠</div>
     <h1 data-i18n="blocked_title">This site is blocked</h1>
     <p data-i18n="blocked_subtitle">Focus Tools is keeping you on track. This site is on your blocklist.</p>
+    <div id="blockReason" class="reason" style="display:none;"><span id="reasonLabel"></span><span id="reasonValue" class="value"></span></div>
     <div class="quote">
       <span id="quoteText"></span>
       <span id="quoteSource" style="display:block;margin-top:8px;font-style:normal;font-size:13px;color:#888;"></span>
@@ -44,5 +59,6 @@
   </div>
   <script src="i18n.js"></script>
   <script src="quotes.js"></script>
+  <script src="blocked.js"></script>
 </body>
 </html>

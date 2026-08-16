@@ -104,6 +104,21 @@
   "blocked_subtitle": {
     "message": "Focus Tools помогает вам сосредоточиться. Этот сайт находится в вашем списке блокировки."
   },
+  "blocked_reason_keyword": {
+    "message": "Обнаружено заблокированное ключевое слово"
+  },
+  "blocked_reason_site": {
+    "message": "Заблокированный сайт"
+  },
+  "blocked_reason_category": {
+    "message": "Заблокировано списком сообщества"
+  },
+  "blocked_reason_safesearch": {
+    "message": "Заблокировано Безопасным поиском"
+  },
+  "blocked_reason_extensions": {
+    "message": "Страница расширений заблокирована, пока Focus Tools включён"
+  },
   "options_page_title": {
     "message": "Focus Tools — Настройки"
   },

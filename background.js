@@ -1,6 +1,16 @@
 // Focus Tools — Background Service Worker
 importScripts("site-config.js");
 
+// Build the redirect action for a blocked request. When using the default
+// blocked page (no custom redirect), reason params are appended so
+// blocked.html can show the user what triggered the block.
+function blockedActionFor(customRedirectUrl, params) {
+  if (customRedirectUrl) return { type: "redirect", redirect: { url: customRedirectUrl } };
+  let url = chrome.runtime.getURL("blocked.html");
+  if (params) url += "?" + new URLSearchParams(params).toString();
+  return { type: "redirect", redirect: { url } };
+}
+
 // Rebuild session rules for community blocklist categories.
 // Uses requestDomains so one rule covers an entire category (no 5k-rule-limit issue).
 // Session rules survive service-worker sleep but are cleared on browser restart,
@@ -23,9 +33,6 @@ async function updateBlocklistRules() {
   }
 
   const cats = data.blocklistCategories || DEFAULT_BLOCKLIST_CATEGORIES;
-  const blockedAction = data.customRedirectUrl
-    ? { type: "redirect", redirect: { url: data.customRedirectUrl } }
-    : { type: "redirect", redirect: { extensionPath: "/blocked.html" } };
 
   const addRules = [];
 
@@ -39,7 +46,7 @@ async function updateBlocklistRules() {
     addRules.push({
       id: i + 1,
       priority: 1,
-      action: blockedAction,
+      action: blockedActionFor(data.customRedirectUrl, { type: "category", value: catKeys[i] }),
       condition: {
         requestDomains: domains,
         resourceTypes: ["main_frame"]
@@ -104,9 +111,7 @@ async function updateSafeSearchRules() {
     return;
   }
 
-  const blockedAction = customRedirectUrl
-    ? { type: "redirect", redirect: { url: customRedirectUrl } }
-    : { type: "redirect", redirect: { extensionPath: "/blocked.html" } };
+  const blockedAction = blockedActionFor(customRedirectUrl, { type: "safesearch" });
 
   const addRules = [];
   for (const engine of SAFE_SEARCH_ENGINES) {
@@ -248,7 +253,7 @@ function blockExtensionsTab(tabId, url) {
   if (!isExtensionsUrl(url)) return;
   chrome.storage.local.get(["blockExtensionsPage", "enabled", "customRedirectUrl"], (result) => {
     if (result.blockExtensionsPage && result.enabled !== false) {
-      const redirectUrl = result.customRedirectUrl || chrome.runtime.getURL("blocked.html");
+      const redirectUrl = result.customRedirectUrl || (chrome.runtime.getURL("blocked.html") + "?type=extensions");
       chrome.tabs.update(tabId, { url: redirectUrl });
     }
   });
@@ -702,26 +707,32 @@ async function updateRules() {
 
   const rules = [];
   let ruleId = 1;
-  const blockedAction = customRedirectUrl
-    ? { type: "redirect", redirect: { url: customRedirectUrl } }
-    : { type: "redirect", redirect: { extensionPath: "/blocked.html" } };
   const isAscii = (s) => /^[\x00-\x7F]*$/.test(s);
+  const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
   // Manual blocklist
   for (const site of (blockedSites || [])) {
     if (!isAscii(site)) continue;
     rules.push({
-      id: ruleId++, priority: 1, action: blockedAction,
+      id: ruleId++, priority: 1,
+      action: blockedActionFor(customRedirectUrl, { type: "site", value: site }),
       condition: { urlFilter: `||${site}`, resourceTypes: ["main_frame"] }
     });
   }
 
-  // Keyword blocklist — match anywhere in URL
+  // Keyword blocklist — match in scheme/host/path only, not the query string.
+  // Query strings carry long encoded tokens (OAuth state, session params) that
+  // can contain any short keyword by chance, causing false-positive blocks.
   for (const keyword of (blockedKeywords || [])) {
     if (!isAscii(keyword)) continue;
     rules.push({
-      id: ruleId++, priority: 1, action: blockedAction,
-      condition: { urlFilter: keyword, resourceTypes: ["main_frame"] }
+      id: ruleId++, priority: 1,
+      action: blockedActionFor(customRedirectUrl, { type: "keyword", value: keyword }),
+      condition: {
+        regexFilter: "^[^?]*" + escapeRegex(keyword),
+        isUrlFilterCaseSensitive: false,
+        resourceTypes: ["main_frame"]
+      }
     });
   }
 
@@ -733,7 +744,8 @@ async function updateRules() {
       if (config) {
         for (const domain of config.matches) {
           rules.push({
-            id: ruleId++, priority: 1, action: blockedAction,
+            id: ruleId++, priority: 1,
+            action: blockedActionFor(customRedirectUrl, { type: "site", value: domain }),
             condition: { urlFilter: `||${domain}`, resourceTypes: ["main_frame"] }
           });
         }
@@ -750,7 +762,7 @@ async function updateRules() {
       if (!siteState[toggle.key]) continue;
       if (toggle.type === "block-url") {
         rules.push({
-          id: ruleId++, priority: 2, action: blockedAction,
+          id: ruleId++, priority: 2, action: blockedActionFor(customRedirectUrl),
           condition: { urlFilter: toggle.urlPattern, resourceTypes: ["main_frame"] }
         });
       } else if (toggle.type === "redirect-url") {

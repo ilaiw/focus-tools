@@ -45,6 +45,11 @@
   "blocked_page_title": { "message": "已封鎖 — Focus Tools" },
   "blocked_title": { "message": "此網站已被封鎖" },
   "blocked_subtitle": { "message": "Focus Tools 正在幫助你保持專注。此網站位於你的封鎖清單中。" },
+  "blocked_reason_keyword": { "message": "符合封鎖關鍵字" },
+  "blocked_reason_site": { "message": "被封鎖的網站" },
+  "blocked_reason_category": { "message": "被社群封鎖清單攔截" },
+  "blocked_reason_safesearch": { "message": "被安全搜尋攔截" },
+  "blocked_reason_extensions": { "message": "Focus Tools 開啟時擴充功能頁面會被封鎖" },
 
   "options_page_title": { "message": "Focus Tools — 設定" },
   "options_title": { "message": "🧠 Focus Tools 設定" },

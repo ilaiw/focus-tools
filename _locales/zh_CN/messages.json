@@ -45,6 +45,11 @@
   "blocked_page_title": { "message": "已屏蔽 — Focus Tools" },
   "blocked_title": { "message": "此网站已被屏蔽" },
   "blocked_subtitle": { "message": "Focus Tools 正帮助你保持专注。此网站在你的屏蔽列表中。" },
+  "blocked_reason_keyword": { "message": "匹配到屏蔽关键词" },
+  "blocked_reason_site": { "message": "被屏蔽的网站" },
+  "blocked_reason_category": { "message": "被社区屏蔽列表拦截" },
+  "blocked_reason_safesearch": { "message": "被安全搜索拦截" },
+  "blocked_reason_extensions": { "message": "Focus Tools 开启时扩展程序页面被屏蔽" },
 
   "options_page_title": { "message": "Focus Tools — 设置" },
   "options_title": { "message": "🧠 Focus Tools 设置" },

@@ -104,6 +104,21 @@
   "blocked_subtitle": {
     "message": "Focus Tools يساعدك على التركيز. هذا الموقع مدرج في قائمة الحظر الخاصة بك."
   },
+  "blocked_reason_keyword": {
+    "message": "تم العثور على كلمة محظورة"
+  },
+  "blocked_reason_site": {
+    "message": "موقع محظور"
+  },
+  "blocked_reason_category": {
+    "message": "محظور بواسطة قائمة الحظر المجتمعية"
+  },
+  "blocked_reason_safesearch": {
+    "message": "محظور بواسطة البحث الآمن"
+  },
+  "blocked_reason_extensions": {
+    "message": "صفحة الإضافات محظورة أثناء تفعيل Focus Tools"
+  },
   "options_page_title": {
     "message": "Focus Tools — الإعدادات"
   },

@@ -45,6 +45,11 @@
   "blocked_page_title": { "message": "ブロック済み — Focus Tools" },
   "blocked_title": { "message": "このサイトはブロックされています" },
   "blocked_subtitle": { "message": "Focus Tools が集中をサポートしています。このサイトはブロックリストに含まれています。" },
+  "blocked_reason_keyword": { "message": "ブロック中のキーワードに一致" },
+  "blocked_reason_site": { "message": "ブロック中のサイト" },
+  "blocked_reason_category": { "message": "コミュニティブロックリストによりブロック" },
+  "blocked_reason_safesearch": { "message": "セーフサーチによりブロック" },
+  "blocked_reason_extensions": { "message": "Focus Tools が有効な間、拡張機能ページはブロックされます" },
 
   "options_page_title": { "message": "Focus Tools — 設定" },
   "options_title": { "message": "🧠 Focus Tools 設定" },

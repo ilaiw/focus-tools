@@ -104,6 +104,21 @@
   "blocked_subtitle": {
     "message": "Focus Tools שומר עליך במסלול. אתר זה נמצא ברשימת החסימות שלך."
   },
+  "blocked_reason_keyword": {
+    "message": "זוהתה מילת מפתח חסומה"
+  },
+  "blocked_reason_site": {
+    "message": "אתר חסום"
+  },
+  "blocked_reason_category": {
+    "message": "נחסם על ידי רשימת חסימה קהילתית"
+  },
+  "blocked_reason_safesearch": {
+    "message": "נחסם על ידי חיפוש בטוח"
+  },
+  "blocked_reason_extensions": {
+    "message": "דף התוספים חסום כאשר Focus Tools פעיל"
+  },
   "options_page_title": {
     "message": "Focus Tools — הגדרות"
   },

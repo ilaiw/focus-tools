@@ -45,6 +45,11 @@
   "blocked_page_title": { "message": "차단됨 — Focus Tools" },
   "blocked_title": { "message": "이 사이트는 차단되었습니다" },
   "blocked_subtitle": { "message": "Focus Tools가 집중을 도와드리고 있습니다. 이 사이트는 차단 목록에 있습니다." },
+  "blocked_reason_keyword": { "message": "차단 키워드와 일치" },
+  "blocked_reason_site": { "message": "차단된 사이트" },
+  "blocked_reason_category": { "message": "커뮤니티 차단 목록에 의해 차단됨" },
+  "blocked_reason_safesearch": { "message": "세이프서치에 의해 차단됨" },
+  "blocked_reason_extensions": { "message": "Focus Tools가 켜져 있는 동안 확장 프로그램 페이지가 차단됩니다" },
 
   "options_page_title": { "message": "Focus Tools — 설정" },
   "options_title": { "message": "🧠 Focus Tools 설정" },
