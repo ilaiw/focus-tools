@@ -554,17 +554,17 @@
   "toggle_facebook_hide_marketplace": {
     "message": "Ocultar enlace de Marketplace"
   },
-  "toggle_facebook_hide_video_reels": {
-    "message": "Ocultar enlaces de Video y Reels"
-  },
   "toggle_facebook_block_reels": {
-    "message": "Bloquear páginas de Reels"
-  },
-  "toggle_facebook_hide_gaming": {
-    "message": "Ocultar enlace de Gaming"
+    "message": "Bloquear Video y Reels"
   },
   "toggle_facebook_block_gaming": {
-    "message": "Bloquear páginas de Gaming"
+    "message": "Bloquear Gaming"
+  },
+  "toggle_facebook_redirect_home_marketplace": {
+    "message": "Redirigir el feed de Inicio a Marketplace"
+  },
+  "toggle_facebook_block_groups": {
+    "message": "Bloquear Grupos"
   },
   "toggle_remove_colors": {
     "message": "Eliminar colores (escala de grises)"
@@ -572,11 +572,8 @@
   "toggle_youtube_hide_home_feed": {
     "message": "Ocultar Feed de Inicio / Recomendaciones"
   },
-  "toggle_youtube_hide_shorts": {
-    "message": "Ocultar botón y sección de Shorts"
-  },
   "toggle_youtube_block_shorts": {
-    "message": "Bloquear páginas de Shorts"
+    "message": "Bloquear Shorts"
   },
   "toggle_youtube_hide_comments": {
     "message": "Ocultar comentarios"
@@ -590,9 +587,6 @@
   "toggle_instagram_hide_feed": {
     "message": "Ocultar Feed"
   },
-  "toggle_instagram_hide_reels": {
-    "message": "Ocultar enlace de Reels"
-  },
   "toggle_instagram_hide_explore": {
     "message": "Ocultar enlace de Explorar"
   },
@@ -600,19 +594,16 @@
     "message": "Ocultar Historias"
   },
   "toggle_instagram_block_reels": {
-    "message": "Bloquear páginas de Reels"
+    "message": "Bloquear Reels"
   },
   "toggle_x_hide_feed": {
     "message": "Ocultar Feed / Cronología"
-  },
-  "toggle_x_hide_trending": {
-    "message": "Ocultar Tendencias / Explorar"
   },
   "toggle_x_hide_who_to_follow": {
     "message": "Ocultar A quién seguir"
   },
   "toggle_x_block_explore": {
-    "message": "Bloquear página de Explorar"
+    "message": "Bloquear Explorar y Tendencias"
   },
   "toggle_reddit_hide_feed": {
     "message": "Ocultar Feed"
@@ -627,13 +618,10 @@
     "message": "Redirigir Feed a Mi Red"
   },
   "toggle_linkedin_block_feed": {
-    "message": "Bloquear página de Feed por completo"
+    "message": "Bloquear Feed"
   },
   "toggle_linkedin_block_games": {
     "message": "Bloquear Juegos / Acertijos"
-  },
-  "toggle_linkedin_hide_home": {
-    "message": "Ocultar botón de Inicio"
   },
   "toggle_linkedin_hide_news": {
     "message": "Ocultar barra lateral de Noticias"

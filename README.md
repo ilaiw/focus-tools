@@ -30,12 +30,12 @@ For each supported site, choose one of three modes:
 ### Supported Sites
 | Site | Filter Options |
 |------|---------------|
-| Facebook | Hide Messenger, Reels, Gaming, Marketplace, Chat Sidebar, Likes/Comments. Redirect to Friends feed. Grayscale. |
-| YouTube | Hide Home Feed, Shorts, Comments, Sidebar Suggestions, End Screen Cards. Block Shorts pages. Grayscale. |
-| Instagram | Hide Feed, Reels, Explore, Stories. Block Reels pages. Grayscale. |
-| X / Twitter | Hide Feed, Trending, Who to Follow. Block Explore page. Grayscale. |
+| Facebook | Hide Messenger, Marketplace link, Chat Sidebar, Likes/Comments. Block Groups, Video & Reels, Gaming. Redirect Home feed to Friends or Marketplace. Grayscale. |
+| YouTube | Hide Home Feed, Comments, Sidebar Suggestions, End Screen Cards. Block Shorts. Grayscale. |
+| Instagram | Hide Feed, Explore, Stories. Block Reels. Grayscale. |
+| X / Twitter | Hide Feed, Who to Follow. Block Explore & Trending. Grayscale. |
 | Reddit | Hide Feed, Popular/All links, Awards. Grayscale. |
-| LinkedIn | Redirect Feed to My Network. Block Feed, Games/Puzzles. Hide Home button, News Sidebar, Notifications. Grayscale. |
+| LinkedIn | Redirect Feed to My Network. Block Feed, Games/Puzzles. Hide News Sidebar, Notifications. Grayscale. |
 | TikTok | Grayscale. |
 
 ## Browser Compatibility

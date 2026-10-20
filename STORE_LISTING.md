@@ -27,7 +27,7 @@ Block distracting websites and take control of your social media experience. Foc
 Key features:
 - Block any website by URL, domain, or keyword
 - Community blocklists for adult content, gambling, and misinformation (powered by StevenBlack/hosts)
-- Filter mode: hide specific UI elements on social media — feeds, reels, comments, sidebars, and more (40+ toggles across 7 platforms)
+- Filter mode: hide specific UI elements on social media — feeds, reels, comments, sidebars, and more (35+ toggles across 7 platforms)
 - Three modes per site: Allow, Filter, or Block
 - Grayscale mode to make sites less appealing
 - Weekly schedule: automatically enable/disable blocking by day and time

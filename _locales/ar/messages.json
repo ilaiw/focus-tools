@@ -554,17 +554,17 @@
   "toggle_facebook_hide_marketplace": {
     "message": "إخفاء رابط Marketplace"
   },
-  "toggle_facebook_hide_video_reels": {
-    "message": "إخفاء روابط الفيديو وReels"
-  },
   "toggle_facebook_block_reels": {
-    "message": "حظر صفحات Reels"
-  },
-  "toggle_facebook_hide_gaming": {
-    "message": "إخفاء رابط الألعاب"
+    "message": "حظر الفيديو وReels"
   },
   "toggle_facebook_block_gaming": {
-    "message": "حظر صفحات الألعاب"
+    "message": "حظر الألعاب"
+  },
+  "toggle_facebook_redirect_home_marketplace": {
+    "message": "إعادة توجيه الخلاصة الرئيسية إلى Marketplace"
+  },
+  "toggle_facebook_block_groups": {
+    "message": "حظر المجموعات"
   },
   "toggle_remove_colors": {
     "message": "إزالة الألوان (تدرج رمادي)"
@@ -572,11 +572,8 @@
   "toggle_youtube_hide_home_feed": {
     "message": "إخفاء الخلاصة الرئيسية / التوصيات"
   },
-  "toggle_youtube_hide_shorts": {
-    "message": "إخفاء زر ورف Shorts"
-  },
   "toggle_youtube_block_shorts": {
-    "message": "حظر صفحات Shorts"
+    "message": "حظر Shorts"
   },
   "toggle_youtube_hide_comments": {
     "message": "إخفاء التعليقات"
@@ -590,9 +587,6 @@
   "toggle_instagram_hide_feed": {
     "message": "إخفاء الخلاصة"
   },
-  "toggle_instagram_hide_reels": {
-    "message": "إخفاء رابط Reels"
-  },
   "toggle_instagram_hide_explore": {
     "message": "إخفاء رابط الاستكشاف"
   },
@@ -600,19 +594,16 @@
     "message": "إخفاء القصص"
   },
   "toggle_instagram_block_reels": {
-    "message": "حظر صفحات Reels"
+    "message": "حظر Reels"
   },
   "toggle_x_hide_feed": {
     "message": "إخفاء الخلاصة / الجدول الزمني"
-  },
-  "toggle_x_hide_trending": {
-    "message": "إخفاء الشائع / الاستكشاف"
   },
   "toggle_x_hide_who_to_follow": {
     "message": "إخفاء مقترحات المتابعة"
   },
   "toggle_x_block_explore": {
-    "message": "حظر صفحة الاستكشاف"
+    "message": "حظر الاستكشاف والشائع"
   },
   "toggle_reddit_hide_feed": {
     "message": "إخفاء الخلاصة"
@@ -627,13 +618,10 @@
     "message": "إعادة توجيه الخلاصة إلى شبكتي"
   },
   "toggle_linkedin_block_feed": {
-    "message": "حظر صفحة الخلاصة بالكامل"
+    "message": "حظر الخلاصة"
   },
   "toggle_linkedin_block_games": {
     "message": "حظر الألعاب / الألغاز"
-  },
-  "toggle_linkedin_hide_home": {
-    "message": "إخفاء زر الرئيسية"
   },
   "toggle_linkedin_hide_news": {
     "message": "إخفاء شريط الأخبار الجانبي"

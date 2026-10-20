@@ -87,26 +87,22 @@
 
   // --- JS Feature Handlers ---
 
-  // Shared History API patching for SPA route change detection
+  // Shared SPA route change detection
   let urlWatcherActive = false;
   let lastWatchedPath = location.pathname;
   const blockedPageUrl = chrome.runtime.getURL("blocked.html");
 
+  // Content scripts run in an isolated world, so patching history.pushState
+  // here never sees the page's own calls. Navigation API events do reach the
+  // isolated world, for pushState/replaceState and back/forward alike.
   function ensureHistoryPatched() {
     if (historyPatched) return;
     historyPatched = true;
-    const origPushState = history.pushState.bind(history);
-    const origReplaceState = history.replaceState.bind(history);
-
-    history.pushState = function (state, title, url) {
-      origPushState(state, title, url);
-      onHistoryChange();
-    };
-    history.replaceState = function (state, title, url) {
-      origReplaceState(state, title, url);
-      onHistoryChange();
-    };
-    window.addEventListener("popstate", onHistoryChange);
+    if (window.navigation) {
+      navigation.addEventListener("currententrychange", onHistoryChange);
+    } else {
+      window.addEventListener("popstate", onHistoryChange);
+    }
   }
 
   function onHistoryChange() {
@@ -131,31 +127,32 @@
 
     for (const def of toggleDefs) {
       if (!currentToggles[def.key]) continue;
+      if (def.type !== "block-url" && def.type !== "redirect-url") continue;
+      if (!urlMatchesToggle(def)) continue;
 
-      if (def.type === "block-url" && def.urlPattern) {
-        // Extract path portion from urlPattern like "||linkedin.com/feed"
-        const pathMatch = def.urlPattern.replace(/^\|\|[^/]*/, "");
-        if (pathMatch && location.pathname.startsWith(pathMatch)) {
-          location.replace(blockedPageUrl);
-          return;
-        }
-      }
-
-      // Background handles redirect-url via declarativeNetRequest for full navigations;
+      // Background handles these via declarativeNetRequest for full navigations;
       // this catches SPA client-side route changes that don't trigger network requests.
-      if (def.type === "redirect-url" && def.urlPattern && def.redirectUrl) {
-        const pathMatch = def.urlPattern.replace(/^\|\|[^/]*/, "");
-        if (pathMatch && location.pathname.startsWith(pathMatch)) {
-          location.replace(def.redirectUrl);
-          return;
-        }
-      }
+      location.replace(def.type === "block-url" ? blockedPageUrl : def.redirectUrl);
+      return;
     }
+  }
+
+  function urlMatchesToggle(def) {
+    if (def.urlRegex) return new RegExp(def.urlRegex, "i").test(location.href);
+    // Extract path portion from urlPattern like "||linkedin.com/feed^"
+    const pathMatch = def.urlPattern.replace(/^\|\|[^/]*/, "");
+    if (pathMatch.endsWith("^")) {
+      // DNR separator: "/feed" and "/feed/..." match, "/feedback" doesn't
+      const path = pathMatch.slice(0, -1);
+      return location.pathname === path || location.pathname.startsWith(path + "/");
+    }
+    return !!pathMatch && location.pathname.startsWith(pathMatch);
   }
 
   function handleJsFeatures(toggles) {
     if (siteKey === "facebook.com") {
-      handleFacebookRedirect(toggles.forceRedirectFriends);
+      // Both redirect "/"; the Marketplace one wins, matching its DNR rule on full loads.
+      handleFacebookRedirect(toggles.forceRedirectFriends && !toggles.redirectHomeToMarketplace);
     }
     // Start URL watcher if any block-url or redirect-url toggles are active
     const hasUrlToggles = toggleDefs.some(

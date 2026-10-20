@@ -554,17 +554,17 @@
   "toggle_facebook_hide_marketplace": {
     "message": "Masquer le lien Marketplace"
   },
-  "toggle_facebook_hide_video_reels": {
-    "message": "Masquer les liens Video et Reels"
-  },
   "toggle_facebook_block_reels": {
-    "message": "Bloquer les pages Reels"
-  },
-  "toggle_facebook_hide_gaming": {
-    "message": "Masquer le lien Gaming"
+    "message": "Bloquer Video et Reels"
   },
   "toggle_facebook_block_gaming": {
-    "message": "Bloquer les pages Gaming"
+    "message": "Bloquer Gaming"
+  },
+  "toggle_facebook_redirect_home_marketplace": {
+    "message": "Rediriger le fil d'accueil vers Marketplace"
+  },
+  "toggle_facebook_block_groups": {
+    "message": "Bloquer les Groupes"
   },
   "toggle_remove_colors": {
     "message": "Supprimer les couleurs (niveaux de gris)"
@@ -572,11 +572,8 @@
   "toggle_youtube_hide_home_feed": {
     "message": "Masquer le fil d'accueil / Recommandations"
   },
-  "toggle_youtube_hide_shorts": {
-    "message": "Masquer le bouton et la section Shorts"
-  },
   "toggle_youtube_block_shorts": {
-    "message": "Bloquer les pages Shorts"
+    "message": "Bloquer les Shorts"
   },
   "toggle_youtube_hide_comments": {
     "message": "Masquer les commentaires"
@@ -590,9 +587,6 @@
   "toggle_instagram_hide_feed": {
     "message": "Masquer le fil"
   },
-  "toggle_instagram_hide_reels": {
-    "message": "Masquer le lien Reels"
-  },
   "toggle_instagram_hide_explore": {
     "message": "Masquer le lien Explorer"
   },
@@ -600,19 +594,16 @@
     "message": "Masquer les stories"
   },
   "toggle_instagram_block_reels": {
-    "message": "Bloquer les pages Reels"
+    "message": "Bloquer les Reels"
   },
   "toggle_x_hide_feed": {
     "message": "Masquer le fil / Timeline"
-  },
-  "toggle_x_hide_trending": {
-    "message": "Masquer les tendances / Explorer"
   },
   "toggle_x_hide_who_to_follow": {
     "message": "Masquer les suggestions d'abonnement"
   },
   "toggle_x_block_explore": {
-    "message": "Bloquer la page Explorer"
+    "message": "Bloquer Explorer et les tendances"
   },
   "toggle_reddit_hide_feed": {
     "message": "Masquer le fil"
@@ -627,13 +618,10 @@
     "message": "Rediriger le fil vers Mon reseau"
   },
   "toggle_linkedin_block_feed": {
-    "message": "Bloquer entierement la page du fil"
+    "message": "Bloquer le fil"
   },
   "toggle_linkedin_block_games": {
     "message": "Bloquer les jeux / Puzzles"
-  },
-  "toggle_linkedin_hide_home": {
-    "message": "Masquer le bouton Accueil"
   },
   "toggle_linkedin_hide_news": {
     "message": "Masquer la barre laterale Actualites"

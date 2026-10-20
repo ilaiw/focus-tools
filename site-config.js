@@ -6,22 +6,37 @@
 //  - filter: sub-toggles take effect (hide feed, grayscale, etc.)
 //  - block:  site is fully blocked (redirected to blocked.html)
 
+// Toggle fields:
+//  - icon: emoji shown before the label in settings
+//  - type "css": cssClass is added to <html> to hide elements (see SITE_CSS)
+//  - type "block-url" / "redirect-url": pages matching urlPattern (DNR syntax;
+//    a trailing "^" ends the path segment, so "/watch^" skips "/watchesofx")
+//    or urlRegex (full URL) are blocked / redirected. A block-url toggle may
+//    also carry a cssClass, so one switch hides the links and blocks the pages.
+//    mergedFrom names old separate toggles folded into it; background.js
+//    migrates their stored state on update.
+
 const SITE_CONFIG = {
   "facebook.com": {
     label: "Facebook",
     labelKey: "site_facebook",
     matches: ["facebook.com"],
     toggles: [
-      { key: "hideMessenger",        label: "Hide Messenger link",        labelKey: "toggle_facebook_hide_messenger",       type: "css", cssClass: "ft-hide-messenger" },
-      { key: "forceRedirectFriends", label: "Redirect to Friends feed",   labelKey: "toggle_facebook_redirect_friends",     type: "js" },
-      { key: "hideLikesComments",    label: "Hide Likes and Comments",    labelKey: "toggle_facebook_hide_likes_comments",  type: "css", cssClass: "ft-hide-likes-comments" },
-      { key: "hideChatSidebar",      label: "Hide Chat Sidebar",          labelKey: "toggle_facebook_hide_chat_sidebar",    type: "css", cssClass: "ft-hide-chat" },
-      { key: "hideMarketplace",      label: "Hide Marketplace link",      labelKey: "toggle_facebook_hide_marketplace",     type: "css", cssClass: "ft-hide-marketplace" },
-      { key: "hideVideoReels",       label: "Hide Video & Reels links",   labelKey: "toggle_facebook_hide_video_reels",     type: "css", cssClass: "ft-hide-reels" },
-      { key: "blockReels",           label: "Block Reels pages",          labelKey: "toggle_facebook_block_reels",          type: "block-url", urlPattern: "||facebook.com/reel" },
-      { key: "hideGaming",           label: "Hide Gaming link",           labelKey: "toggle_facebook_hide_gaming",          type: "css", cssClass: "ft-hide-gaming" },
-      { key: "blockGaming",          label: "Block Gaming pages",         labelKey: "toggle_facebook_block_gaming",         type: "block-url", urlPattern: "||facebook.com/gaming" },
-      { key: "removeColors",         label: "Remove Colors (grayscale)",  labelKey: "toggle_remove_colors",                 type: "css", cssClass: "ft-remove-colors" }
+      { key: "hideMessenger",        icon: "✉️", label: "Hide Messenger link",        labelKey: "toggle_facebook_hide_messenger",       type: "css", cssClass: "ft-hide-messenger" },
+      { key: "forceRedirectFriends", icon: "👥", label: "Redirect to Friends feed",   labelKey: "toggle_facebook_redirect_friends",     type: "js" },
+      // Home feed only — "/" and "/home.php" with any query string (the Feeds
+      // tabs are "/?sk=h_chr&filter=..."). Needs an exact-path regex: every
+      // Facebook URL starts with "/", so a urlPattern prefix would match all of it.
+      { key: "redirectHomeToMarketplace", icon: "🛒", label: "Redirect Home feed to Marketplace", labelKey: "toggle_facebook_redirect_home_marketplace", type: "redirect-url",
+        urlRegex: "^https?://([a-z0-9-]+\\.)?facebook\\.com/(home\\.php)?(\\?.*)?$", redirectUrl: "https://www.facebook.com/marketplace/" },
+      { key: "hideLikesComments",    icon: "👍", label: "Hide Likes and Comments",    labelKey: "toggle_facebook_hide_likes_comments",  type: "css", cssClass: "ft-hide-likes-comments" },
+      { key: "hideChatSidebar",      icon: "💬", label: "Hide Chat Sidebar",          labelKey: "toggle_facebook_hide_chat_sidebar",    type: "css", cssClass: "ft-hide-chat" },
+      { key: "hideMarketplace",      icon: "🏪", label: "Hide Marketplace link",      labelKey: "toggle_facebook_hide_marketplace",     type: "css", cssClass: "ft-hide-marketplace" },
+      { key: "blockGroups",          icon: "🏘️", label: "Block Groups",               labelKey: "toggle_facebook_block_groups",         type: "block-url", urlPattern: "||facebook.com/groups^", cssClass: "ft-hide-groups" },
+      { key: "blockReels",           icon: "🎬", label: "Block Video & Reels",        labelKey: "toggle_facebook_block_reels",          type: "block-url",
+        urlRegex: "^https?://([a-z0-9-]+\\.)?facebook\\.com/(reels?|watch)(/|\\?|$)", cssClass: "ft-hide-reels", mergedFrom: ["hideVideoReels"] },
+      { key: "blockGaming",          icon: "🎮", label: "Block Gaming",               labelKey: "toggle_facebook_block_gaming",         type: "block-url", urlPattern: "||facebook.com/gaming^", cssClass: "ft-hide-gaming", mergedFrom: ["hideGaming"] },
+      { key: "removeColors",         icon: "🎨", label: "Remove Colors (grayscale)",  labelKey: "toggle_remove_colors",                 type: "css", cssClass: "ft-remove-colors" }
     ]
   },
   "youtube.com": {
@@ -34,13 +49,12 @@ const SITE_CONFIG = {
     // every Google service halfway through the redirect chain.
     authExceptions: ["accounts.youtube.com"],
     toggles: [
-      { key: "hideHomeFeed",   label: "Hide Home Feed / Recommendations", labelKey: "toggle_youtube_hide_home_feed",  type: "css", cssClass: "ft-hide-home-feed" },
-      { key: "hideShorts",     label: "Hide Shorts button & shelf",      labelKey: "toggle_youtube_hide_shorts",      type: "css", cssClass: "ft-hide-shorts" },
-      { key: "blockShorts",    label: "Block Shorts pages",              labelKey: "toggle_youtube_block_shorts",      type: "block-url", urlPattern: "||youtube.com/shorts" },
-      { key: "hideComments",   label: "Hide Comments",                   labelKey: "toggle_youtube_hide_comments",     type: "css", cssClass: "ft-hide-comments" },
-      { key: "hideSidebar",    label: "Hide Sidebar Suggestions",        labelKey: "toggle_youtube_hide_sidebar",      type: "css", cssClass: "ft-hide-sidebar" },
-      { key: "hideEndCards",   label: "Hide End Screen Cards",           labelKey: "toggle_youtube_hide_end_cards",    type: "css", cssClass: "ft-hide-end-cards" },
-      { key: "removeColors",   label: "Remove Colors (grayscale)",       labelKey: "toggle_remove_colors",             type: "css", cssClass: "ft-remove-colors" }
+      { key: "hideHomeFeed",   icon: "🏠", label: "Hide Home Feed / Recommendations", labelKey: "toggle_youtube_hide_home_feed",  type: "css", cssClass: "ft-hide-home-feed" },
+      { key: "blockShorts",    icon: "📱", label: "Block Shorts",                    labelKey: "toggle_youtube_block_shorts",      type: "block-url", urlPattern: "||youtube.com/shorts^", cssClass: "ft-hide-shorts", mergedFrom: ["hideShorts"] },
+      { key: "hideComments",   icon: "💬", label: "Hide Comments",                   labelKey: "toggle_youtube_hide_comments",     type: "css", cssClass: "ft-hide-comments" },
+      { key: "hideSidebar",    icon: "📑", label: "Hide Sidebar Suggestions",        labelKey: "toggle_youtube_hide_sidebar",      type: "css", cssClass: "ft-hide-sidebar" },
+      { key: "hideEndCards",   icon: "🔚", label: "Hide End Screen Cards",           labelKey: "toggle_youtube_hide_end_cards",    type: "css", cssClass: "ft-hide-end-cards" },
+      { key: "removeColors",   icon: "🎨", label: "Remove Colors (grayscale)",       labelKey: "toggle_remove_colors",             type: "css", cssClass: "ft-remove-colors" }
     ]
   },
   "instagram.com": {
@@ -48,12 +62,13 @@ const SITE_CONFIG = {
     labelKey: "site_instagram",
     matches: ["instagram.com"],
     toggles: [
-      { key: "hideFeed",     label: "Hide Feed",                  labelKey: "toggle_instagram_hide_feed",     type: "css", cssClass: "ft-hide-feed" },
-      { key: "hideReels",    label: "Hide Reels link",             labelKey: "toggle_instagram_hide_reels",    type: "css", cssClass: "ft-hide-reels" },
-      { key: "hideExplore",  label: "Hide Explore link",          labelKey: "toggle_instagram_hide_explore",  type: "css", cssClass: "ft-hide-explore" },
-      { key: "hideStories",  label: "Hide Stories",               labelKey: "toggle_instagram_hide_stories",  type: "css", cssClass: "ft-hide-stories" },
-      { key: "blockReels",   label: "Block Reels pages",          labelKey: "toggle_instagram_block_reels",   type: "block-url", urlPattern: "||instagram.com/reels" },
-      { key: "removeColors", label: "Remove Colors (grayscale)",  labelKey: "toggle_remove_colors",           type: "css", cssClass: "ft-remove-colors" }
+      { key: "hideFeed",     icon: "📜", label: "Hide Feed",                  labelKey: "toggle_instagram_hide_feed",     type: "css", cssClass: "ft-hide-feed" },
+      // Single reels live at /reel/<id>, the Reels tab at /reels/
+      { key: "blockReels",   icon: "🎬", label: "Block Reels",                labelKey: "toggle_instagram_block_reels",   type: "block-url",
+        urlRegex: "^https?://([a-z0-9-]+\\.)?instagram\\.com/reels?(/|\\?|$)", cssClass: "ft-hide-reels", mergedFrom: ["hideReels"] },
+      { key: "hideExplore",  icon: "🧭", label: "Hide Explore link",          labelKey: "toggle_instagram_hide_explore",  type: "css", cssClass: "ft-hide-explore" },
+      { key: "hideStories",  icon: "⭕", label: "Hide Stories",               labelKey: "toggle_instagram_hide_stories",  type: "css", cssClass: "ft-hide-stories" },
+      { key: "removeColors", icon: "🎨", label: "Remove Colors (grayscale)",  labelKey: "toggle_remove_colors",           type: "css", cssClass: "ft-remove-colors" }
     ]
   },
   "x.com": {
@@ -61,11 +76,10 @@ const SITE_CONFIG = {
     labelKey: "site_x_twitter",
     matches: ["x.com", "twitter.com"],
     toggles: [
-      { key: "hideFeed",        label: "Hide Feed / Timeline",          labelKey: "toggle_x_hide_feed",           type: "css", cssClass: "ft-hide-feed" },
-      { key: "hideTrending",    label: "Hide Trending / Explore",       labelKey: "toggle_x_hide_trending",       type: "css", cssClass: "ft-hide-trending" },
-      { key: "hideWhoToFollow", label: "Hide Who to Follow",            labelKey: "toggle_x_hide_who_to_follow",  type: "css", cssClass: "ft-hide-who-to-follow" },
-      { key: "blockExplore",    label: "Block Explore page",            labelKey: "toggle_x_block_explore",       type: "block-url", urlPattern: "||x.com/explore" },
-      { key: "removeColors",    label: "Remove Colors (grayscale)",     labelKey: "toggle_remove_colors",         type: "css", cssClass: "ft-remove-colors" }
+      { key: "hideFeed",        icon: "📜", label: "Hide Feed / Timeline",          labelKey: "toggle_x_hide_feed",           type: "css", cssClass: "ft-hide-feed" },
+      { key: "blockExplore",    icon: "🔥", label: "Block Explore & Trending",      labelKey: "toggle_x_block_explore",       type: "block-url", urlPattern: "||x.com/explore^", cssClass: "ft-hide-trending", mergedFrom: ["hideTrending"] },
+      { key: "hideWhoToFollow", icon: "👤", label: "Hide Who to Follow",            labelKey: "toggle_x_hide_who_to_follow",  type: "css", cssClass: "ft-hide-who-to-follow" },
+      { key: "removeColors",    icon: "🎨", label: "Remove Colors (grayscale)",     labelKey: "toggle_remove_colors",         type: "css", cssClass: "ft-remove-colors" }
     ]
   },
   "reddit.com": {
@@ -73,10 +87,10 @@ const SITE_CONFIG = {
     labelKey: "site_reddit",
     matches: ["reddit.com"],
     toggles: [
-      { key: "hideFeed",     label: "Hide Feed",                 labelKey: "toggle_reddit_hide_feed",     type: "css", cssClass: "ft-hide-feed" },
-      { key: "hidePopular",  label: "Hide Popular / All links",  labelKey: "toggle_reddit_hide_popular",  type: "css", cssClass: "ft-hide-popular" },
-      { key: "hideAwards",   label: "Hide Awards",               labelKey: "toggle_reddit_hide_awards",   type: "css", cssClass: "ft-hide-awards" },
-      { key: "removeColors", label: "Remove Colors (grayscale)", labelKey: "toggle_remove_colors",        type: "css", cssClass: "ft-remove-colors" }
+      { key: "hideFeed",     icon: "📜", label: "Hide Feed",                 labelKey: "toggle_reddit_hide_feed",     type: "css", cssClass: "ft-hide-feed" },
+      { key: "hidePopular",  icon: "📈", label: "Hide Popular / All links",  labelKey: "toggle_reddit_hide_popular",  type: "css", cssClass: "ft-hide-popular" },
+      { key: "hideAwards",   icon: "🏆", label: "Hide Awards",               labelKey: "toggle_reddit_hide_awards",   type: "css", cssClass: "ft-hide-awards" },
+      { key: "removeColors", icon: "🎨", label: "Remove Colors (grayscale)", labelKey: "toggle_remove_colors",        type: "css", cssClass: "ft-remove-colors" }
     ]
   },
   "linkedin.com": {
@@ -84,13 +98,12 @@ const SITE_CONFIG = {
     labelKey: "site_linkedin",
     matches: ["linkedin.com"],
     toggles: [
-      { key: "redirectHome",       label: "Redirect Feed to My Network", labelKey: "toggle_linkedin_redirect_feed",       type: "redirect-url", urlPattern: "||linkedin.com/feed", redirectUrl: "https://www.linkedin.com/mynetwork/" },
-      { key: "blockFeed",         label: "Block Feed page entirely",    labelKey: "toggle_linkedin_block_feed",           type: "block-url", urlPattern: "||linkedin.com/feed" },
-      { key: "blockGames",        label: "Block Games / Puzzles",       labelKey: "toggle_linkedin_block_games",          type: "block-url", urlPattern: "||linkedin.com/games" },
-      { key: "hideHome",          label: "Hide Home button",            labelKey: "toggle_linkedin_hide_home",            type: "css", cssClass: "ft-hide-home" },
-      { key: "hideNews",          label: "Hide News Sidebar",           labelKey: "toggle_linkedin_hide_news",            type: "css", cssClass: "ft-hide-news" },
-      { key: "hideNotifications", label: "Hide Notifications Badge",    labelKey: "toggle_linkedin_hide_notifications",   type: "css", cssClass: "ft-hide-notifications" },
-      { key: "removeColors",      label: "Remove Colors (grayscale)",   labelKey: "toggle_remove_colors",                 type: "css", cssClass: "ft-remove-colors" }
+      { key: "redirectHome",      icon: "🤝", label: "Redirect Feed to My Network", labelKey: "toggle_linkedin_redirect_feed",       type: "redirect-url", urlPattern: "||linkedin.com/feed^", redirectUrl: "https://www.linkedin.com/mynetwork/" },
+      { key: "blockFeed",         icon: "📜", label: "Block Feed",                  labelKey: "toggle_linkedin_block_feed",           type: "block-url", urlPattern: "||linkedin.com/feed^", cssClass: "ft-hide-home", mergedFrom: ["hideHome"] },
+      { key: "blockGames",        icon: "🧩", label: "Block Games / Puzzles",       labelKey: "toggle_linkedin_block_games",          type: "block-url", urlPattern: "||linkedin.com/games^" },
+      { key: "hideNews",          icon: "📰", label: "Hide News Sidebar",           labelKey: "toggle_linkedin_hide_news",            type: "css", cssClass: "ft-hide-news" },
+      { key: "hideNotifications", icon: "🔔", label: "Hide Notifications Badge",    labelKey: "toggle_linkedin_hide_notifications",   type: "css", cssClass: "ft-hide-notifications" },
+      { key: "removeColors",      icon: "🎨", label: "Remove Colors (grayscale)",   labelKey: "toggle_remove_colors",                 type: "css", cssClass: "ft-remove-colors" }
     ]
   },
   "tiktok.com": {
@@ -98,7 +111,7 @@ const SITE_CONFIG = {
     labelKey: "site_tiktok",
     matches: ["tiktok.com"],
     toggles: [
-      { key: "removeColors", label: "Remove Colors (grayscale)", labelKey: "toggle_remove_colors", type: "css", cssClass: "ft-remove-colors" }
+      { key: "removeColors", icon: "🎨", label: "Remove Colors (grayscale)", labelKey: "toggle_remove_colors", type: "css", cssClass: "ft-remove-colors" }
     ]
   }
 };
@@ -246,6 +259,13 @@ html.ft-hide-chat div[aria-label*="Messenger"] {
 html.ft-hide-marketplace a[href="/marketplace/"],
 html.ft-hide-marketplace a[href*="/marketplace"],
 html.ft-hide-marketplace a[aria-label="Marketplace"] {
+  display: none !important;
+}
+html.ft-hide-groups a[href="/groups/"],
+html.ft-hide-groups a[href$="facebook.com/groups/"],
+html.ft-hide-groups a[href*="/groups/?"],
+html.ft-hide-groups a[href*="/groups/feed"],
+html.ft-hide-groups a[aria-label^="Groups"] {
   display: none !important;
 }
 html.ft-hide-reels a[href="/reel/"],

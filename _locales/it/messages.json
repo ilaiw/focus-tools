@@ -554,17 +554,17 @@
   "toggle_facebook_hide_marketplace": {
     "message": "Nascondi link Marketplace"
   },
-  "toggle_facebook_hide_video_reels": {
-    "message": "Nascondi link Video e Reels"
-  },
   "toggle_facebook_block_reels": {
-    "message": "Blocca pagine Reels"
-  },
-  "toggle_facebook_hide_gaming": {
-    "message": "Nascondi link Gaming"
+    "message": "Blocca Video e Reels"
   },
   "toggle_facebook_block_gaming": {
-    "message": "Blocca pagine Gaming"
+    "message": "Blocca Gaming"
+  },
+  "toggle_facebook_redirect_home_marketplace": {
+    "message": "Reindirizza il feed Home a Marketplace"
+  },
+  "toggle_facebook_block_groups": {
+    "message": "Blocca Gruppi"
   },
   "toggle_remove_colors": {
     "message": "Rimuovi colori (scala di grigi)"
@@ -572,11 +572,8 @@
   "toggle_youtube_hide_home_feed": {
     "message": "Nascondi Feed Home / Raccomandazioni"
   },
-  "toggle_youtube_hide_shorts": {
-    "message": "Nascondi pulsante e sezione Shorts"
-  },
   "toggle_youtube_block_shorts": {
-    "message": "Blocca pagine Shorts"
+    "message": "Blocca Shorts"
   },
   "toggle_youtube_hide_comments": {
     "message": "Nascondi commenti"
@@ -590,9 +587,6 @@
   "toggle_instagram_hide_feed": {
     "message": "Nascondi Feed"
   },
-  "toggle_instagram_hide_reels": {
-    "message": "Nascondi link Reels"
-  },
   "toggle_instagram_hide_explore": {
     "message": "Nascondi link Esplora"
   },
@@ -600,19 +594,16 @@
     "message": "Nascondi Storie"
   },
   "toggle_instagram_block_reels": {
-    "message": "Blocca pagine Reels"
+    "message": "Blocca Reels"
   },
   "toggle_x_hide_feed": {
     "message": "Nascondi Feed / Timeline"
-  },
-  "toggle_x_hide_trending": {
-    "message": "Nascondi Tendenze / Esplora"
   },
   "toggle_x_hide_who_to_follow": {
     "message": "Nascondi Chi seguire"
   },
   "toggle_x_block_explore": {
-    "message": "Blocca pagina Esplora"
+    "message": "Blocca Esplora e Tendenze"
   },
   "toggle_reddit_hide_feed": {
     "message": "Nascondi Feed"
@@ -627,13 +618,10 @@
     "message": "Reindirizza Feed a La mia rete"
   },
   "toggle_linkedin_block_feed": {
-    "message": "Blocca completamente la pagina Feed"
+    "message": "Blocca Feed"
   },
   "toggle_linkedin_block_games": {
     "message": "Blocca Giochi / Rompicapi"
-  },
-  "toggle_linkedin_hide_home": {
-    "message": "Nascondi pulsante Home"
   },
   "toggle_linkedin_hide_news": {
     "message": "Nascondi barra laterale Notizie"

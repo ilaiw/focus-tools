@@ -554,17 +554,17 @@
   "toggle_facebook_hide_marketplace": {
     "message": "Скрыть ссылку на Marketplace"
   },
-  "toggle_facebook_hide_video_reels": {
-    "message": "Скрыть ссылки на Видео и Reels"
-  },
   "toggle_facebook_block_reels": {
-    "message": "Блокировать страницы Reels"
-  },
-  "toggle_facebook_hide_gaming": {
-    "message": "Скрыть ссылку на Gaming"
+    "message": "Блокировать Видео и Reels"
   },
   "toggle_facebook_block_gaming": {
-    "message": "Блокировать страницы Gaming"
+    "message": "Блокировать Gaming"
+  },
+  "toggle_facebook_redirect_home_marketplace": {
+    "message": "Перенаправлять главную ленту на Marketplace"
+  },
+  "toggle_facebook_block_groups": {
+    "message": "Блокировать Группы"
   },
   "toggle_remove_colors": {
     "message": "Убрать цвета (оттенки серого)"
@@ -572,11 +572,8 @@
   "toggle_youtube_hide_home_feed": {
     "message": "Скрыть главную ленту / рекомендации"
   },
-  "toggle_youtube_hide_shorts": {
-    "message": "Скрыть кнопку и раздел Shorts"
-  },
   "toggle_youtube_block_shorts": {
-    "message": "Блокировать страницы Shorts"
+    "message": "Блокировать Shorts"
   },
   "toggle_youtube_hide_comments": {
     "message": "Скрыть комментарии"
@@ -590,9 +587,6 @@
   "toggle_instagram_hide_feed": {
     "message": "Скрыть ленту"
   },
-  "toggle_instagram_hide_reels": {
-    "message": "Скрыть ссылку на Reels"
-  },
   "toggle_instagram_hide_explore": {
     "message": "Скрыть ссылку на «Интересное»"
   },
@@ -600,19 +594,16 @@
     "message": "Скрыть истории"
   },
   "toggle_instagram_block_reels": {
-    "message": "Блокировать страницы Reels"
+    "message": "Блокировать Reels"
   },
   "toggle_x_hide_feed": {
     "message": "Скрыть ленту"
-  },
-  "toggle_x_hide_trending": {
-    "message": "Скрыть тренды / «Обзор»"
   },
   "toggle_x_hide_who_to_follow": {
     "message": "Скрыть «Кого читать»"
   },
   "toggle_x_block_explore": {
-    "message": "Блокировать страницу «Обзор»"
+    "message": "Блокировать «Обзор» и тренды"
   },
   "toggle_reddit_hide_feed": {
     "message": "Скрыть ленту"
@@ -627,13 +618,10 @@
     "message": "Перенаправлять ленту на «Сеть контактов»"
   },
   "toggle_linkedin_block_feed": {
-    "message": "Полностью заблокировать страницу ленты"
+    "message": "Блокировать ленту"
   },
   "toggle_linkedin_block_games": {
     "message": "Блокировать игры / головоломки"
-  },
-  "toggle_linkedin_hide_home": {
-    "message": "Скрыть кнопку «Главная»"
   },
   "toggle_linkedin_hide_news": {
     "message": "Скрыть боковую панель новостей"

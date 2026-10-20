@@ -757,6 +757,7 @@ function renderSiteToggles() {
       row.dataset.toggleRow = `${siteKey}:${toggle.key}`;
 
       const label = el("span", { className: "toggle-label", textContent: toggleLabel(toggle) });
+      if (toggle.icon) label.prepend(el("span", { className: "toggle-icon", textContent: toggle.icon }));
 
       const switchLabel = el("label", { className: `switch ${isGrayed ? "disabled" : ""}` });
       switchLabel.dataset.switchFor = `${siteKey}:${toggle.key}`;

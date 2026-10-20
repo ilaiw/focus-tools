@@ -212,7 +212,26 @@ chrome.runtime.onConnect.addListener((port) => {
   }
 });
 
-// Initialize storage on install
+// Fold toggles merged into a combined one (see `mergedFrom` in site-config.js):
+// the combined toggle is on if any of its old parts was on.
+function migrateMergedToggles(siteToggles) {
+  let changed = false;
+  for (const [siteKey, config] of Object.entries(SITE_CONFIG)) {
+    const stored = siteToggles[siteKey];
+    if (!stored) continue;
+    for (const toggle of config.toggles) {
+      for (const oldKey of toggle.mergedFrom || []) {
+        if (!(oldKey in stored)) continue;
+        if (stored[oldKey]) stored[toggle.key] = true;
+        delete stored[oldKey];
+        changed = true;
+      }
+    }
+  }
+  return changed;
+}
+
+// Initialize storage on install, migrate on update
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.get(null, (result) => {
     const updates = {};
@@ -220,6 +239,7 @@ chrome.runtime.onInstalled.addListener(() => {
     if (!result.blockedSites) updates.blockedSites = [];
     if (!result.blockedKeywords) updates.blockedKeywords = [];
     if (!result.siteToggles) updates.siteToggles = DEFAULT_SITE_TOGGLES;
+    else if (migrateMergedToggles(result.siteToggles)) updates.siteToggles = result.siteToggles;
     if (!result.siteModes) updates.siteModes = DEFAULT_SITE_MODES;
     if (!result.countdownSeconds) updates.countdownSeconds = DEFAULT_COUNTDOWN_SECONDS;
     if (!result.blocklistCategories) updates.blocklistCategories = DEFAULT_BLOCKLIST_CATEGORIES;
@@ -234,9 +254,10 @@ chrome.runtime.onInstalled.addListener(() => {
     if (result.autoReenableMinutes === undefined) updates.autoReenableMinutes = 60;
     if (result.safeSearchEnabled === undefined) updates.safeSearchEnabled = false;
     if (result.youtubeRestrictedEnabled === undefined) updates.youtubeRestrictedEnabled = false;
-    if (Object.keys(updates).length) chrome.storage.local.set(updates);
+    // Build rules from the stored (possibly migrated) toggles, not the stale ones
+    if (Object.keys(updates).length) chrome.storage.local.set(updates, updateRules);
+    else updateRules();
   });
-  updateRules();
   updateBlocklistRules();
   updateSafeSearchRules();
   updateYoutubeRestrictedRule();
@@ -783,16 +804,16 @@ async function updateRules() {
     const siteState = { ...DEFAULT_SITE_TOGGLES[siteKey], ...(storedToggles[siteKey] || {}) };
     for (const toggle of config.toggles) {
       if (!siteState[toggle.key]) continue;
+      const condition = toggle.urlRegex
+        ? { regexFilter: toggle.urlRegex, isUrlFilterCaseSensitive: false, resourceTypes: ["main_frame"] }
+        : { urlFilter: toggle.urlPattern, resourceTypes: ["main_frame"] };
       if (toggle.type === "block-url") {
-        rules.push({
-          id: ruleId++, priority: 2, action: blockedActionFor(customRedirectUrl),
-          condition: { urlFilter: toggle.urlPattern, resourceTypes: ["main_frame"] }
-        });
+        rules.push({ id: ruleId++, priority: 2, action: blockedActionFor(customRedirectUrl), condition });
       } else if (toggle.type === "redirect-url") {
         rules.push({
           id: ruleId++, priority: 1,
           action: { type: "redirect", redirect: { url: toggle.redirectUrl } },
-          condition: { urlFilter: toggle.urlPattern, resourceTypes: ["main_frame"] }
+          condition
         });
       }
     }

@@ -554,17 +554,17 @@
   "toggle_facebook_hide_marketplace": {
     "message": "הסתר קישור Marketplace"
   },
-  "toggle_facebook_hide_video_reels": {
-    "message": "הסתר קישורי וידאו ו-Reels"
-  },
   "toggle_facebook_block_reels": {
-    "message": "חסום דפי Reels"
-  },
-  "toggle_facebook_hide_gaming": {
-    "message": "הסתר קישור Gaming"
+    "message": "חסום וידאו ו-Reels"
   },
   "toggle_facebook_block_gaming": {
-    "message": "חסום דפי Gaming"
+    "message": "חסום Gaming"
+  },
+  "toggle_facebook_redirect_home_marketplace": {
+    "message": "הפנה את פיד הבית ל-Marketplace"
+  },
+  "toggle_facebook_block_groups": {
+    "message": "חסום קבוצות"
   },
   "toggle_remove_colors": {
     "message": "הסר צבעים (גווני אפור)"
@@ -572,11 +572,8 @@
   "toggle_youtube_hide_home_feed": {
     "message": "הסתר פיד ראשי / המלצות"
   },
-  "toggle_youtube_hide_shorts": {
-    "message": "הסתר כפתור ומדף Shorts"
-  },
   "toggle_youtube_block_shorts": {
-    "message": "חסום דפי Shorts"
+    "message": "חסום Shorts"
   },
   "toggle_youtube_hide_comments": {
     "message": "הסתר תגובות"
@@ -590,9 +587,6 @@
   "toggle_instagram_hide_feed": {
     "message": "הסתר פיד"
   },
-  "toggle_instagram_hide_reels": {
-    "message": "הסתר קישור Reels"
-  },
   "toggle_instagram_hide_explore": {
     "message": "הסתר קישור חיפוש"
   },
@@ -600,19 +594,16 @@
     "message": "הסתר סטוריז"
   },
   "toggle_instagram_block_reels": {
-    "message": "חסום דפי Reels"
+    "message": "חסום Reels"
   },
   "toggle_x_hide_feed": {
     "message": "הסתר פיד / ציר זמן"
-  },
-  "toggle_x_hide_trending": {
-    "message": "הסתר טרנדים / חיפוש"
   },
   "toggle_x_hide_who_to_follow": {
     "message": "הסתר הצעות למעקב"
   },
   "toggle_x_block_explore": {
-    "message": "חסום דף חיפוש"
+    "message": "חסום חיפוש וטרנדים"
   },
   "toggle_reddit_hide_feed": {
     "message": "הסתר פיד"
@@ -627,13 +618,10 @@
     "message": "הפנה פיד לרשת שלי"
   },
   "toggle_linkedin_block_feed": {
-    "message": "חסום דף פיד לחלוטין"
+    "message": "חסום פיד"
   },
   "toggle_linkedin_block_games": {
     "message": "חסום משחקים / חידות"
-  },
-  "toggle_linkedin_hide_home": {
-    "message": "הסתר כפתור בית"
   },
   "toggle_linkedin_hide_news": {
     "message": "הסתר סרגל צד חדשות"

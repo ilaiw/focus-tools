@@ -21,6 +21,15 @@ html.ft-hide-marketplace a[aria-label="Marketplace"] {
   display: none !important;
 }
 
+/* === Hide Groups (entry points only, not links to individual groups) === */
+html.ft-hide-groups a[href="/groups/"],
+html.ft-hide-groups a[href$="facebook.com/groups/"],
+html.ft-hide-groups a[href*="/groups/?"],
+html.ft-hide-groups a[href*="/groups/feed"],
+html.ft-hide-groups a[aria-label^="Groups"] {
+  display: none !important;
+}
+
 /* === Hide Video and Reels === */
 html.ft-hide-reels a[href="/reel/"],
 html.ft-hide-reels a[href*="/reel"],
